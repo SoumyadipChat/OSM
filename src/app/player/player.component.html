@@ -1,0 +1,7 @@
+<p>player works!</p>
+<i role="button" class="fa fa-play" style="font-size:36px;" (click)="play()"></i>
+<youtube-player
+      [videoId]="id"
+      (ready)="savePlayer($event)"
+      (change)="onStateChange($event)"
+    ></youtube-player>
