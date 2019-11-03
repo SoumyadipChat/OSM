@@ -1,0 +1,16 @@
+.leftSection{
+    width: 65%;
+    height: 100%;
+    background-color: darkblue;
+}
+.rightSection{
+    width: 35%;
+    height: 100%;
+    background-color:red;
+}
+.musicPlayer{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+}

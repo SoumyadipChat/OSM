@@ -1,1 +1,9 @@
-<app-player></app-player>
+<div class="osmApp" [ngStyle]="myStyles">
+    <div class="headerBar">
+        <app-header></app-header>
+    </div>
+    <div class="contentSection">
+        <router-outlet></router-outlet>
+    </div>
+
+</div>

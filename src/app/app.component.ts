@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +7,18 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'OSM';
+  myStyles = {
+    'width':  (window.innerWidth-16)+'px',
+    'height': (window.innerHeight-16)+'px',
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    console.log(window)
+  this.myStyles={
+    'width': (window.innerWidth-16)+'px',
+    'height' : (window.innerHeight-16)+'px'
+  }
+}
   
 }
