@@ -1,7 +1,23 @@
-<p>player works!</p>
-<i role="button" class="fa fa-play" style="font-size:36px;" (click)="play()"></i>
-<youtube-player
-      [videoId]="id"
-      (ready)="savePlayer($event)"
-      (change)="onStateChange($event)"
-    ></youtube-player>
+<div class="playr">
+  <div class="screenSwap">
+    <div #outpt hidden class="videoOutput">
+  
+      <youtube-player
+            [videoId]="id"
+            (ready)="savePlayer($event)"
+            (change)="onStateChange($event)"
+          ></youtube-player>
+    
+    </div>
+    <div class="thumbnl">
+      <img [src]="thumbnail">
+    </div>
+  </div>
+  
+  <div class="controlButtons">
+    <app-buttons icon="fa fa-play" (buttonClicked)="play()"></app-buttons>
+    <app-buttons icon="fa fa-pause" (buttonClicked)="pause()"></app-buttons>
+    
+  </div>
+  
+</div>

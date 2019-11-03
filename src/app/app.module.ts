@@ -8,6 +8,7 @@ import { HeaderComponent } from './header/header.component';
 import { MusicAddComponent } from './music-add/music-add.component';
 import { QueueComponent } from './queue/queue.component';
 import { MusicPlayerComponent } from './music-player/music-player.component';
+import { ButtonsComponent } from './buttons/buttons.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { MusicPlayerComponent } from './music-player/music-player.component';
     HeaderComponent,
     MusicAddComponent,
     QueueComponent,
-    MusicPlayerComponent
+    MusicPlayerComponent,
+    ButtonsComponent
   ],
   imports: [
     BrowserModule,
