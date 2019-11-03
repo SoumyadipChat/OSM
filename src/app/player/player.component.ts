@@ -29,7 +29,6 @@ export class PlayerComponent implements OnInit {
     this.videoHgt=this.outpt.nativeElement.offsetHeight;
     this.videoWdt=this.outpt.nativeElement.offsetWidth;
     this.player.setSize(this.videoWdt,this.videoHgt);
-    console.log(this.videoWdt,this.videoHgt);
    }
   
  
@@ -38,7 +37,6 @@ export class PlayerComponent implements OnInit {
     this.videoHgt=this.outpt.nativeElement.offsetHeight;
     this.videoWdt=this.outpt.nativeElement.offsetWidth;
     this.player.setSize(this.videoWdt,this.videoHgt);
-    console.log(this.outpt.nativeElement.innerHTML);
     this.thumbnail="http://img.youtube.com/vi/" + this.id + "/hqdefault.jpg";
     //console.log('player instance', player)
     }
