@@ -1,0 +1,83 @@
+<div [ngStyle]="loginStyle">
+        <div class="loginTabs" [ngStyle]="tabTextStyle">
+                <div 
+                class="loginTab" 
+                [ngClass]="{'activeTab':loginSelected}"
+                role="button"
+                (click)="loginClicked()"
+                [ngStyle]="tabTextAlignStyle">
+                LOGIN
+            </div>
+            <div 
+                class="loginTab" 
+                [ngClass]="{'activeTab':regSelected}"
+                role="button"
+                (click)="registerClicked()"
+                [ngStyle]="tabTextAlignStyle">
+                REGISTER
+            </div>
+        </div>
+        <div [hidden]="regSelected" class="loginFormSection" [ngStyle]="inputTextStyle">
+                <div class="loginputField">
+                        <mat-form-field>
+                                <input matInput placeholder="Username">
+                        </mat-form-field>
+                </div>
+                <div class="loginputField">
+                        <mat-form-field>
+                                <input matInput placeholder="Password">
+                        </mat-form-field>
+                </div>
+                <div class="loginButton">
+                        <button [ngStyle]="inputTextStyle" mat-raised-button>Login</button>
+                        <button [ngStyle]="inputTextStyle" mat-raised-button>Guest Login</button>
+                </div>
+
+
+        </div>
+        <div [hidden]="loginSelected" class="regFormSection" [ngStyle]="inputTextStyle">
+                <div class="reginputField">
+                        <mat-form-field>
+                                <input matInput 
+                                placeholder="Username">
+                        </mat-form-field>
+                </div>
+                <div class="reginputField">
+                        <mat-form-field>
+                                <input matInput 
+                                placeholder="Email ID"
+                                [formControl]="email"
+                                >
+                        </mat-form-field>
+                </div>
+                <div class="reginputField">
+                        <mat-form-field>
+                                <input matInput 
+                                placeholder="Password">
+                        </mat-form-field>
+                </div>
+                <div class="reginputField">
+                        <mat-form-field>
+                                <input matInput 
+                                placeholder="Re-enter Password">
+                        </mat-form-field>
+                </div>
+                <div class="reginputField">
+                        <mat-form-field>
+                                <input matInput 
+                                placeholder="OTP">
+                        </mat-form-field>
+                </div>
+                <div class="regButton">
+                    <button 
+                        [ngStyle]="inputTextStyle" 
+                        mat-raised-button
+                        (click)="sendOTP()">
+                        {{otpSentOnce?'Resend OTP':'Send OTP'}}
+                    </button>
+                        <button [ngStyle]="inputTextStyle" mat-raised-button>Register</button>
+                </div>
+
+        </div>
+    </div>
+    

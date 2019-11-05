@@ -9,6 +9,10 @@ import { MusicAddComponent } from './music-add/music-add.component';
 import { QueueComponent } from './queue/queue.component';
 import { MusicPlayerComponent } from './music-player/music-player.component';
 import { ButtonsComponent } from './buttons/buttons.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatFormFieldModule,MatInputModule,MatButtonModule} from '@angular/material';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -18,12 +22,18 @@ import { ButtonsComponent } from './buttons/buttons.component';
     MusicAddComponent,
     QueueComponent,
     MusicPlayerComponent,
-    ButtonsComponent
+    ButtonsComponent,
+    SignUpComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    YoutubePlayerModule
+    YoutubePlayerModule,
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

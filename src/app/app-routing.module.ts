@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MusicPlayerComponent } from './music-player/music-player.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
 
 
 const routes: Routes = [
   { path: 'music', component: MusicPlayerComponent},
-  { path: '', redirectTo: 'music', pathMatch: 'full' }, 
+  {path: 'login', component:SignUpComponent},
+  { path: '', redirectTo: 'login', pathMatch: 'full' }, 
 ];
 
 @NgModule({
