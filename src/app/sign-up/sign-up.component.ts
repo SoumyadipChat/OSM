@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { screenSizeState, screenSize } from '../services/screen-size.service';
 import { signupStyleService } from './sign-up-style.service';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, Validators, ValidationErrors, AbstractControl } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
@@ -19,11 +20,30 @@ export class SignUpComponent implements OnInit {
   regSelected:boolean=false;
   otpSentOnce:boolean=false;
 
+  username:string='';
+  eml:string='';
+  pwd:string='';
+  otp:string='';
+
 
   invalidEmail:boolean=true;
   email = new FormControl('', [Validators.required, Validators.email]);
+  password= new FormControl('',[Validators.required,Validators.minLength(6),Validators.maxLength(24)])
+  passwordConfirm=new FormControl('',[Validators.required,SignUpComponent.matchValues('password')]);
 
-  constructor(private screenState:screenSizeState,private styleSetter:signupStyleService) { }
+  public static matchValues(
+    matchTo: string // name of the control to match to
+  ): (AbstractControl) => ValidationErrors | null {
+    return (control: AbstractControl): ValidationErrors | null => {
+      return !!control.parent &&
+        !!control.parent.value &&
+        control.value === control.parent.controls[matchTo].value
+        ? null
+        : { isMatching: false };
+    };
+}
+
+  constructor(private router:Router,private screenState:screenSizeState,private styleSetter:signupStyleService) { }
 
   ngOnInit() {
     this.screenState.screenSize.subscribe((scrSz)=>{
@@ -50,6 +70,10 @@ export class SignUpComponent implements OnInit {
 
   sendOTP(){
     this.otpSentOnce=true;
+  }
+
+  openMusicGuest(){
+    this.router.navigateByUrl("/music");
   }
 
 }

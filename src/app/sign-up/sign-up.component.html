@@ -29,8 +29,17 @@
                         </mat-form-field>
                 </div>
                 <div class="loginButton">
-                        <button [ngStyle]="inputTextStyle" mat-raised-button>Login</button>
-                        <button [ngStyle]="inputTextStyle" mat-raised-button>Guest Login</button>
+                    <button 
+                        [ngStyle]="inputTextStyle" 
+                        mat-raised-button>
+                        Login
+                    </button>
+                    <button 
+                        [ngStyle]="inputTextStyle" 
+                        mat-raised-button
+                        (click)="openMusicGuest()">
+                        Guest Login
+                    </button>
                 </div>
 
 
@@ -38,13 +47,15 @@
         <div [hidden]="loginSelected" class="regFormSection" [ngStyle]="inputTextStyle">
                 <div class="reginputField">
                         <mat-form-field>
-                                <input matInput 
+                                <input matInput
+                                [ngModel]="username" 
                                 placeholder="Username">
                         </mat-form-field>
                 </div>
                 <div class="reginputField">
                         <mat-form-field>
-                                <input matInput 
+                                <input matInput
+                                [ngModel]="eml" 
                                 placeholder="Email ID"
                                 [formControl]="email"
                                 >
@@ -52,19 +63,23 @@
                 </div>
                 <div class="reginputField">
                         <mat-form-field>
-                                <input matInput 
-                                placeholder="Password">
+                                <input matInput
+                                [ngModel]="pwd"  
+                                placeholder="Password"
+                                [formControl]="password">
                         </mat-form-field>
                 </div>
                 <div class="reginputField">
                         <mat-form-field>
                                 <input matInput 
-                                placeholder="Re-enter Password">
+                                placeholder="Re-enter Password"
+                                [formControl]="passwordConfirm">
                         </mat-form-field>
                 </div>
                 <div class="reginputField">
                         <mat-form-field>
                                 <input matInput 
+                                [ngModel]="otp" 
                                 placeholder="OTP">
                         </mat-form-field>
                 </div>
