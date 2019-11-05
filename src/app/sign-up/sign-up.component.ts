@@ -1,8 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { screenSizeState, screenSize } from '../services/screen-size.service';
 import { signupStyleService } from './sign-up-style.service';
-import { FormControl, Validators, ValidationErrors, AbstractControl } from '@angular/forms';
+import { FormControl, Validators, ValidationErrors, AbstractControl, ValidatorFn } from '@angular/forms';
 import { Router } from '@angular/router';
+
+export function passwdValidator(pass:string): ValidatorFn {
+  return (control: AbstractControl): { [key: string]: boolean } | null => {
+      if (control.value !== undefined && control.value != pass) {
+          return { 'notMatching': true };
+      }
+      return null;
+  };
+}
 
 @Component({
   selector: 'app-sign-up',
@@ -22,26 +31,20 @@ export class SignUpComponent implements OnInit {
 
   username:string='';
   eml:string='';
-  pwd:string='';
+  public pwd:string='';
   otp:string='';
 
 
   invalidEmail:boolean=true;
   email = new FormControl('', [Validators.required, Validators.email]);
   password= new FormControl('',[Validators.required,Validators.minLength(6),Validators.maxLength(24)])
-  passwordConfirm=new FormControl('',[Validators.required,SignUpComponent.matchValues('password')]);
+  passwordConfirm=new FormControl(null,[Validators.required],this.passwdValidator.bind(this));
 
-  public static matchValues(
-    matchTo: string // name of the control to match to
-  ): (AbstractControl) => ValidationErrors | null {
-    return (control: AbstractControl): ValidationErrors | null => {
-      return !!control.parent &&
-        !!control.parent.value &&
-        control.value === control.parent.controls[matchTo].value
-        ? null
-        : { isMatching: false };
-    };
-}
+  passwdValidator(c:FormControl){
+    return c.value!=this.pwd?{ 'notMatching': true }:null;
+    
+  }
+  
 
   constructor(private router:Router,private screenState:screenSizeState,private styleSetter:signupStyleService) { }
 
