@@ -3,6 +3,9 @@ import { screenSizeState, screenSize } from '../services/screen-size.service';
 import { signupStyleService } from './sign-up-style.service';
 import { FormControl, Validators, ValidationErrors, AbstractControl, ValidatorFn } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LoginDataFetcher } from '../services/loginDataFetche.service';
+import { DataFetcher } from '../services/DataFetcher.service';
+import { User } from '../services/model';
 
 export function passwdValidator(pass:string): ValidatorFn {
   return (control: AbstractControl): { [key: string]: boolean } | null => {
@@ -17,7 +20,7 @@ export function passwdValidator(pass:string): ValidatorFn {
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.scss'],
-  providers: [signupStyleService]
+  providers: [signupStyleService,LoginDataFetcher,DataFetcher]
 })
 export class SignUpComponent implements OnInit {
 
@@ -46,7 +49,9 @@ export class SignUpComponent implements OnInit {
   }
   
 
-  constructor(private router:Router,private screenState:screenSizeState,private styleSetter:signupStyleService) { }
+  constructor(private dataFetcher:LoginDataFetcher,private router:Router,private screenState:screenSizeState,private styleSetter:signupStyleService) { 
+
+  }
 
   ngOnInit() {
     this.screenState.screenSize.subscribe((scrSz)=>{
@@ -77,6 +82,18 @@ export class SignUpComponent implements OnInit {
 
   openMusicGuest(){
     this.router.navigateByUrl("/music");
+  }
+
+  registerUser(){
+    let user:User={
+      username:this.username,
+      password:this.pwd,
+      email:this.eml
+    }
+    this.dataFetcher.addUser(user).subscribe(data=>{
+        alert("Registered");
+        console.log(data);
+    });
   }
 
 }

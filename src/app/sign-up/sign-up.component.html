@@ -90,7 +90,10 @@
                         (click)="sendOTP()">
                         {{otpSentOnce?'Resend OTP':'Send OTP'}}
                     </button>
-                        <button [ngStyle]="inputTextStyle" mat-raised-button>Register</button>
+                        <button 
+                        [ngStyle]="inputTextStyle" 
+                        (click)="registerUser()"
+                        mat-raised-button>Register</button>
                 </div>
 
         </div>
