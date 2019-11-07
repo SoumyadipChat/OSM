@@ -14,7 +14,7 @@ export class LoginDataFetcher{
     }
 
     getAllEmails(){
-        let uri="login/getAllUsername";
+        let uri="login/getAllEmail";
         return this.dataFetcher.get(uri);
     }
 

@@ -1,13 +1,16 @@
-<div class="musicPlayer">
-    <div class="leftSection">
-        <div class="playerPart">
+<div [ngStyle]="headerBarStyle">
+    <app-header></app-header>
+</div>
+<div [ngStyle]="musicPlayerStyle">
+    <div [ngStyle]="leftStyle">
+        <div [ngStyle]="playerStyle">
             <app-player></app-player>
         </div>
-        <div class="adderPart">
+        <div [ngStyle]="adderStyle">
             <app-music-add></app-music-add>
         </div>
     </div>
-    <div class="rightSection">
+    <div [ngStyle]="rightStyle">
         <app-queue></app-queue>
     </div>
 </div>

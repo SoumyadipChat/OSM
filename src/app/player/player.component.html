@@ -1,6 +1,6 @@
-<div class="playr">
+<div #outpt class="playr">
   <div class="screenSwap">
-    <div #outpt hidden class="videoOutput">
+    <div class="videoOutput">
   
       <youtube-player
             [videoId]="id"
@@ -9,15 +9,13 @@
           ></youtube-player>
     
     </div>
-    <div class="thumbnl">
-      <img [src]="thumbnail">
-    </div>
+    
   </div>
   
-  <div class="controlButtons">
+  <!-- <div class="controlButtons">
     <app-buttons icon="fa fa-play" (buttonClicked)="play()"></app-buttons>
     <app-buttons icon="fa fa-pause" (buttonClicked)="pause()"></app-buttons>
     
-  </div>
+  </div> -->
   
 </div>

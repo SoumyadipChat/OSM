@@ -1,3 +1,8 @@
+<div [ngStyle]="logoStyle" class="LogoContainer">
+        <div [ngStyle]="abbrLogoStyle" class="abbrLogo">OSM</div>
+        <div class="fullLogo">One.Stop.Music</div>
+</div>
+
 <div [ngStyle]="loginStyle">
         <div class="loginTabs" [ngStyle]="tabTextStyle">
                 <div 
@@ -20,17 +25,33 @@
         <div [hidden]="regSelected" class="loginFormSection" [ngStyle]="inputTextStyle">
                 <div class="loginputField">
                         <mat-form-field>
-                                <input matInput placeholder="Username">
+                                <input matInput 
+                                [(ngModel)]="username" 
+                                placeholder="Username/Email"
+                                (ngModelChange)="onLoginUsernameChange($event)"
+                                >
                         </mat-form-field>
+                        <mat-error *ngIf="invalidUsername">{{errorUserMsg}}</mat-error>
                 </div>
                 <div class="loginputField">
                         <mat-form-field>
-                                <input matInput placeholder="Password">
+                                <input matInput 
+                                placeholder="Password"
+                                [(ngModel)]="pwd"
+                                (ngModelChange)="onPwdChange($event)"
+                                [type]="hidePwd ? 'password' : 'text'">
+                                <button mat-icon-button matSuffix (click)="hidePwd = !hidePwd" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                        <mat-icon>{{hidePwd ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                </button>
                         </mat-form-field>
+                        <mat-error *ngIf="invalidPassword">Password must have 6-20 characters</mat-error>
                 </div>
                 <div class="loginButton">
-                    <button 
-                        [ngStyle]="inputTextStyle" 
+                    <div class="buttons">
+                        <button 
+                        [ngStyle]="inputTextStyle"
+                        [disabled]="invalidPassword || invalidUsername"
+                        (click)="checkPasswordLogin()" 
                         mat-raised-button>
                         Login
                     </button>
@@ -40,8 +61,10 @@
                         (click)="openMusicGuest()">
                         Guest Login
                     </button>
+                    </div>
+                    <mat-error *ngIf="loginError">{{loginErrorMsg}}</mat-error>
                 </div>
-
+                
 
         </div>
         <div [hidden]="loginSelected" class="regFormSection" [ngStyle]="inputTextStyle">
@@ -52,6 +75,7 @@
                                 placeholder="Username"
                                 (ngModelChange)="onUsernameChange($event)">
                         </mat-form-field>
+                        <mat-error *ngIf="invalidUsername">{{errorUserMsg}}</mat-error>
                 </div>
                 <div class="reginputField">
                         <mat-form-field>
@@ -61,6 +85,7 @@
                                 (ngModelChange)="onEmailChange($event)"
                                >
                         </mat-form-field>
+                        <mat-error *ngIf="invalidEmail">{{errorEmailMsg}}</mat-error>
                 </div>
                 <div class="reginputField">
                         <mat-form-field>
@@ -68,8 +93,13 @@
                                 [(ngModel)]="pwd"  
                                 placeholder="Password"
                                 (ngModelChange)="onPwdChange($event)"
+                                [type]="hidePwd ? 'password' : 'text'"
                                >
+                               <button mat-icon-button matSuffix (click)="hidePwd = !hidePwd" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                         <mat-icon>{{hidePwd ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                </button>
                         </mat-form-field>
+                        <mat-error *ngIf="invalidPassword">Password must have 6-20 characters</mat-error>
                 </div>
                 <div class="reginputField">
                         <mat-form-field>
@@ -79,8 +109,8 @@
                                 (ngModelChange)="onOTPChange($event)" 
                                 placeholder="OTP">
                         </mat-form-field>
+                        <mat-error *ngIf="otpSentOnce && invalidOtp">OTP doesn't match</mat-error>
                 </div>
-                <mat-error >This is error msg</mat-error>
                 <div class="regButton">
                     <button 
                         [ngStyle]="inputTextStyle"

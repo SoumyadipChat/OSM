@@ -11,7 +11,6 @@ import { styleSetterService } from './styleSetter.service';
 export class AppComponent implements OnInit{
   title = 'OSM';
   appStyle;
-  headerBarStyle;
   routerOutletStyle;
 
   constructor(private screenState:screenSizeState,private styleSetter:styleSetterService){
@@ -37,7 +36,6 @@ export class AppComponent implements OnInit{
   onScreensizeChange(scrSz:screenSize){
     console.log("screen size changed to",scrSz.width,"X",scrSz.height," and is Mobile :" ,scrSz.isMobile);
     this.appStyle = this.styleSetter.appStyleSetter(scrSz);
-    this.headerBarStyle=this.styleSetter.headerStyleSetter(scrSz);
     this.routerOutletStyle=this.styleSetter.routerOutletStyleSetter(scrSz);
   }
 

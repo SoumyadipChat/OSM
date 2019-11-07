@@ -12,26 +12,16 @@ export class styleSetterService{
 
     appStyleSetter(scrSz:screenSize){
         return {
-            'width':  (scrSz.width-8)+'px',
-            'height': (scrSz.height-8)+'px',
+            'width':  (scrSz.width-3)+'px',
+            'height': (scrSz.height-3)+'px',
+            'border':'1px solid white'
            }
     }
 
-    headerStyleSetter(scrSz:screenSize){
-        let isLoginScreen=this.router.url==("/login") || this.router.url==("/");
-        console.log(isLoginScreen,this.router.url);
-        return {
-            'width':  (100)+'%',
-            'height': (isLoginScreen?0:8)+'%',
-            'display':isLoginScreen?'none':'block',
-          }
-    }
-
     routerOutletStyleSetter(scrSz:screenSize){
-        let isLoginScreen=this.router.url==("/login") || this.router.url==("/");
-        return {
+       return {
             'width':  (100)+'%',
-            'height': (isLoginScreen?100:92)+'%',
+            'height': (100)+'%',
           }
     }
 

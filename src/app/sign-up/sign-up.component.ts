@@ -16,13 +16,19 @@ import { User } from '../services/model';
 })
 export class SignUpComponent implements OnInit {
 
+  logoStyle;
   loginStyle;
   tabTextStyle;
   inputTextStyle;
   tabTextAlignStyle;
-  loginSelected:boolean=false;
-  regSelected:boolean=true;
+  abbrLogoStyle;
+  fullLogoStyle;
+
+  loginSelected:boolean=true;
+  regSelected:boolean=false;
   otpSentOnce:boolean=false;
+  hidePwd:boolean = true ;
+  
 
   username:string='';
   eml:string='';
@@ -30,15 +36,22 @@ export class SignUpComponent implements OnInit {
   otp:string='';
   otpVal:string='-1';
 
+  errorEmailMsg='Invalid Email';
+  errorUserMsg="Username can't be blank";
+
 
   invalidEmail:boolean=true;
   invalidPassword:boolean=true;
   invalidUsername:boolean=true;
+  invalidOtp:boolean=true;
 
   allUsername;
   allEmail;
 
-   
+  loginError:boolean=false;
+  loginErrorMsg='';
+
+     
 
   constructor(private dataFetcher:LoginDataFetcher,private router:Router,private screenState:screenSizeState,private styleSetter:signupStyleService) { 
 
@@ -56,19 +69,48 @@ export class SignUpComponent implements OnInit {
     })
   }
 
+  showLoginError(message){
+      this.loginError=true;
+      this.loginErrorMsg=message;
+      setTimeout(() => {
+        this.loginError=false;
+        this.loginErrorMsg='';
+      }, 5000);
+  }
+
+  resetModel(){
+    this.username='';
+    this.pwd='';
+    this.eml='';
+    this.otp='';
+    this.hidePwd=true;
+    this.otpSentOnce=false;
+    this.errorEmailMsg='Invalid Email';
+    this.errorUserMsg="Username can't be blank";
+    this.invalidEmail=true;
+    this.invalidPassword=true;
+    this.invalidUsername=true;
+    this.invalidOtp=true;
+  }
+
   onScreensizeChange(scrSz:screenSize){
     this.loginStyle=this.styleSetter.loginStyleSetter(scrSz);
+    this.logoStyle=this.styleSetter.logoStyleSetter(scrSz);
+    this.abbrLogoStyle=this.styleSetter.abbrLogoStyler(scrSz);
+    this.fullLogoStyle=this.styleSetter.fullLogoStyler(scrSz);
     this.tabTextStyle=this.styleSetter.tabTextSizeSetter(scrSz);
     this.inputTextStyle=this.styleSetter.inputTextSizeSetter(scrSz);
     this.tabTextAlignStyle=this.styleSetter.tabTextAlignSizeSetter(scrSz);
   }
 
   loginClicked(){
+    this.resetModel();
     this.loginSelected=true;
     this.regSelected=false;
   }
 
   registerClicked(){
+    this.resetModel();
     this.loginSelected=false;
     this.regSelected=true;
   }
@@ -112,14 +154,39 @@ export class SignUpComponent implements OnInit {
     this.router.navigateByUrl("/music");
   }
 
-  onUsernameChange(username){
-    if(this.allUsername.indexOf(username)==-1){
+  onLoginUsernameChange(username){
+    if(username.length>0 && (this.allUsername.indexOf(username)!=-1 || this.allEmail.indexOf(username)!=-1)){
       this.invalidUsername=false;
     }
     else{
       this.invalidUsername=true;
+      this.errorUserMsg=username.length>0?"Username not registered":"Username can't be blank";
     }
-    console.log(this.invalidUsername);
+  }
+
+  onUsernameChange(username){
+    if(username.length>0 && this.allUsername.indexOf(username)==-1){
+      this.invalidUsername=false;
+    }
+    else{
+      this.invalidUsername=true;
+      this.errorUserMsg=username.length>0?"Username Already Taken":"Username can't be blank";
+    }
+  }
+
+  checkPasswordLogin(){
+    this.dataFetcher.checkPassword({username:this.username,password:this.pwd}).subscribe(data=>{
+        if(data==1){
+            sessionStorage.setItem('loggedIn','true');
+            this.router.navigateByUrl("/music");
+        }
+        else if(data==0){
+          this.showLoginError("Error validating Password")
+        }
+        else{
+          this.showLoginError("Incorrect Password.Try Again")
+        }
+    });
   }
 
 
@@ -129,8 +196,8 @@ export class SignUpComponent implements OnInit {
     }
     else{
       this.invalidEmail=true;
+      this.errorEmailMsg=new FormControl(email,[Validators.email]).valid?"Email already in use":"Invalid Email";
     }
-    console.log(this.invalidEmail);
   }
 
   
@@ -145,7 +212,12 @@ export class SignUpComponent implements OnInit {
 
   
   onOTPChange(otp){
-    console.log(otp);
+    if(this.otpVal!=this.otp){
+        this.invalidOtp=true;
+    }
+    else{
+        this.invalidOtp=false;
+    }
   }
 
   registerUser(){
@@ -156,7 +228,9 @@ export class SignUpComponent implements OnInit {
     }
     this.dataFetcher.addUser(user).subscribe(data=>{
         alert("Registered");
-        console.log(data);
+        this.resetModel();
+        this.regSelected=false;
+        this.loginSelected=true;
     });
   }
 

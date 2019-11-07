@@ -26,16 +26,16 @@ export class PlayerComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
-    this.videoHgt=this.outpt.nativeElement.offsetHeight;
-    this.videoWdt=this.outpt.nativeElement.offsetWidth;
+    this.videoHgt=this.outpt.nativeElement.offsetHeight-10;
+    this.videoWdt=this.outpt.nativeElement.offsetWidth-10;
     this.player.setSize(this.videoWdt,this.videoHgt);
    }
   
  
     savePlayer (player) {
     this.player = player;
-    this.videoHgt=this.outpt.nativeElement.offsetHeight;
-    this.videoWdt=this.outpt.nativeElement.offsetWidth;
+    this.videoHgt=this.outpt.nativeElement.offsetHeight-10;
+    this.videoWdt=this.outpt.nativeElement.offsetWidth-10;
     this.player.setSize(this.videoWdt,this.videoHgt);
     this.thumbnail="http://img.youtube.com/vi/" + this.id + "/hqdefault.jpg";
     //console.log('player instance', player)

@@ -10,7 +10,7 @@ export interface screenSize{
 @Injectable()
 export class screenSizeState{
 
-    private screenSizeSource = new BehaviorSubject<screenSize>({width:1280,height:720,isMobile:false});
+    private screenSizeSource = new BehaviorSubject<screenSize>({width:1280,height:720,isMobile:true});
   screenSize = this.screenSizeSource.asObservable();
 
   constructor() { }
