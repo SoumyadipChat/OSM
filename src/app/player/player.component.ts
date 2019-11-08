@@ -1,5 +1,6 @@
 import { Component, OnInit, HostListener, ViewChild, ElementRef, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import { videoElem } from '../music-player/music-player.component';
+import { screenSizeState } from '../services/screen-size.service';
 
 @Component({
   selector: 'app-player',
@@ -8,7 +9,7 @@ import { videoElem } from '../music-player/music-player.component';
 })
 export class PlayerComponent implements OnInit{
   
-
+  screenSt;
   
   @Input() playerQueue:Array<videoElem>;
   @Input() currentIndex;
@@ -29,13 +30,15 @@ export class PlayerComponent implements OnInit{
 
   showYoutube:boolean=false;
   paused:boolean=true;
+  repeatOn:boolean=false;
 
 
-  constructor() { }
-
+  constructor(private screenState:screenSizeState) { }
   
   ngOnInit() {
-    
+    this.screenState.screenSize.subscribe(scrSz=>{
+        this.screenSt=scrSz;
+    });
   }
 
 
@@ -66,6 +69,15 @@ export class PlayerComponent implements OnInit{
     
     }
 
+    
+    playIndexNumber(index){
+      this.player.loadVideoById(this.playerQueue[index].videoId);
+        this.currentIndex=index;
+        this.OnIndChanges();
+        this.paused=false;
+    }
+
+
     play(){
       console.log(this.player.getPlayerState);
       if(this.playerQueue.length==0){
@@ -89,7 +101,7 @@ export class PlayerComponent implements OnInit{
     }
 
     next(){
-        if(this.playerQueue.length==0){
+        if(this.playerQueue.length==0 || (this.currentIndex==this.playerQueue.length-1 && !this.repeatOn)){
           return;
         }
         if(this.currentIndex==-1){
@@ -104,7 +116,7 @@ export class PlayerComponent implements OnInit{
     }
 
     previous(){
-      if(this.playerQueue.length==0){
+      if(this.playerQueue.length==0 || (this.currentIndex==0 && !this.repeatOn)){
         return;
       }
       if(this.currentIndex==-1){

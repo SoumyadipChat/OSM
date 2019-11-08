@@ -10,8 +10,15 @@
     
     </div>
 
+    <div class="soundBars">
+      <div class="repeatButton">
+          <mat-icon [hidden]="!repeatOn" role="button" (click)="repeatOn=!repeatOn" class="icons" [ngClass]="{'isNotMobile':!screenSt.isMobile}" [svgIcon]="repeatOn?'repeatOn':'repeatOff'" aria-hidden="false" ></mat-icon>
+      </div>
+    </div>
+
     <div [hidden]="paused || showYoutube" class="soundBars">
         <div class="bars">
+
             <div class="bar"></div>
             <div class="bar"></div>
             <div class="bar"></div>
@@ -24,9 +31,23 @@
             <div class="bar"></div>
         </div>
     </div>
+    <div [hidden]="!paused || showYoutube" class="soundBars">
+      <div class="bars">
+          <div class="staticbar"></div>
+            <div class="staticbar"></div>
+            <div class="staticbar"></div>
+            <div class="staticbar"></div>
+            <div class="staticbar"></div>
+            <div class="staticbar"></div>
+            <div class="staticbar"></div>
+            <div class="staticbar"></div>
+            <div class="staticbar"></div>
+            <div class="staticbar"></div>
+      </div>
+    </div>
 
     <div class="utubeTitle" *ngFor="let song of playerQueue;let in = index" >
-      <div class="titleNm" *ngIf="in==currentIndex">{{song.title}} </div>
+      <div class="titleNm" *ngIf="in==currentIndex">{{song.title | titlecase}} </div>
     </div>
     <div class="utubeIcon">
       <mat-icon role="button" class="icons" (click)="showYoutube=!showYoutube" [svgIcon]="showYoutube?'ipod':'youtube'" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>

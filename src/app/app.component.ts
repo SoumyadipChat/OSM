@@ -48,6 +48,22 @@ export class AppComponent implements OnInit{
         'cross',
         sanitizer.bypassSecurityTrustResourceUrl('assets/icons/close.svg')
       );
+      iconRegistry.addSvgIcon(
+        'equalizer',
+        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/equalizer.svg')
+      );
+      iconRegistry.addSvgIcon(
+        'playsimple',
+        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/playsimple.svg')
+      );
+      iconRegistry.addSvgIcon(
+        'repeatOff',
+        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/repeat.svg')
+      );
+      iconRegistry.addSvgIcon(
+        'repeatOn',
+        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/repeatact.svg')
+      );
   }
 
   ngOnInit(){

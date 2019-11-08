@@ -13,17 +13,47 @@
         border-radius: 5px;
     }
 
-
-    .bars {
-        height: 30px;
-        left: 50%;
-        margin: 0px 0 0 -80px;
+    .repeatButton{
+        height: 70px;
+        left: 10%;
+        margin: -40px 0 0 -80px;
         position: absolute;
         top: 50%;
         width: 160px;
+        .icons{
+            height: 20%;
+            width: auto;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        
+            flex-grow: 1;
+            margin: -10px 0 0 0;
+        }
     }
 
-    .bar {
+    .repeatButton .icons.isNotMobile{
+            height: 40%;
+            left:60%;
+        }
+    
+
+    .bars {
+        height: 70px;
+        left: 50%;
+        margin: -40px 0 0 -80px;
+        position: absolute;
+        top: 50%;
+        width: 160px;
+        .icons{
+            height: 150%;
+            width: auto;
+            flex-grow: 1;
+            margin: -10px 0 0 0;
+        }
+    }
+
+    .bar ,.staticbar {
         background: #666;
          bottom: 1px;
          height: 30px;
@@ -54,6 +84,18 @@
      .bar:nth-child(9)  { left: 132px; animation-duration: 487ms; }
      .bar:nth-child(10) { left: 148px; animation-duration: 442ms; }
 
+
+     .staticbar:nth-child(1)  { left: 1px;height: 30px; }
+     .staticbar:nth-child(2)  { left: 20px;height: 70px; }
+     .staticbar:nth-child(3)  { left: 36px; height: 50px; }
+     .staticbar:nth-child(4)  { left: 52px; height: 30px; }
+     .staticbar:nth-child(5)  { left: 68px; height: 70px; }
+     .staticbar:nth-child(6)  { left: 84px; height: 50px; }
+     .staticbar:nth-child(7)  { left: 100px; height: 30px; }
+     .staticbar:nth-child(8)  { left: 116px; height: 70px; }
+     .staticbar:nth-child(9)  { left: 132px; height: 50px; }
+     .staticbar:nth-child(10) { left: 148px; height: 30px; }
+
     .utubeIcon{
         width: 100%;
         height: 16%;
@@ -76,6 +118,8 @@
         font-size: 150%;
         .titleNm{
             padding-left: 20px;
+            font-family: 'Ubuntu', sans-serif;
+            
         }
     }
     .icons{

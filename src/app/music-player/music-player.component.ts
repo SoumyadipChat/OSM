@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { screenSizeState, screenSize } from '../services/screen-size.service';
 import { musicStyleService } from './musicPlayerStyle.service';
 import { MusicDataFetcher } from '../services/musicDataFetcher.service';
 import { DataFetcher } from '../services/DataFetcher.service';
+import { PlayerComponent } from '../player/player.component';
 
 export interface videoElem{
   videoId:string,
@@ -31,6 +32,8 @@ export class MusicPlayerComponent implements OnInit {
   adderShow;
 
   loggedInUser:string;
+
+  @ViewChild(PlayerComponent,{read: PlayerComponent,static:false}) playrComp:PlayerComponent;
 
   defplayerQueue=[
     {
@@ -71,8 +74,7 @@ export class MusicPlayerComponent implements OnInit {
           this.musicDataFetcher.getAllSongs(usernm).subscribe((songList)=>{
             this.playerQueue=songList;
             this.playerQueue=this.playerQueue.filter(x=>x.videoId!=null);
-            console.log(this.playerQueue);
-          })
+            })
         }
         else{
           this.playerQueue=this.defplayerQueue;
@@ -94,6 +96,10 @@ export class MusicPlayerComponent implements OnInit {
 
    addVideo(video){
      this.playerQueue.push(video);
+   }
+
+   playSong(index){
+     this.playrComp.playIndexNumber(index);
    }
 
 }

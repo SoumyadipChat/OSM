@@ -15,6 +15,16 @@ export class QueueComponent implements OnInit {
   @Input() playerQueue;
   @Input() currentIndex;
 
+  @Output() onIndexChange:EventEmitter<any>=new EventEmitter();
+  @Output() onDoubleClic:EventEmitter<number>=new EventEmitter();
+
+  touchtime=0;
+
+  OnIndChanges(){
+      console.log(this.currentIndex);
+      this.onIndexChange.emit(this.currentIndex);
+  }
+
   constructor(private musicDataFetcher:MusicDataFetcher) { }
 
   ngOnInit() {
@@ -27,9 +37,11 @@ export class QueueComponent implements OnInit {
     }
     if(event.previousIndex>this.currentIndex && event.currentIndex<=this.currentIndex){
       this.currentIndex++;
+      this.OnIndChanges();
     }
     else if(event.previousIndex<this.currentIndex && event.currentIndex>=this.currentIndex){
       this.currentIndex--;
+      this.OnIndChanges();
     }
     moveItemInArray(this.playerQueue, event.previousIndex, event.currentIndex);
   }
@@ -46,6 +58,23 @@ export class QueueComponent implements OnInit {
       }
     }
     this.playerQueue.splice(index,1);
+  }
+
+  playSong(index){
+    if (this.touchtime == 0) {
+      // set first click
+      this.touchtime = new Date().getTime();
+  } else {
+      // compare first click to this click and see if they occurred within double click threshold
+      if (((new Date().getTime()) - this.touchtime) < 800) {
+          // double click occurred
+          this.onDoubleClic.emit(index);
+          this.touchtime = 0;
+      } else {
+          // not a double click so set as a new first click
+          this.touchtime = new Date().getTime();
+      }
+  }
   }
 
 }
