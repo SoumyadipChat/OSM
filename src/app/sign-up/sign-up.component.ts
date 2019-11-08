@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { screenSizeState, screenSize } from '../services/screen-size.service';
 import { signupStyleService } from './sign-up-style.service';
 import { FormControl, Validators, ValidationErrors, AbstractControl, ValidatorFn } from '@angular/forms';
@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { LoginDataFetcher } from '../services/loginDataFetche.service';
 import { DataFetcher } from '../services/DataFetcher.service';
 import { User } from '../services/model';
+import { AutofillMonitor } from '@angular/cdk/text-field';
 
 
 @Component({
@@ -14,7 +15,7 @@ import { User } from '../services/model';
   styleUrls: ['./sign-up.component.scss'],
   providers: [signupStyleService,LoginDataFetcher,DataFetcher]
 })
-export class SignUpComponent implements OnInit {
+export class SignUpComponent implements OnInit,AfterViewInit {
 
   logoStyle;
   loginStyle;
@@ -51,9 +52,9 @@ export class SignUpComponent implements OnInit {
   loginError:boolean=false;
   loginErrorMsg='';
 
-     
+  
 
-  constructor(private dataFetcher:LoginDataFetcher,private router:Router,private screenState:screenSizeState,private styleSetter:signupStyleService) { 
+  constructor(private _autofill: AutofillMonitor,private dataFetcher:LoginDataFetcher,private router:Router,private screenState:screenSizeState,private styleSetter:signupStyleService) { 
 
   }
 
@@ -67,6 +68,10 @@ export class SignUpComponent implements OnInit {
     this.dataFetcher.getAllEmails().subscribe(data=>{
       this.allEmail=data;
     })
+  }
+
+  ngAfterViewInit(){
+    
   }
 
   showLoginError(message){
@@ -162,6 +167,11 @@ export class SignUpComponent implements OnInit {
       this.invalidUsername=true;
       this.errorUserMsg=username.length>0?"Username not registered":"Username can't be blank";
     }
+  }
+
+  onLoginAutofilled(event){
+    this.invalidUsername=false;
+    this.invalidPassword=false;
   }
 
   onUsernameChange(username){

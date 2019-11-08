@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild, ElementRef, Input } from '@angular/core';
 
 @Component({
   selector: 'app-player',
@@ -8,12 +8,16 @@ import { Component, OnInit, HostListener, ViewChild, ElementRef } from '@angular
 export class PlayerComponent implements OnInit {
   
   player: YT.Player;
-  private id: string = 'YKcgwUg39yY';
+  private id: string = '';
   private videoHgt:number;
   private videoWdt:number;
   private thumbnail:string;
   @ViewChild("outpt", {read: ElementRef,static:false}) outpt: ElementRef;
 
+  showYoutube:boolean=false;
+
+  @Input() playerQueue;
+  @Input() currentIndex;
   
 
   constructor() { }
@@ -37,11 +41,15 @@ export class PlayerComponent implements OnInit {
     this.videoHgt=this.outpt.nativeElement.offsetHeight;
     this.videoWdt=this.outpt.nativeElement.offsetWidth;
     this.player.setSize(this.videoWdt,this.videoHgt);
-    this.thumbnail="http://img.youtube.com/vi/" + this.id + "/hqdefault.jpg";
+    
     //console.log('player instance', player)
     }
 
     play(){
+      console.log(this.player,"play",this.id);
+      if(this.id==''){
+        this.player.loadVideoById(this.playerQueue[0].id);
+      }
       this.player.playVideo();
     }
     pause(){

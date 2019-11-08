@@ -1,6 +1,6 @@
-<div #outpt class="playr">
-  <div class="screenSwap">
-    <div class="videoOutput">
+<div  class="playr">
+  <div #outpt class="screenSwap">
+    <div [hidden]="!showYoutube" class="videoOutput">
   
       <youtube-player
             [videoId]="id"
@@ -9,6 +9,17 @@
           ></youtube-player>
     
     </div>
+    <div *ngFor="let song of playerQueue" >
+      <div>{{song.title}}</div>
+    </div>
+    <div class="utubeIcon">
+      <mat-icon role="button" class="icons" (click)="showYoutube=!showYoutube" [svgIcon]="showYoutube?'ipod':'youtube'" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
+      <mat-icon role="button" (click)="play()" class="icons" svgIcon="prev" aria-hidden="false" ></mat-icon>
+      <mat-icon role="button" (click)="play()" class="icons" svgIcon="play" aria-hidden="false" ></mat-icon>
+      <mat-icon role="button" (click)="pause()" class="icons" svgIcon="pause" aria-hidden="false" ></mat-icon>
+      <mat-icon role="button" (click)="play()" class="icons" svgIcon="next" aria-hidden="false" ></mat-icon>
+    </div>
+    
     
   </div>
   

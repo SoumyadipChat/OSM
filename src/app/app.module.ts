@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { YoutubePlayerModule } from 'ng2-youtube-player';
 import { AppRoutingModule } from './app-routing.module';
@@ -13,6 +13,8 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatFormFieldModule,MatInputModule,MatButtonModule, MatIconModule} from '@angular/material';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import {TextFieldModule} from '@angular/cdk/text-field';
+import {DragDropModule } from '@angular/cdk/drag-drop'
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -24,7 +26,7 @@ import { HttpClientModule } from '@angular/common/http';
     QueueComponent,
     MusicPlayerComponent,
     ButtonsComponent,
-    SignUpComponent
+    SignUpComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,7 +39,10 @@ import { HttpClientModule } from '@angular/common/http';
     MatIconModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    TextFieldModule,
+    MatIconModule,
+    DragDropModule
   ],
   providers: [],
   bootstrap: [AppComponent]

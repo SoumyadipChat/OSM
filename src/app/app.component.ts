@@ -1,6 +1,8 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { screenSizeState, screenSize } from './services/screen-size.service';
 import { styleSetterService } from './styleSetter.service';
+import { MatIconRegistry } from '@angular/material';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -13,8 +15,31 @@ export class AppComponent implements OnInit{
   appStyle;
   routerOutletStyle;
 
-  constructor(private screenState:screenSizeState,private styleSetter:styleSetterService){
-
+  constructor(private iconRegistry:MatIconRegistry,sanitizer:DomSanitizer,private screenState:screenSizeState,private styleSetter:styleSetterService){
+      iconRegistry.addSvgIcon(
+        'youtube',
+        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/youtube.svg')
+      );
+      iconRegistry.addSvgIcon(
+        'ipod',
+        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/ipod.svg')
+      );
+      iconRegistry.addSvgIcon(
+        'play',
+        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/play.svg')
+      );
+      iconRegistry.addSvgIcon(
+        'pause',
+        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/pause.svg')
+      );
+      iconRegistry.addSvgIcon(
+        'next',
+        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/next-track.svg')
+      );
+      iconRegistry.addSvgIcon(
+        'prev',
+        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/previous-track.svg')
+      );
   }
 
   ngOnInit(){

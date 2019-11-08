@@ -82,14 +82,14 @@ export class musicStyleService{
             return {
                 'width':  (scrSz.width-3)+'px',
                 'height': 9*(scrSz.width-3)/16+'px',
-                'background-color':'blue',
+                'background-color':'rgba(0,0,0,0)',
                 }
         }
         else{
             return {
                 'width':  0.7*(scrSz.width-3)+'px',
                 'height': 0.7*0.95*(scrSz.height-3)+'px',
-                'background-color':'blue',
+                'background-color':'rgba(0,0,0,0)',
                 }
         }
     }

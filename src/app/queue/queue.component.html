@@ -1,3 +1,29 @@
-<div class="queueContainer">
-    Queue
-</div>
+
+    <div class="queue" >
+        <!-- <div cdkDropList class="box" (cdkDropListDropped)="drop($event)" >
+            <div *ngFor="let song of playerQueue;let in = index" class="queElements" cdkDrag >
+                <div  class="queueElem" [ngClass]="{'current':in==currentIndex}">
+                    <div class="thumbNail">
+                        <img [src]="song.thumbnail">
+                    </div>
+                    <div class="songTitle">
+                            {{song.title}} {{currentIndex}}
+                    </div>
+                </div>
+                
+            </div>
+        </div> -->
+
+        <div cdkDropList class="box example-list" (cdkDropListDropped)="drop($event)">
+                <div class="example-box" *ngFor="let song of playerQueue;let in = index" cdkDrag>
+                                <div class="thumbNail">
+                                    <img [src]="song.thumbnail">
+                                </div>
+                                <div class="songTitle">
+                                        {{song.title}}
+                                </div>
+                        
+                </div>
+        </div>
+    </div>
+

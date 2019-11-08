@@ -4,13 +4,13 @@
 <div [ngStyle]="musicPlayerStyle">
     <div [ngStyle]="leftStyle">
         <div [ngStyle]="playerStyle">
-            <app-player></app-player>
+            <app-player [playerQueue]="playerQueue" [currentIndex]="currentIndex"></app-player>
         </div>
         <div [ngStyle]="adderStyle">
             <app-music-add></app-music-add>
         </div>
     </div>
     <div [ngStyle]="rightStyle">
-        <app-queue></app-queue>
+        <app-queue [playerQueue]="playerQueue" [currentIndex]="currentIndex"></app-queue>
     </div>
 </div>

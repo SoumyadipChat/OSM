@@ -19,6 +19,53 @@ export class MusicPlayerComponent implements OnInit {
 
   adderToggleShow;
   adderShow;
+
+  playerQueue=[
+    {
+      id:'YKcgwUg39yY',
+      thumbnail:"http://img.youtube.com/vi/YKcgwUg39yY/hqdefault.jpg",
+      title:'Dhadak(Title Track)'
+    },
+    {
+      id:'DMRRC0rwO_I',
+      thumbnail:"http://img.youtube.com/vi/DMRRC0rwO_I/hqdefault.jpg",
+      title:'Khairiyat'
+    },
+    {
+      id:'2kN3THdRih8',
+      thumbnail:"http://img.youtube.com/vi/2kN3THdRih8/hqdefault.jpg",
+      title:'Tum hi aana'
+    },
+    {
+      id:'2kN3THdRih8',
+      thumbnail:"http://img.youtube.com/vi/2kN3THdRih8/hqdefault.jpg",
+      title:'Tum hi aana'
+    },
+    {
+      id:'2kN3THdRih8',
+      thumbnail:"http://img.youtube.com/vi/2kN3THdRih8/hqdefault.jpg",
+      title:'Tum hi aana'
+    },
+    {
+      id:'2kN3THdRih8',
+      thumbnail:"http://img.youtube.com/vi/2kN3THdRih8/hqdefault.jpg",
+      title:'Tum hi aana'
+    },
+    {
+      id:'2kN3THdRih8',
+      thumbnail:"http://img.youtube.com/vi/2kN3THdRih8/hqdefault.jpg",
+      title:'Tum hi aana'
+    },
+    {
+      id:'2kN3THdRih8',
+      thumbnail:"http://img.youtube.com/vi/2kN3THdRih8/hqdefault.jpg",
+      title:'Tum hi aana'
+    }
+  ]
+
+  currentIndex=1;
+
+
   constructor(private screenState:screenSizeState,private styleSetter:musicStyleService) { 
 
   }

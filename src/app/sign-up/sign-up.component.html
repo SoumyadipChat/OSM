@@ -26,9 +26,12 @@
                 <div class="loginputField">
                         <mat-form-field>
                                 <input matInput 
+                                #first
                                 [(ngModel)]="username" 
                                 placeholder="Username/Email"
                                 (ngModelChange)="onLoginUsernameChange($event)"
+                                (cdkAutofill)="onLoginAutofilled($event)"
+                                
                                 >
                         </mat-form-field>
                         <mat-error *ngIf="invalidUsername">{{errorUserMsg}}</mat-error>
