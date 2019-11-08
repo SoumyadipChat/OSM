@@ -134,9 +134,9 @@ export class PlayerComponent implements OnInit{
     if(event.data==0){
       this.next();
     }
-    if(event.data==2 && !this.paused){
-      this.play();
-    }
+    // if(event.data==2 && !this.paused){
+    //   this.play();
+    // }
   }
 
 }
