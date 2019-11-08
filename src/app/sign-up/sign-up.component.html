@@ -4,7 +4,7 @@
 </div>
 
 <div [ngStyle]="loginStyle">
-        <div class="loginTabs" [ngStyle]="tabTextStyle">
+        <div class="loginTabs" [ngStyle]="tabTextStyle" >
                 <div 
                 class="loginTab" 
                 [ngClass]="{'activeTab':loginSelected}"
@@ -24,7 +24,7 @@
         </div>
         <div [hidden]="regSelected" class="loginFormSection" [ngStyle]="inputTextStyle">
                 <div class="loginputField">
-                        <mat-form-field>
+                        <mat-form-field color="accent">
                                 <input matInput 
                                 #first
                                 [(ngModel)]="username" 
@@ -37,7 +37,7 @@
                         <mat-error *ngIf="invalidUsername">{{errorUserMsg}}</mat-error>
                 </div>
                 <div class="loginputField">
-                        <mat-form-field>
+                        <mat-form-field color="accent">
                                 <input matInput 
                                 placeholder="Password"
                                 [(ngModel)]="pwd"
@@ -72,7 +72,7 @@
         </div>
         <div [hidden]="loginSelected" class="regFormSection" [ngStyle]="inputTextStyle">
                 <div class="reginputField">
-                        <mat-form-field>
+                        <mat-form-field color="accent">
                                 <input matInput
                                 [(ngModel)]="username" 
                                 placeholder="Username"
@@ -81,7 +81,7 @@
                         <mat-error *ngIf="invalidUsername">{{errorUserMsg}}</mat-error>
                 </div>
                 <div class="reginputField">
-                        <mat-form-field>
+                        <mat-form-field color="accent">
                                 <input matInput
                                 [(ngModel)]="eml" 
                                 placeholder="Email ID"
@@ -91,7 +91,7 @@
                         <mat-error *ngIf="invalidEmail">{{errorEmailMsg}}</mat-error>
                 </div>
                 <div class="reginputField">
-                        <mat-form-field>
+                        <mat-form-field color="accent">
                                 <input matInput
                                 [(ngModel)]="pwd"  
                                 placeholder="Password"
@@ -105,7 +105,7 @@
                         <mat-error *ngIf="invalidPassword">Password must have 6-20 characters</mat-error>
                 </div>
                 <div class="reginputField">
-                        <mat-form-field>
+                        <mat-form-field color="accent">
                                 <input matInput
                                 [disabled]="!otpSentOnce" 
                                 [(ngModel)]="otp"

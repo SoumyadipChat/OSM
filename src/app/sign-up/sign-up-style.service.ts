@@ -14,7 +14,8 @@ export class signupStyleService{
         return {
             'width':  boxSize+'px',
             'height': boxSize+'px',
-            'background-color':'white',
+            'background-color':'rgba(0,0,0,0.8)',
+            'color':'white',
             'position':'absolute',
             'top':(scrSz.height-boxSize)/2+'px',
             'left':(scrSz.width-boxSize)/2+'px',

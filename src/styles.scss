@@ -2,6 +2,7 @@
 @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 @import url('https://fonts.googleapis.com/css?family=Cabin|Cookie|Oxygen|Sedgwick+Ave+Display|Ubuntu&display=swap');
 @import '@angular/cdk/_text-field'; 
+@import './my-material-theme.scss';
 
 .appBody{
     margin: 0px;

@@ -1,7 +1,31 @@
 
     <div class="adder" >
-        <div class="box">
-            Add
+        <div class="box" [ngClass]="{'isMobile':screenSt.isMobile}">
+                <div class="adderinputField">
+                        <mat-form-field color="accent">
+                                <input matInput 
+                                [(ngModel)]="url" 
+                                placeholder="Youtube URL"
+                                (ngModelChange)="onURLChange($event)"
+                                autocomplete="off"
+                                >
+                        </mat-form-field>
+                        <mat-error *ngIf="invalidURL">URL is invalid</mat-error>
+                </div>
+                <div class="adderinputField bottomFIeld">
+                        <div class="bottom">
+                                <mat-form-field color="accent">
+                                        <input matInput 
+                                        placeholder="Title"
+                                        [(ngModel)]="title"
+                                        (ngModelChange)="onTitleChange($event)"
+                                        >
+                                </mat-form-field>
+                                <mat-error *ngIf="invalidTitle">Title cant be empty</mat-error>
+                        </div>
+                        <mat-icon role="button" (click)="addValue()" class="icons" svgIcon="add" aria-hidden="false" ></mat-icon>
+                </div>
+               
         </div>
     </div>
 

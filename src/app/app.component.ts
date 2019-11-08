@@ -40,6 +40,14 @@ export class AppComponent implements OnInit{
         'prev',
         sanitizer.bypassSecurityTrustResourceUrl('assets/icons/previous-track.svg')
       );
+      iconRegistry.addSvgIcon(
+        'add',
+        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/plus.svg')
+      );
+      iconRegistry.addSvgIcon(
+        'cross',
+        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/close.svg')
+      );
   }
 
   ngOnInit(){

@@ -28,6 +28,11 @@ export class LoginDataFetcher{
         return this.dataFetcher.post(uri,user);
     }
 
+    getUser(user:string){
+        let uri="login/getUser/"+user;
+        return this.dataFetcher.get(uri);
+    }
+
     sendOTP(user:User){
         let uri="mail/sendMail";
         return this.dataFetcher.post(uri,user);

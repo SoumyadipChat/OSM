@@ -13,14 +13,16 @@
                 
             </div>
         </div> -->
-
         <div cdkDropList class="box example-list" (cdkDropListDropped)="drop($event)">
-                <div class="example-box" *ngFor="let song of playerQueue;let in = index" cdkDrag>
+                <div class="example-box"  *ngFor="let song of playerQueue;let in = index" [ngClass]="{'current':in==currentIndex}" cdkDrag>
                                 <div class="thumbNail">
                                     <img [src]="song.thumbnail">
                                 </div>
                                 <div class="songTitle">
                                         {{song.title}}
+                                </div>
+                                <div [hidden]="in==currentIndex" class="closer">
+                                        <mat-icon role="button" (click)="remSong(in)" class="icons" svgIcon="cross" aria-hidden="false" ></mat-icon>
                                 </div>
                         
                 </div>

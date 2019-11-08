@@ -187,8 +187,12 @@ export class SignUpComponent implements OnInit,AfterViewInit {
   checkPasswordLogin(){
     this.dataFetcher.checkPassword({username:this.username,password:this.pwd}).subscribe(data=>{
         if(data==1){
-            sessionStorage.setItem('loggedIn','true');
+            this.dataFetcher.getUser(this.username).subscribe((user)=>{
+              sessionStorage.setItem('loggedIn','true');
+              console.log(user);
+              sessionStorage.setItem('username',JSON.stringify(user));
             this.router.navigateByUrl("/music");
+            })
         }
         else if(data==0){
           this.showLoginError("Error validating Password")

@@ -6,21 +6,77 @@
     .screenSwap{
         width: 100%;
         height: 98%;
-        background-color: rgba(0,0,0,0.5);
+        background-color: rgba(255, 255, 255, 0.5);
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
         border-radius: 5px;
     }
+
+
+    .bars {
+        height: 30px;
+        left: 50%;
+        margin: 0px 0 0 -80px;
+        position: absolute;
+        top: 50%;
+        width: 160px;
+    }
+
+    .bar {
+        background: #666;
+         bottom: 1px;
+         height: 30px;
+         position: absolute;
+         width: 12px;      
+         animation: sound 0ms -800ms linear infinite alternate;
+     }
+     
+     @keyframes sound {
+         0% {
+            opacity: .35;
+             height: 15px; 
+         }
+         100% {
+             opacity: 1;       
+             height: 70px;        
+         }
+     }
+     
+     .bar:nth-child(1)  { left: 1px; animation-duration: 474ms; }
+     .bar:nth-child(2)  { left: 20px; animation-duration: 433ms; }
+     .bar:nth-child(3)  { left: 36px; animation-duration: 407ms; }
+     .bar:nth-child(4)  { left: 52px; animation-duration: 458ms; }
+     .bar:nth-child(5)  { left: 68px; animation-duration: 400ms; }
+     .bar:nth-child(6)  { left: 84px; animation-duration: 427ms; }
+     .bar:nth-child(7)  { left: 100px; animation-duration: 441ms; }
+     .bar:nth-child(8)  { left: 116px; animation-duration: 419ms; }
+     .bar:nth-child(9)  { left: 132px; animation-duration: 487ms; }
+     .bar:nth-child(10) { left: 148px; animation-duration: 442ms; }
+
     .utubeIcon{
         width: 100%;
-        height: 12%;
+        height: 16%;
        position: absolute;
-        top: 90%;
+        top: 85%;
         transform: translateY(-50%);
         z-index: 999;
         display: flex;
         justify-content: space-around;
+    }
+    .utubeTitle{
+        width: 100%;
+        height: 12%;
+       position: absolute;
+        top: 10%;
+        transform: translateY(-50%);
+        z-index: 999;
+        display: flex;
+        justify-content: flex-start;
+        font-size: 150%;
+        .titleNm{
+            padding-left: 20px;
+        }
     }
     .icons{
         height: 100%;

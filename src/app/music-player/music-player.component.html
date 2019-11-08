@@ -1,13 +1,13 @@
 <div [ngStyle]="headerBarStyle">
-    <app-header></app-header>
+    <app-header [username]="loggedInUser"></app-header>
 </div>
 <div [ngStyle]="musicPlayerStyle">
     <div [ngStyle]="leftStyle">
         <div [ngStyle]="playerStyle">
-            <app-player [playerQueue]="playerQueue" [currentIndex]="currentIndex"></app-player>
+            <app-player [playerQueue]="playerQueue" [currentIndex]="currentIndex" (onIndexChange)="currentIndex=$event"></app-player>
         </div>
         <div [ngStyle]="adderStyle">
-            <app-music-add></app-music-add>
+            <app-music-add (onAdd)="addVideo($event)"></app-music-add>
         </div>
     </div>
     <div [ngStyle]="rightStyle">

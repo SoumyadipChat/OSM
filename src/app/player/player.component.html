@@ -9,15 +9,31 @@
           ></youtube-player>
     
     </div>
-    <div *ngFor="let song of playerQueue" >
-      <div>{{song.title}}</div>
+
+    <div [hidden]="paused || showYoutube" class="soundBars">
+        <div class="bars">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </div>
+
+    <div class="utubeTitle" *ngFor="let song of playerQueue;let in = index" >
+      <div class="titleNm" *ngIf="in==currentIndex">{{song.title}} </div>
     </div>
     <div class="utubeIcon">
       <mat-icon role="button" class="icons" (click)="showYoutube=!showYoutube" [svgIcon]="showYoutube?'ipod':'youtube'" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
-      <mat-icon role="button" (click)="play()" class="icons" svgIcon="prev" aria-hidden="false" ></mat-icon>
+      <mat-icon role="button" (click)="previous()" class="icons" svgIcon="prev" aria-hidden="false" ></mat-icon>
       <mat-icon role="button" (click)="play()" class="icons" svgIcon="play" aria-hidden="false" ></mat-icon>
       <mat-icon role="button" (click)="pause()" class="icons" svgIcon="pause" aria-hidden="false" ></mat-icon>
-      <mat-icon role="button" (click)="play()" class="icons" svgIcon="next" aria-hidden="false" ></mat-icon>
+      <mat-icon role="button" (click)="next()" class="icons" svgIcon="next" aria-hidden="false" ></mat-icon>
     </div>
     
     

@@ -16,6 +16,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {TextFieldModule} from '@angular/cdk/text-field';
 import {DragDropModule } from '@angular/cdk/drag-drop'
 import { HttpClientModule } from '@angular/common/http';
+import { LauncherComponent } from './launcher/launcher.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { HttpClientModule } from '@angular/common/http';
     MusicPlayerComponent,
     ButtonsComponent,
     SignUpComponent,
+    LauncherComponent,
   ],
   imports: [
     BrowserModule,
