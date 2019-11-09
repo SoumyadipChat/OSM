@@ -1,7 +1,13 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, Inject } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { MusicDataFetcher } from '../services/musicDataFetcher.service';
 import { DataFetcher } from '../services/DataFetcher.service';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
+
+export interface DialogData {
+  title: string;
+  returnVal: boolean;
+}
 
 
 @Component({
@@ -25,7 +31,7 @@ export class QueueComponent implements OnInit {
       this.onIndexChange.emit(this.currentIndex);
   }
 
-  constructor(private musicDataFetcher:MusicDataFetcher) { }
+  constructor(private musicDataFetcher:MusicDataFetcher,public dialog: MatDialog) { }
 
   ngOnInit() {
   }
@@ -47,16 +53,30 @@ export class QueueComponent implements OnInit {
   }
 
   remSong(index){
-    if(sessionStorage.getItem('loggedIn') && sessionStorage.getItem('loggedIn')=='true'){
-      let user=sessionStorage.getItem('username')?sessionStorage.getItem('username'):'Guest';
-      if(user!='Guest'){
-        let videoElem=this.playerQueue[index];
-        this.musicDataFetcher.deleteSong(videoElem).subscribe(data=>{
-          console.log(data);
-        });
+
+    const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
+      width: '250px',
+      data: {title: this.playerQueue[index].title, animal: false}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      //console.log('The dialog was closed');
+      if(result && result.returnVal){
+        if(sessionStorage.getItem('loggedIn') && sessionStorage.getItem('loggedIn')=='true'){
+          let user=sessionStorage.getItem('username')?sessionStorage.getItem('username'):'Guest';
+          if(user!='Guest'){
+            let videoElem=this.playerQueue[index];
+            this.musicDataFetcher.deleteSong(videoElem).subscribe(data=>{
+              console.log(data);
+            });
+          }
+        }
+        this.playerQueue.splice(index,1);
       }
-    }
-    this.playerQueue.splice(index,1);
+    });
+  
+
+    
   }
 
   playSong(index){
@@ -74,6 +94,31 @@ export class QueueComponent implements OnInit {
           this.touchtime = new Date().getTime();
       }
   }
+  }
+
+}
+
+@Component({
+  selector: 'dialog-overview-example-dialog',
+  templateUrl: 'dialog-overview-example-dialog.html',
+})
+export class DialogOverviewExampleDialog implements OnInit {
+
+  response:DialogData={
+    title:'',
+    returnVal:true
+  }
+
+  constructor(
+    public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+
+    ngOnInit(){
+      this.response.title=this.data.title;
+    }
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
 }

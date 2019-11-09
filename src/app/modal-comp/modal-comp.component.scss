@@ -56,6 +56,13 @@
 .mat-dialog-title {
     margin: 0 0 -10px;
     display: block;
+    mat-form-field{
+        margin-left: 5px;
+        width: 230px;
+        input{
+            padding-left: 5px;
+        }
+    }
 }
 
 .mat-dialog-actions {
@@ -89,17 +96,15 @@
 } 
 
 .loader {
-    width: 100px;
+   
     height: 100px;
-    margin-top: 30%;
-    margin-left: 39%;
-    margin-bottom: 30%;
-    align-content: center;
-    border: 8px solid rgba(0, 0, 0, 0.8);
-    border-radius: 50%;
-    border-top: 8px solid #00968775;
-    -webkit-animation: spin 2s linear infinite;
-    animation: spin 2s linear infinite;
+    position: relative;
+    .loadText{
+    position: absolute;
+    top: 30%;
+    width: 100%;
+    text-align: center;
+    }
   }
 
   @-webkit-keyframes spin {
@@ -112,17 +117,15 @@
     100% { transform: rotate(360deg); }
   }
 
-  .isMobile .loader{
-    width: 100px;
-    height: 100px;
-    margin-top: 40%;
-    margin-left: 29%;
-    margin-bottom: 40%;
-    align-content: center;
-    border: 8px solid rgba(0, 0, 0, 0.8);
-    border-radius: 50%;
-    border-top: 8px solid #00968775;
-    -webkit-animation: spin 2s linear infinite;
-    animation: spin 2s linear infinite;
-}
-  
+  @media(max-width:400px){
+       
+    .songTitle{
+        font-size: 80%;
+        padding-left: 8%;
+    }
+
+    .thumbNail>img{
+        height: 70%;
+    }
+      
+  } 

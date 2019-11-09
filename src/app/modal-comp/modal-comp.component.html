@@ -1,11 +1,21 @@
 <div mat-dialog-title>Title: 
-        <mat-form-field>
-                <input matInput [(ngModel)]="data.title">
+        <mat-form-field color="accent">
+                <input matInput (ngModelChange)="updateTitle()" [(ngModel)]="titleText">
         </mat-form-field>
 </div>
 <div mat-dialog-content>
-        <mat-radio-group [(ngModel)]="selectIndex" >
-            <div class="example-box" role="button" [ngClass]="{'isMobile':screenSz.isMobile}" *ngFor="let song of searchResults;let in = index" [ngClass]="{'current':in==currentIndex}" cdkDrag>
+    <div *ngIf="showLoading" class="loader">
+        <div class="loadText">
+                Loading....
+        </div>
+    </div>
+    <div *ngIf="isEmptySearch" class="loader">
+            <div class="loadText">
+                    No rows to Show
+            </div>
+        </div>
+        <mat-radio-group [(ngModel)]="selectIndex" (ngModelChange)="updateSelection()">
+            <div class="example-box" role="button" *ngFor="let song of searchResults;let in = index">
                     <div class="thumbNail">
                         <img [src]="song.thumbnailUrl">
                     </div>
@@ -23,6 +33,6 @@
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Cancel</button>
-  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Add to Queue</button>
+  <button mat-button [disabled]="isEmptySearch" [mat-dialog-close]="selectedVal" cdkFocusInitial>Add to Queue</button>
 </div>
 

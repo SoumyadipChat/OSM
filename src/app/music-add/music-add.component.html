@@ -2,10 +2,10 @@
     <div class="adder" >
         <div class="box">
                 <div class="boxItems" [ngClass]="{'horizontal':!screenSt.isMobile}">
-                        <input class="inputBox"  type="text" placeholder="Search / Add by url" />
+                        <input class="inputBox" [(ngModel)]="searchInp" type="text" (keyup.enter)="openDialog(0)" placeholder="Search / Add by url" />
                         <div class="buttons">
-                                <mat-icon role="button" (click)="openDialog()" class="icons" svgIcon="add" aria-hidden="false" ></mat-icon>
-                                <mat-icon role="button" (click)="openDialog()" class="icons" svgIcon="search" aria-hidden="false" ></mat-icon>
+                                <mat-icon role="button" (click)="openDialog(1)" class="icons" svgIcon="add" aria-hidden="false" ></mat-icon>
+                                <mat-icon role="button" (click)="openDialog(0)" class="icons" svgIcon="search" aria-hidden="false" ></mat-icon>
                         </div>
                         
                 </div>

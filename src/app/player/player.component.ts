@@ -67,7 +67,7 @@ export class PlayerComponent implements OnInit{
     this.videoHgt=this.outpt.nativeElement.offsetHeight;
     this.videoWdt=this.outpt.nativeElement.offsetWidth;
     this.player.setSize(this.videoWdt,this.videoHgt);
-    let timer=this.queInitilized?0:2000;
+    let timer=2000;
       setTimeout(()=>{
         if(this.playerQueue.length==0){
           this.currentIndex=-1;
@@ -85,6 +85,7 @@ export class PlayerComponent implements OnInit{
 
     queueInitializer(){
       this.queInitilized=true;
+      console.log(this.playerQueue);
     }
 
     

@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { PlayerComponent } from './player/player.component';
 import { HeaderComponent } from './header/header.component';
 import { MusicAddComponent } from './music-add/music-add.component';
-import { QueueComponent } from './queue/queue.component';
+import { QueueComponent, DialogOverviewExampleDialog } from './queue/queue.component';
 import { MusicPlayerComponent } from './music-player/music-player.component';
 import { ButtonsComponent } from './buttons/buttons.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
@@ -33,6 +33,7 @@ import { ModalCompComponent } from './modal-comp/modal-comp.component';
     SignUpComponent,
     LauncherComponent,
     ModalCompComponent,
+    DialogOverviewExampleDialog 
   ],
   imports: [
     BrowserModule,
@@ -54,6 +55,6 @@ import { ModalCompComponent } from './modal-comp/modal-comp.component';
   ],
   providers: [YouTubeSearchService, YouTubeServiceInjectables],
   bootstrap: [AppComponent],
-  entryComponents:[ModalCompComponent]
+  entryComponents:[ModalCompComponent,DialogOverviewExampleDialog]
 })
 export class AppModule { }

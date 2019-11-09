@@ -2,12 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { screenSizeState, screenSize } from '../services/screen-size.service';
 import { launcherStyleService } from './launcherStyle.service';
 import { Router } from '@angular/router';
+import { LoginDataFetcher } from '../services/loginDataFetche.service';
+import { DataFetcher } from '../services/DataFetcher.service';
 
 @Component({
   selector: 'app-launcher',
   templateUrl: './launcher.component.html',
   styleUrls: ['./launcher.component.scss'],
-  providers:[launcherStyleService]
+  providers:[launcherStyleService,LoginDataFetcher,DataFetcher]
 })
 export class LauncherComponent implements OnInit {
 
@@ -18,7 +20,7 @@ export class LauncherComponent implements OnInit {
   loginStyle;
   loaderStyle;
 
-  constructor(private screenState:screenSizeState,private styleSetter:launcherStyleService,private router:Router) { }
+  constructor(private screenState:screenSizeState,private styleSetter:launcherStyleService,private router:Router,private loginDtaFetcher:LoginDataFetcher) { }
 
   ngOnInit() {
     
@@ -26,11 +28,14 @@ export class LauncherComponent implements OnInit {
         this.onScreensizeChange(scrSz);
       }
     );
-    setTimeout(()=>{
+    this.loginDtaFetcher.getUser('Soumyadip').subscribe(name=>{
+      console.log(name=="Soumyadip");
+      setTimeout(()=>{
       (sessionStorage.getItem('loggedIn') && sessionStorage.getItem('loggedIn')=='true')?
-    this.router.navigateByUrl("/music"):
-    this.router.navigateByUrl("/login");
-    },5000);  
+      this.router.navigateByUrl("/music"):
+      this.router.navigateByUrl("/login");
+      },5000); 
+    }) 
     
 
   }

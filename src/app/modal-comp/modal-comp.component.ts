@@ -20,29 +20,47 @@ export class ModalCompComponent implements OnInit {
 
   searchResults=[];
   selectIndex=0;
-  screenSz;
+  isEmptySearch=false;
+  showLoading=true;
+  titleText='';
+
+  selectedVal;
   
 
   constructor(public dialogRef: MatDialogRef<ModalCompComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: adderData,private youtube: YouTubeSearchService,private screenState:screenSizeState) { }
+    @Inject(MAT_DIALOG_DATA) public data: adderData,private youtube: YouTubeSearchService) { }
 
   ngOnInit() {
-    //console.log("modal opened");
-    this.screenState.screenSize.subscribe(screen=>{
-      console.log("screen size modal",screen.width,"X",screen.height," and is Mobile :" ,screen.isMobile);
-      this.screenSz=screen;
-  })
+    
+  this.showLoading=true;
     this.youtube.search(this.data.search).subscribe(searchList=>{
         this.searchResults=searchList;
+        if(this.searchResults.length==0){
+          this.isEmptySearch=true;
+          return;
+        }
+        if(this.data.type==1){
+          this.searchResults=this.searchResults.slice(0,4);
+        }
+        this.showLoading=false;
+        this.isEmptySearch=false;
+        this.titleText=this.searchResults[0].title.split('|')[0].substring(0,20);
+        this.selectedVal=this.searchResults[0];
     })
   }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
-  sendAddData(){
-    console.log(this.selectIndex,this.searchResults[this.selectIndex]);
+
+  updateSelection(){
+    this.selectedVal=this.searchResults[this.selectIndex];
+    this.titleText=this.searchResults[this.selectIndex].title.split('|')[0].substring(0,20);
   }
 
+  updateTitle(){
+    this.selectedVal.title=this.titleText;
+  }
+  
 
 }

@@ -3,7 +3,7 @@ import { videoElem } from '../music-player/music-player.component';
 import { screenSizeState, screenSize } from '../services/screen-size.service';
 import { MusicDataFetcher } from '../services/musicDataFetcher.service';
 import { DataFetcher } from '../services/DataFetcher.service';
-import { YouTubeSearchService } from '../services/youtube-search.service';
+import { YouTubeSearchService, Result } from '../services/youtube-search.service';
 import { MatDialog } from '@angular/material';
 import { ModalCompComponent } from '../modal-comp/modal-comp.component';
 
@@ -17,6 +17,7 @@ export class MusicAddComponent implements OnInit{
 
   url:string;
   title:string='';
+  searchInp:string='';
   invalidURL:boolean=true;
   invalidTitle:boolean=true;
   screenSt:screenSize;
@@ -31,35 +32,32 @@ export class MusicAddComponent implements OnInit{
     });
   }
 
-  openDialog(){
+  openDialog(type){
+    if(this.searchInp.length==0){
+      return;
+    }
     const dialogRef = this.dialog.open(ModalCompComponent, {
       width: '500px',
       data: { id:'',
-        title:'xyz',
-        search:'aaaa',
-        type:1
+        title:'',
+        search:this.searchInp,
+        type:type
       }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log(result);
+    dialogRef.afterClosed().subscribe((result:Result) => {
+      //console.log('The dialog was closed');
+      if(result){
+        this.addValue(result.id,result.title,result.thumbnailUrl);
+      }
     });
   }
 
-  addValue(){
-    if(this.invalidTitle){
-      return;
-    }
-    let id=this.getIdFromUrl(this.url);
-    if(id=='-1'){
-      this.invalidURL=true;
-      return;
-    }
+  addValue(id,title,thumb){
     let videoElem:videoElem={
       videoId:id,
-      title:this.title,
-      thumbnail:this.getPhotoUrl(id)
+      title:title.split('|')[0].substring(0,20),
+      thumbnail:thumb
     }
     if(sessionStorage.getItem('loggedIn') && sessionStorage.getItem('loggedIn')=='true'){
       let user=sessionStorage.getItem('username')?sessionStorage.getItem('username'):'Guest';
