@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { screenSizeState, screenSize } from '../services/screen-size.service';
 import { musicStyleService } from './musicPlayerStyle.service';
 import { MusicDataFetcher } from '../services/musicDataFetcher.service';
@@ -19,7 +19,7 @@ export interface videoElem{
   styleUrls: ['./music-player.component.scss'],
   providers:[musicStyleService,MusicDataFetcher,DataFetcher]
 })
-export class MusicPlayerComponent implements OnInit {
+export class MusicPlayerComponent implements OnInit,AfterViewInit {
 
   headerBarStyle;
   musicPlayerStyle;
@@ -67,20 +67,23 @@ export class MusicPlayerComponent implements OnInit {
     this.screenState.screenSize.subscribe(screen=>{
         this.onScreensizeChange(screen)
     })
-    if(sessionStorage.getItem('loggedIn') && sessionStorage.getItem('loggedIn')=='true'){
-        this.loggedInUser=sessionStorage.getItem('username')?sessionStorage.getItem('username'):'Guest';
-        if(this.loggedInUser!='Guest'){
-          let usernm=this.loggedInUser.substring(1,this.loggedInUser.length-1);
-          this.musicDataFetcher.getAllSongs(usernm).subscribe((songList)=>{
-            this.playerQueue=songList;
-            this.playerQueue=this.playerQueue.filter(x=>x.videoId!=null);
-            })
-        }
-        else{
-          this.playerQueue=this.defplayerQueue;
-        }
-    }
+  }
 
+  ngAfterViewInit(){
+    if(sessionStorage.getItem('loggedIn') && sessionStorage.getItem('loggedIn')=='true'){
+      this.loggedInUser=sessionStorage.getItem('username')?sessionStorage.getItem('username'):'Guest';
+      if(this.loggedInUser!='Guest'){
+        let usernm=this.loggedInUser.substring(1,this.loggedInUser.length-1);
+        this.musicDataFetcher.getAllSongs(usernm).subscribe((songList)=>{
+          this.playerQueue=songList;
+          this.playerQueue=this.playerQueue.filter(x=>x.videoId!=null);
+          });
+          this.playrComp.queueInitializer();
+      }
+      else{
+        this.playerQueue=this.defplayerQueue;
+      }
+  }
   }
 
   onScreensizeChange(scrSz:screenSize){

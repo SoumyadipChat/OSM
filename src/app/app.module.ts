@@ -11,12 +11,15 @@ import { MusicPlayerComponent } from './music-player/music-player.component';
 import { ButtonsComponent } from './buttons/buttons.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatFormFieldModule,MatInputModule,MatButtonModule, MatIconModule} from '@angular/material';
+import {MatFormFieldModule,MatInputModule,MatButtonModule, MatIconModule, MatDialogModule, MatRadioModule} from '@angular/material';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {TextFieldModule} from '@angular/cdk/text-field';
 import {DragDropModule } from '@angular/cdk/drag-drop'
 import { HttpClientModule } from '@angular/common/http';
 import { LauncherComponent } from './launcher/launcher.component';
+import { YouTubeSearchService } from './services/youtube-search.service';
+import { YouTubeServiceInjectables } from './services/youtube-search.injectables';
+import { ModalCompComponent } from './modal-comp/modal-comp.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +32,7 @@ import { LauncherComponent } from './launcher/launcher.component';
     ButtonsComponent,
     SignUpComponent,
     LauncherComponent,
+    ModalCompComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,9 +48,12 @@ import { LauncherComponent } from './launcher/launcher.component';
     HttpClientModule,
     TextFieldModule,
     MatIconModule,
-    DragDropModule
+    DragDropModule,
+    MatDialogModule,
+    MatRadioModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [YouTubeSearchService, YouTubeServiceInjectables],
+  bootstrap: [AppComponent],
+  entryComponents:[ModalCompComponent]
 })
 export class AppModule { }

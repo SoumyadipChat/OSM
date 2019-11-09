@@ -11,13 +11,12 @@ export class PlayerComponent implements OnInit{
   
   screenSt;
   
-  @Input() playerQueue:Array<videoElem>;
+  @Input() playerQueue:Array<videoElem>=[];
   @Input() currentIndex;
 
   @Output() onIndexChange:EventEmitter<any>=new EventEmitter();
 
   OnIndChanges(){
-      console.log(this.currentIndex);
       this.onIndexChange.emit(this.currentIndex);
   }
   
@@ -31,6 +30,8 @@ export class PlayerComponent implements OnInit{
   showYoutube:boolean=false;
   paused:boolean=true;
   repeatOn:boolean=false;
+  isMinimized:boolean=false;
+  queInitilized:boolean=false;
 
 
   constructor(private screenState:screenSizeState) { }
@@ -39,11 +40,22 @@ export class PlayerComponent implements OnInit{
     this.screenState.screenSize.subscribe(scrSz=>{
         this.screenSt=scrSz;
     });
+    window.addEventListener('visibilitychange', this.myPageHideListenerFunc, false);
+  }
+
+  myPageHideListenerFunc($event){
+    this.isMinimized=!this.isMinimized;
+    if(!this.paused && this.isMinimized){
+      this.player.playVideo();
+    }
   }
 
 
+  
+
   @HostListener('window:resize', ['$event'])
   onResize(event) {
+    
     this.videoHgt=this.outpt.nativeElement.offsetHeight;
     this.videoWdt=this.outpt.nativeElement.offsetWidth;
     this.player.setSize(this.videoWdt,this.videoHgt);
@@ -55,18 +67,24 @@ export class PlayerComponent implements OnInit{
     this.videoHgt=this.outpt.nativeElement.offsetHeight;
     this.videoWdt=this.outpt.nativeElement.offsetWidth;
     this.player.setSize(this.videoWdt,this.videoHgt);
-     if(this.playerQueue.length==0){
-       this.currentIndex=-1;
-       this.OnIndChanges();
-    }
-    else{
-      console.log("load1");
-      this.currentIndex=0;
-      this.OnIndChanges();
-      this.player.loadVideoById(this.playerQueue[0].videoId);
-      this.pause();
-    }
+    let timer=this.queInitilized?0:2000;
+      setTimeout(()=>{
+        if(this.playerQueue.length==0){
+          this.currentIndex=-1;
+          this.OnIndChanges();
+      }
+      else{
+        this.currentIndex=0;
+        this.OnIndChanges();
+        this.player.loadVideoById(this.playerQueue[0].videoId);
+        this.pause();
+      }
+      },timer);
     
+    }
+
+    queueInitializer(){
+      this.queInitilized=true;
     }
 
     
@@ -79,12 +97,11 @@ export class PlayerComponent implements OnInit{
 
 
     play(){
-      console.log(this.player.getPlayerState);
+      //console.log(this.player.getPlayerState);
       if(this.playerQueue.length==0){
         return;
       }
       if(this.currentIndex==-1){
-        console.log("load2");
         this.player.loadVideoById(this.playerQueue[0].videoId);
         this.currentIndex=0;
         this.OnIndChanges();
@@ -130,13 +147,10 @@ export class PlayerComponent implements OnInit{
       }
     }
   onStateChange(event){
-    console.log('player state', event);
+    //console.log('player state', event);
     if(event.data==0){
       this.next();
     }
-    // if(event.data==2 && !this.paused){
-    //   this.play();
-    // }
   }
 
 }

@@ -64,6 +64,10 @@ export class AppComponent implements OnInit{
         'repeatOn',
         sanitizer.bypassSecurityTrustResourceUrl('assets/icons/repeatact.svg')
       );
+      iconRegistry.addSvgIcon(
+        'search',
+        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/search.svg')
+      );
   }
 
   ngOnInit(){
@@ -75,6 +79,7 @@ export class AppComponent implements OnInit{
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
+  
       this.screenState.updatedScreenSize(window.innerWidth,window.innerHeight,this.checkIfMobile(window.innerWidth,window.innerHeight));
   }
 

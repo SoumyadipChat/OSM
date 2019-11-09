@@ -3,12 +3,15 @@ import { videoElem } from '../music-player/music-player.component';
 import { screenSizeState, screenSize } from '../services/screen-size.service';
 import { MusicDataFetcher } from '../services/musicDataFetcher.service';
 import { DataFetcher } from '../services/DataFetcher.service';
+import { YouTubeSearchService } from '../services/youtube-search.service';
+import { MatDialog } from '@angular/material';
+import { ModalCompComponent } from '../modal-comp/modal-comp.component';
 
 @Component({
   selector: 'app-music-add',
   templateUrl: './music-add.component.html',
   styleUrls: ['./music-add.component.scss'],
-  providers:[MusicDataFetcher,DataFetcher]
+  providers:[MusicDataFetcher,DataFetcher,YouTubeSearchService]
 })
 export class MusicAddComponent implements OnInit{
 
@@ -20,11 +23,27 @@ export class MusicAddComponent implements OnInit{
   
   @Output() onAdd:EventEmitter<videoElem>=new EventEmitter();
 
-  constructor(private screenState:screenSizeState,private musicDataFetcher:MusicDataFetcher) { }
+  constructor(public dialog: MatDialog,private screenState:screenSizeState,private musicDataFetcher:MusicDataFetcher) { }
   
   ngOnInit() {
     this.screenState.screenSize.subscribe(scrSz=>{
         this.screenSt=scrSz;
+    });
+  }
+
+  openDialog(){
+    const dialogRef = this.dialog.open(ModalCompComponent, {
+      width: '500px',
+      data: { id:'',
+        title:'xyz',
+        search:'aaaa',
+        type:1
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result);
     });
   }
 

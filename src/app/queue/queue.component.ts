@@ -21,7 +21,7 @@ export class QueueComponent implements OnInit {
   touchtime=0;
 
   OnIndChanges(){
-      console.log(this.currentIndex);
+      //console.log(this.currentIndex);
       this.onIndexChange.emit(this.currentIndex);
   }
 
@@ -47,7 +47,6 @@ export class QueueComponent implements OnInit {
   }
 
   remSong(index){
-    console.log(this.playerQueue[index]);
     if(sessionStorage.getItem('loggedIn') && sessionStorage.getItem('loggedIn')=='true'){
       let user=sessionStorage.getItem('username')?sessionStorage.getItem('username'):'Guest';
       if(user!='Guest'){

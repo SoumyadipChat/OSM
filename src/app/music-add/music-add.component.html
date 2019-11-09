@@ -1,31 +1,15 @@
 
     <div class="adder" >
-        <div class="box" [ngClass]="{'isMobile':screenSt.isMobile}">
-                <div class="adderinputField">
-                        <mat-form-field color="accent">
-                                <input matInput 
-                                [(ngModel)]="url" 
-                                placeholder="Youtube URL"
-                                (ngModelChange)="onURLChange($event)"
-                                autocomplete="off"
-                                >
-                        </mat-form-field>
-                        <mat-error *ngIf="invalidURL">URL is invalid</mat-error>
-                </div>
-                <div class="adderinputField bottomFIeld">
-                        <div class="bottom">
-                                <mat-form-field color="accent">
-                                        <input matInput 
-                                        placeholder="Title"
-                                        [(ngModel)]="title"
-                                        (ngModelChange)="onTitleChange($event)"
-                                        >
-                                </mat-form-field>
-                                <mat-error *ngIf="invalidTitle">Title cant be empty</mat-error>
+        <div class="box">
+                <div class="boxItems" [ngClass]="{'horizontal':!screenSt.isMobile}">
+                        <input class="inputBox"  type="text" placeholder="Search / Add by url" />
+                        <div class="buttons">
+                                <mat-icon role="button" (click)="openDialog()" class="icons" svgIcon="add" aria-hidden="false" ></mat-icon>
+                                <mat-icon role="button" (click)="openDialog()" class="icons" svgIcon="search" aria-hidden="false" ></mat-icon>
                         </div>
-                        <mat-icon role="button" (click)="addValue()" class="icons" svgIcon="add" aria-hidden="false" ></mat-icon>
+                        
                 </div>
-               
+         
         </div>
     </div>
 
