@@ -47,10 +47,12 @@ export class MusicAddComponent implements OnInit{
       }
     });
 
-    dialogRef.afterClosed().subscribe((result:Result) => {
+    dialogRef.afterClosed().subscribe((results) => {
       //console.log('The dialog was closed');
-      if(result){
+      if(results && results.length>0){
+        for(let result of results){
         this.addValue(result.id,result.title,result.thumbnailUrl);
+        }
       }
     });
   }

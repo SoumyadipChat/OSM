@@ -12,6 +12,23 @@
         transform: translateY(-50%);
         border-radius: 5px;
     }
+    .initText{
+        height: 100%;
+        
+        position: relative;
+        .textIn{
+        font-size: 250%;
+        font-family: 'Cookie', cursive;
+        width: 100%;
+        height: 98%;
+        position: absolute;
+        top: 90%;
+        transform: translateY(-50%);
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        }
+    }
 
     .repeatButton{
         height: 70px;
@@ -43,13 +60,19 @@
         left: 50%;
         margin: -40px 0 0 -80px;
         position: absolute;
-        top: 50%;
+        top: 45%;
         width: 160px;
         .icons{
             height: 150%;
             width: auto;
             flex-grow: 1;
             margin: -10px 0 0 0;
+        }
+    }
+
+    @media(max-width:400px){
+        .bars{
+            top:45%;
         }
     }
 
@@ -100,12 +123,18 @@
         width: 100%;
         height: 16%;
        position: absolute;
-        top: 85%;
+        top: 88%;
         transform: translateY(-50%);
         z-index: 999;
         display: flex;
         justify-content: space-around;
     }
+
+    .expanded.utubeIcon{
+        height: 35%;
+        top: 82%;
+    }
+
     .utubeTitle{
         width: 100%;
         height: 12%;
@@ -122,9 +151,119 @@
             
         }
     }
+    .ellFullTime{
+        width: 86%;
+        height: 12%;
+        position: absolute;
+        top: 75%;
+        left: 7%;
+        transform: translateY(-50%);
+        z-index: 999;
+        display: flex;
+        justify-content: space-between;
+        font-size: 80%;
+        padding-top: 2%;
+    }
+
+    .expanded.ellFullTime{
+        top: 50%;
+    }
+
+    .expanded.sliderPart{
+        height: 20%;
+        top:50%
+    }
+    
+    .sliderPart{
+        width: 90%;
+        height: 12%;
+        position: absolute;
+        top: 73%;
+        left: 5%;
+        transform: translateY(-50%);
+        z-index: 999;
+        display: flex;
+        justify-content: flex-start;
+        font-size: 150%;
+        .slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 4px;
+            border-radius: 4px;
+            background: #666;
+            outline: none;
+            opacity: 0.7;
+            -webkit-transition: .2s;
+            transition: opacity .2s;
+          }
+          
+          .slider:hover {
+            opacity: 1;
+          }
+          
+          .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 10px;
+            height: 10px;
+            border-radius: 7px;
+            background: #4CAF50;
+            cursor: pointer;
+          }
+          
+          .slider::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            background: #4CAF50;
+            cursor: pointer;
+          }
+    }
+
+    .expanded.utubeTitle{
+        height: 40%;
+        top: 27%;
+    }
+    @media(max-width:400px){
+        .utubeTitle{
+            font-size: 100%;
+        }
+    }
+
+    @media(max-width:400px){
+        .ellFullTime{
+            font-size: 60%;
+        }
+    }
+
     .icons{
         height: 100%;
         flex-grow: 1;
     }
+
+    .expanded .icons{
+        height: 80%;
+    }
     
 }
+
+.loader {
+    width: 30px;
+    height: 30px;
+    border: 8px solid rgba(0,0,0,0.8);
+    border-radius: 50%;
+    border-top: 8px solid #00968775;
+   -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+  }
+
+  @-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+ 

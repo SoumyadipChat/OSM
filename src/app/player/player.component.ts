@@ -1,6 +1,8 @@
 import { Component, OnInit, HostListener, ViewChild, ElementRef, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import { videoElem } from '../music-player/music-player.component';
 import { screenSizeState } from '../services/screen-size.service';
+import { Observable, interval } from 'rxjs';
+
 
 @Component({
   selector: 'app-player',
@@ -10,9 +12,16 @@ import { screenSizeState } from '../services/screen-size.service';
 export class PlayerComponent implements OnInit{
   
   screenSt;
+  initializing:boolean=true;
   
   @Input() playerQueue:Array<videoElem>=[];
   @Input() currentIndex;
+  @Input() queExpanded;
+
+  elapsedTime=0;
+  songTime=300;
+  
+  sub;
 
   @Output() onIndexChange:EventEmitter<any>=new EventEmitter();
 
@@ -60,6 +69,13 @@ export class PlayerComponent implements OnInit{
     this.videoWdt=this.outpt.nativeElement.offsetWidth;
     this.player.setSize(this.videoWdt,this.videoHgt);
    }
+
+   onSLiderChange(){
+     this.player.pauseVideo();
+     console.log(this.elapsedTime);
+     this.player.seekTo(this.elapsedTime,true);
+     this.player.playVideo();
+   }
   
  
     savePlayer (player) {
@@ -68,6 +84,13 @@ export class PlayerComponent implements OnInit{
     this.videoWdt=this.outpt.nativeElement.offsetWidth;
     this.player.setSize(this.videoWdt,this.videoHgt);
     let timer=2000;
+    this.sub = interval(1000)
+    .subscribe((val) => {
+      this.elapsedTime=this.player.getCurrentTime();
+      this.songTime=this.player.getDuration();
+      console.log('called');
+    });
+    this.initializing=true;
       setTimeout(()=>{
         if(this.playerQueue.length==0){
           this.currentIndex=-1;
@@ -79,6 +102,7 @@ export class PlayerComponent implements OnInit{
         this.player.loadVideoById(this.playerQueue[0].videoId);
         this.pause();
       }
+      this.initializing=false
       },timer);
     
     }

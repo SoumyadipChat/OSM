@@ -3,6 +3,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { MusicDataFetcher } from '../services/musicDataFetcher.service';
 import { DataFetcher } from '../services/DataFetcher.service';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
+import { screenSizeState } from '../services/screen-size.service';
 
 export interface DialogData {
   title: string;
@@ -21,8 +22,12 @@ export class QueueComponent implements OnInit {
   @Input() playerQueue;
   @Input() currentIndex;
 
+  expanded=false;
+  showExpand=true;
+
   @Output() onIndexChange:EventEmitter<any>=new EventEmitter();
   @Output() onDoubleClic:EventEmitter<number>=new EventEmitter();
+  @Output() onExpCollapse:EventEmitter<boolean>=new EventEmitter();
 
   touchtime=0;
 
@@ -31,9 +36,24 @@ export class QueueComponent implements OnInit {
       this.onIndexChange.emit(this.currentIndex);
   }
 
-  constructor(private musicDataFetcher:MusicDataFetcher,public dialog: MatDialog) { }
+  constructor(private musicDataFetcher:MusicDataFetcher,public dialog: MatDialog,private screenState:screenSizeState) { }
 
   ngOnInit() {
+    this.screenState.screenSize.subscribe(screen=>{
+      if(!screen.isMobile){
+          this.expanded=true;
+          this.showExpand=false;
+          this.onExpandCollapse();
+      }
+      else{
+        this.showExpand=true;
+      }
+     })
+  }
+
+  onExpandCollapse(){
+      this.expanded=!this.expanded;
+      this.onExpCollapse.emit(this.expanded);
   }
 
   drop(event: CdkDragDrop<string[]>) {
@@ -70,6 +90,10 @@ export class QueueComponent implements OnInit {
               console.log(data);
             });
           }
+        }
+        if(index<this.currentIndex){
+          this.currentIndex--;
+          this.OnIndChanges();
         }
         this.playerQueue.splice(index,1);
       }

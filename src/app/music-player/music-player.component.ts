@@ -31,6 +31,8 @@ export class MusicPlayerComponent implements OnInit,AfterViewInit {
 
   adderToggleShow;
   adderShow;
+  expanded=false;
+  lastScreenSz;
 
   mobileDimset=false;
 
@@ -74,10 +76,10 @@ export class MusicPlayerComponent implements OnInit,AfterViewInit {
   ngAfterViewInit(){
     
     this.screenState.screenSize.subscribe(screen=>{
-      this.onScreensizeChange(screen)
+      this.onScreensizeChange(screen,(screen.isMobile&&this.expanded))
      })
-    if(sessionStorage.getItem('loggedIn') && sessionStorage.getItem('loggedIn')=='true'){
-      this.loggedInUser=sessionStorage.getItem('username')?sessionStorage.getItem('username'):'Guest';
+    if(sessionStorage.getItem('loggedIn')){
+      this.loggedInUser=(sessionStorage.getItem('loggedIn')=='true' && sessionStorage.getItem('username'))?sessionStorage.getItem('username'):'Guest';
       if(this.loggedInUser!='Guest'){
         let usernm=this.loggedInUser.substring(1,this.loggedInUser.length-1);
         this.musicDataFetcher.getAllSongs(usernm).subscribe((songList)=>{
@@ -92,7 +94,16 @@ export class MusicPlayerComponent implements OnInit,AfterViewInit {
   }
   }
 
-  onScreensizeChange(scrSz:screenSize){
+  onExpCollapse(value){
+      this.expanded=value;
+      //this.leftStyle=this.styleSetter.leftStyleSetter(this.lastScreenSz,value);
+      //this.rightStyle=this.styleSetter.rightStyleSetter(this.lastScreenSz,value);
+      this.onScreensizeChange(this.lastScreenSz,value);
+      
+  }
+
+  onScreensizeChange(scrSz:screenSize,expanded?:boolean){
+    this.lastScreenSz=scrSz
     if(this.addrComp && this.addrComp.inputFocused==true){
       return;
     }
@@ -100,10 +111,11 @@ export class MusicPlayerComponent implements OnInit,AfterViewInit {
       this.adderShow=!scrSz.isMobile;
       this.headerBarStyle=this.styleSetter.headerStyleSetter(scrSz);
       this.musicPlayerStyle=this.styleSetter.bodyStyleSetter(scrSz);
-      this.leftStyle=this.styleSetter.leftStyleSetter(scrSz);
-      this.rightStyle=this.styleSetter.rightStyleSetter(scrSz);
-      this.playerStyle=this.styleSetter.playerStyleSetter(scrSz);
+      this.leftStyle=expanded?this.styleSetter.leftStyleSetter(scrSz,expanded):this.styleSetter.leftStyleSetter(scrSz);
+      this.rightStyle=expanded?this.styleSetter.rightStyleSetter(scrSz,expanded):this.styleSetter.rightStyleSetter(scrSz);
+      this.playerStyle=expanded?this.styleSetter.playerStyleSetter(scrSz,expanded):this.styleSetter.playerStyleSetter(scrSz);
       this.adderStyle=this.styleSetter.adderStyleSetter(scrSz);
+     
    }
 
    addVideo(video){

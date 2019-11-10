@@ -1,4 +1,4 @@
-
+   
     <div class="queue" >
         <!-- <div cdkDropList class="box" (cdkDropListDropped)="drop($event)" >
             <div *ngFor="let song of playerQueue;let in = index" class="queElements" cdkDrag >
@@ -13,7 +13,12 @@
                 
             </div>
         </div> -->
+        
         <div cdkDropList class="box example-list" (cdkDropListDropped)="drop($event)">
+                <div class="queueHeader">
+                        <div class="playlist">Queue</div>
+                        <div role="button" [hidden]="!showExpand" (click)="onExpandCollapse()" class="expand">Expand all</div>
+                    </div>
                 <div class="example-box" role="button"  *ngFor="let song of playerQueue;let in = index" (click)="playSong(in)" [ngClass]="{'current':in==currentIndex}" cdkDrag>
                                 <div class="thumbNail">
                                     <img [src]="song.thumbnail">

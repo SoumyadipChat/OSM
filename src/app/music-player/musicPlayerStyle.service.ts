@@ -43,7 +43,14 @@ export class musicStyleService{
         }
     }
 
-    leftStyleSetter(scrSz:screenSize){
+    leftStyleSetter(scrSz:screenSize,expanded?:boolean){
+        if(expanded){
+            return {
+                'width':  (scrSz.width-3)+'px',
+                'height': 6*(scrSz.width-3)/16+'px',
+                'background-color':'rgba(0,0,0,0.0)',
+                }
+        }
         if(scrSz.isMobile){
             return {
                 'width':  (scrSz.width-3)+'px',
@@ -60,7 +67,14 @@ export class musicStyleService{
         }
     }
 
-    rightStyleSetter(scrSz:screenSize){
+    rightStyleSetter(scrSz:screenSize,expanded?:boolean){
+        if(expanded){
+            return {
+                'width':  (scrSz.width-3)+'px',
+                'height': 0.97*(scrSz.height-3)-5*(scrSz.width-3)/16+'px',
+                'background-color':'rgba(0,0,0,0.0)',
+                }
+        }
         if(scrSz.isMobile){
             return {
                 'width':  (scrSz.width-3)+'px',
@@ -77,7 +91,14 @@ export class musicStyleService{
         }
     }
 
-    playerStyleSetter(scrSz:screenSize){
+    playerStyleSetter(scrSz:screenSize,expanded?:boolean){
+        if(expanded){
+            return {
+                'width':  (scrSz.width-3)+'px',
+                'height': 6*(scrSz.width-3)/16+'px',
+                'background-color':'rgba(0,0,0,0)',
+                }
+        }
         if(scrSz.isMobile){
             return {
                 'width':  (scrSz.width-3)+'px',

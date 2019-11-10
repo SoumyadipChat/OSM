@@ -4,5 +4,8 @@
     </div>
     <div class="userName">
        Welcome, {{username}}
+       <div [hidden]="username=='Guest'" class="logOut">
+          <div role="button" class="lgotext" (click)="onLogout()">Logout</div> 
+       </div>
     </div>
 </div>

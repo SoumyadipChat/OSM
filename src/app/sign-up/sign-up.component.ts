@@ -162,6 +162,7 @@ export class SignUpComponent implements OnInit,AfterViewInit {
   }
 
   openMusicGuest(){
+    sessionStorage.setItem('loggedIn','false');
     this.router.navigateByUrl("/music");
   }
 

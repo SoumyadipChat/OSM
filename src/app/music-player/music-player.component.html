@@ -4,13 +4,13 @@
 <div [ngStyle]="musicPlayerStyle">
     <div [ngStyle]="leftStyle">
         <div [ngStyle]="playerStyle">
-            <app-player [playerQueue]="playerQueue" [currentIndex]="currentIndex" (onIndexChange)="currentIndex=$event" ></app-player>
+            <app-player [queExpanded]="expanded" [playerQueue]="playerQueue" [currentIndex]="currentIndex" (onIndexChange)="currentIndex=$event" ></app-player>
         </div>
-        <div [ngStyle]="adderStyle">
-            <app-music-add (onAdd)="addVideo($event)"></app-music-add>
+        <div [hidden]="expanded" [ngStyle]="adderStyle">
+            <app-music-add  (onAdd)="addVideo($event)"></app-music-add>
         </div>
     </div>
     <div [ngStyle]="rightStyle">
-        <app-queue [playerQueue]="playerQueue" [currentIndex]="currentIndex" (onIndexChange)="currentIndex=$event" (onDoubleClic)="playSong($event)"></app-queue>
+        <app-queue [playerQueue]="playerQueue" (onExpCollapse)="onExpCollapse($event)" [currentIndex]="currentIndex" (onIndexChange)="currentIndex=$event" (onDoubleClic)="playSong($event)"></app-queue>
     </div>
 </div>

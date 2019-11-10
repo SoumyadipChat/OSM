@@ -18,14 +18,25 @@
     font-size: 150%;    
 }
 .userName{
-    right: 5%;
+    right: 2%;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     font-family: 'Cookie', cursive;
     font-size: 150%;
+    display: flex;
 }
 
 .isMobile .appName,.isMobile .userName{
     font-size: 110%;
+}
+
+.logOut{
+    padding-left: 10px;
+    font-family:'Ubuntu', sans-serif;
+    font-size: 60%;
+    transform: translateY(20%);
+    .lgotext{
+        color: #69F0AE;
+    }
 }

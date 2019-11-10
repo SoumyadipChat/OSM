@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Hi {{data}}</h1>
+<div mat-dialog-content>
+  <p>Are you sure you want to exit?</p>
+</div>
+<div mat-dialog-actions style="display: flex;justify-content: flex-end;">
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button mat-dialog-close="logout" cdkFocusInitial>Proceed</button>
+</div>
