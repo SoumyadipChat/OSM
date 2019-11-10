@@ -46,10 +46,13 @@ export class SignUpComponent implements OnInit,AfterViewInit {
   invalidUsername:boolean=true;
   invalidOtp:boolean=true;
 
+  inputFocused=false;
+
   allUsername;
   allEmail;
 
   loginError:boolean=false;
+  showLoginText:boolean=false;
   loginErrorMsg='';
 
   
@@ -99,6 +102,9 @@ export class SignUpComponent implements OnInit,AfterViewInit {
   }
 
   onScreensizeChange(scrSz:screenSize){
+    if(this.inputFocused){
+      return;
+    }
     this.loginStyle=this.styleSetter.loginStyleSetter(scrSz);
     this.logoStyle=this.styleSetter.logoStyleSetter(scrSz);
     this.abbrLogoStyle=this.styleSetter.abbrLogoStyler(scrSz);
@@ -185,19 +191,24 @@ export class SignUpComponent implements OnInit,AfterViewInit {
   }
 
   checkPasswordLogin(){
+    this.showLoginText=true;
     this.dataFetcher.checkPassword({username:this.username,password:this.pwd}).subscribe(data=>{
         if(data==1){
             this.dataFetcher.getUser(this.username).subscribe((user)=>{
               sessionStorage.setItem('loggedIn','true');
               console.log(user);
               sessionStorage.setItem('username',JSON.stringify(user));
+              this.showLoginText=false;
             this.router.navigateByUrl("/music");
             })
         }
         else if(data==0){
+          this.showLoginText=false;
           this.showLoginError("Error validating Password")
+          
         }
         else{
+          this.showLoginText=false;
           this.showLoginError("Incorrect Password.Try Again")
         }
     });

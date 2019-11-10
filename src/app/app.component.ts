@@ -84,7 +84,7 @@ export class AppComponent implements OnInit{
   }
 
   checkIfMobile(wdt:number,hgt:number){
-    return (wdt/hgt)<=1;
+    return (wdt/hgt)<=1.3;
   }
 
   onScreensizeChange(scrSz:screenSize){

@@ -26,6 +26,7 @@
                 <div class="loginputField">
                         <mat-form-field color="accent">
                                 <input matInput 
+                                (focus)="inputFocused=true" (blur)="inputFocused=false"
                                 #first
                                 [(ngModel)]="username" 
                                 placeholder="Username/Email"
@@ -38,7 +39,8 @@
                 </div>
                 <div class="loginputField">
                         <mat-form-field color="accent">
-                                <input matInput 
+                                <input matInput
+                                (focus)="inputFocused=true" (blur)="inputFocused=false" 
                                 placeholder="Password"
                                 [(ngModel)]="pwd"
                                 (ngModelChange)="onPwdChange($event)"
@@ -48,6 +50,7 @@
                                 </button>
                         </mat-form-field>
                         <mat-error *ngIf="invalidPassword">Password must have 6-20 characters</mat-error>
+                       
                 </div>
                 <div class="loginButton">
                     <div class="buttons">
@@ -66,6 +69,7 @@
                     </button>
                     </div>
                     <mat-error *ngIf="loginError">{{loginErrorMsg}}</mat-error>
+                    <mat-error *ngIf="showLoginText" style="color: antiquewhite;">Logging in....</mat-error>
                 </div>
                 
 
@@ -74,6 +78,7 @@
                 <div class="reginputField">
                         <mat-form-field color="accent">
                                 <input matInput
+                                (focus)="inputFocused=true" (blur)="inputFocused=false"
                                 [(ngModel)]="username" 
                                 placeholder="Username"
                                 (ngModelChange)="onUsernameChange($event)">
@@ -83,6 +88,7 @@
                 <div class="reginputField">
                         <mat-form-field color="accent">
                                 <input matInput
+                                (focus)="inputFocused=true" (blur)="inputFocused=false"
                                 [(ngModel)]="eml" 
                                 placeholder="Email ID"
                                 (ngModelChange)="onEmailChange($event)"
@@ -93,6 +99,7 @@
                 <div class="reginputField">
                         <mat-form-field color="accent">
                                 <input matInput
+                                (focus)="inputFocused=true" (blur)="inputFocused=false"
                                 [(ngModel)]="pwd"  
                                 placeholder="Password"
                                 (ngModelChange)="onPwdChange($event)"
@@ -107,6 +114,7 @@
                 <div class="reginputField">
                         <mat-form-field color="accent">
                                 <input matInput
+                                (focus)="inputFocused=true" (blur)="inputFocused=false"
                                 [disabled]="!otpSentOnce" 
                                 [(ngModel)]="otp"
                                 (ngModelChange)="onOTPChange($event)" 

@@ -21,6 +21,8 @@ export class MusicAddComponent implements OnInit{
   invalidURL:boolean=true;
   invalidTitle:boolean=true;
   screenSt:screenSize;
+
+  inputFocused=false;
   
   @Output() onAdd:EventEmitter<videoElem>=new EventEmitter();
 

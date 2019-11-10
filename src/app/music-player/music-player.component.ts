@@ -4,6 +4,7 @@ import { musicStyleService } from './musicPlayerStyle.service';
 import { MusicDataFetcher } from '../services/musicDataFetcher.service';
 import { DataFetcher } from '../services/DataFetcher.service';
 import { PlayerComponent } from '../player/player.component';
+import { MusicAddComponent } from '../music-add/music-add.component';
 
 export interface videoElem{
   videoId:string,
@@ -31,9 +32,13 @@ export class MusicPlayerComponent implements OnInit,AfterViewInit {
   adderToggleShow;
   adderShow;
 
+  mobileDimset=false;
+
   loggedInUser:string;
 
   @ViewChild(PlayerComponent,{read: PlayerComponent,static:false}) playrComp:PlayerComponent;
+
+  @ViewChild(MusicAddComponent,{read: MusicAddComponent,static:false}) addrComp:MusicAddComponent;
 
   defplayerQueue=[
     {
@@ -64,12 +69,13 @@ export class MusicPlayerComponent implements OnInit,AfterViewInit {
 
   ngOnInit() {
     
-    this.screenState.screenSize.subscribe(screen=>{
-        this.onScreensizeChange(screen)
-    })
   }
 
   ngAfterViewInit(){
+    
+    this.screenState.screenSize.subscribe(screen=>{
+      this.onScreensizeChange(screen)
+     })
     if(sessionStorage.getItem('loggedIn') && sessionStorage.getItem('loggedIn')=='true'){
       this.loggedInUser=sessionStorage.getItem('username')?sessionStorage.getItem('username'):'Guest';
       if(this.loggedInUser!='Guest'){
@@ -87,7 +93,10 @@ export class MusicPlayerComponent implements OnInit,AfterViewInit {
   }
 
   onScreensizeChange(scrSz:screenSize){
-      this.adderToggleShow=scrSz.isMobile;
+    if(this.addrComp && this.addrComp.inputFocused==true){
+      return;
+    }
+     this.adderToggleShow=scrSz.isMobile;
       this.adderShow=!scrSz.isMobile;
       this.headerBarStyle=this.styleSetter.headerStyleSetter(scrSz);
       this.musicPlayerStyle=this.styleSetter.bodyStyleSetter(scrSz);
