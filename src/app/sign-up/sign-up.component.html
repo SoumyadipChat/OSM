@@ -1,142 +1,146 @@
-<div [ngStyle]="logoStyle" class="LogoContainer">
-        <div [ngStyle]="abbrLogoStyle" class="abbrLogo">OSM</div>
-        <div class="fullLogo">One.Stop.Music</div>
+<div class="setBackground" [ngStyle]="loginContainer">
+        <div [ngStyle]="logoStyle" class="LogoContainer">
+                <div [ngStyle]="abbrLogoStyle" class="abbrLogo">OSM</div>
+                <div class="fullLogo">One.Stop.Music</div>
+        </div>
+        
+        <div [ngStyle]="loginStyle">
+                <div class="loginTabs" [ngStyle]="tabTextStyle" >
+                        <div 
+                        class="loginTab" 
+                        [ngClass]="{'activeTab':loginSelected}"
+                        role="button"
+                        (click)="loginClicked()"
+                        [ngStyle]="tabTextAlignStyle">
+                        LOGIN
+                    </div>
+                    <div 
+                        class="loginTab" 
+                        [ngClass]="{'activeTab':regSelected}"
+                        role="button"
+                        (click)="registerClicked()"
+                        [ngStyle]="tabTextAlignStyle">
+                        REGISTER
+                    </div>
+                </div>
+                <div [hidden]="regSelected" class="loginFormSection" [ngStyle]="inputTextStyle">
+                        <div class="loginputField">
+                                <mat-form-field color="accent">
+                                        <input matInput 
+                                        (focus)="inputFocused=true" (blur)="inputFocused=false"
+                                        #first
+                                        [(ngModel)]="username" 
+                                        placeholder="Username/Email"
+                                        (ngModelChange)="onLoginUsernameChange($event)"
+                                        (cdkAutofill)="onLoginAutofilled($event)"
+                                        
+                                        >
+                                </mat-form-field>
+                                <mat-error *ngIf="invalidUsername">{{errorUserMsg}}</mat-error>
+                        </div>
+                        <div class="loginputField">
+                                <mat-form-field color="accent">
+                                        <input matInput
+                                        (focus)="inputFocused=true" (blur)="inputFocused=false" 
+                                        placeholder="Password"
+                                        [(ngModel)]="pwd"
+                                        (ngModelChange)="onPwdChange($event)"
+                                        [type]="hidePwd ? 'password' : 'text'">
+                                        <button mat-icon-button matSuffix (click)="hidePwd = !hidePwd" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                                <mat-icon>{{hidePwd ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                        </button>
+                                </mat-form-field>
+                                <mat-error *ngIf="invalidPassword">Password must have 6-20 characters</mat-error>
+                               
+                        </div>
+                        <div class="loginButton">
+                            <div class="buttons">
+                                <button 
+                                [ngStyle]="inputTextStyle"
+                                [disabled]="invalidPassword || invalidUsername"
+                                (click)="checkPasswordLogin()" 
+                                mat-raised-button>
+                                Login
+                            </button>
+                            <button 
+                                [ngStyle]="inputTextStyle" 
+                                mat-raised-button
+                                (click)="openMusicGuest()">
+                                Guest Login
+                            </button>
+                            </div>
+                            <mat-error *ngIf="loginError">{{loginErrorMsg}}</mat-error>
+                            <mat-error *ngIf="showLoginText" style="color: antiquewhite;">Logging in....</mat-error>
+                        </div>
+                        
+        
+                </div>
+                <div [hidden]="loginSelected" class="regFormSection" [ngStyle]="inputTextStyle">
+                        <div class="reginputField">
+                                <mat-form-field color="accent">
+                                        <input matInput
+                                        (focus)="inputFocused=true" (blur)="inputFocused=false"
+                                        [(ngModel)]="username" 
+                                        placeholder="Username"
+                                        (ngModelChange)="onUsernameChange($event)">
+                                </mat-form-field>
+                                <mat-error *ngIf="invalidUsername">{{errorUserMsg}}</mat-error>
+                        </div>
+                        <div class="reginputField">
+                                <mat-form-field color="accent">
+                                        <input matInput
+                                        (focus)="inputFocused=true" (blur)="inputFocused=false"
+                                        [(ngModel)]="eml" 
+                                        placeholder="Email ID"
+                                        (ngModelChange)="onEmailChange($event)"
+                                       >
+                                </mat-form-field>
+                                <mat-error *ngIf="invalidEmail">{{errorEmailMsg}}</mat-error>
+                        </div>
+                        <div class="reginputField">
+                                <mat-form-field color="accent">
+                                        <input matInput
+                                        (focus)="inputFocused=true" (blur)="inputFocused=false"
+                                        [(ngModel)]="pwd"  
+                                        placeholder="Password"
+                                        (ngModelChange)="onPwdChange($event)"
+                                        [type]="hidePwd ? 'password' : 'text'"
+                                       >
+                                       <button mat-icon-button matSuffix (click)="hidePwd = !hidePwd" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                                 <mat-icon>{{hidePwd ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                        </button>
+                                </mat-form-field>
+                                <mat-error *ngIf="invalidPassword">Password must have 6-20 characters</mat-error>
+                        </div>
+                        <div class="reginputField">
+                                <mat-form-field color="accent">
+                                        <input matInput
+                                        (focus)="inputFocused=true" (blur)="inputFocused=false"
+                                        [disabled]="!otpSentOnce" 
+                                        [(ngModel)]="otp"
+                                        (ngModelChange)="onOTPChange($event)" 
+                                        placeholder="OTP">
+                                </mat-form-field>
+                                <mat-error *ngIf="otpSentOnce && invalidOtp">OTP doesn't match</mat-error>
+                        </div>
+                        <div class="regButton">
+                            <button 
+                                [ngStyle]="inputTextStyle"
+                                [disabled]="invalidEmail || invalidPassword || invalidUsername" 
+                                mat-raised-button
+                                (click)="sendOTP()">
+                                {{otpSentOnce?'Resend OTP':'Send OTP'}}
+                            </button>
+                                <button 
+                                [ngStyle]="inputTextStyle"
+                                [disabled]="!otpSentOnce || invalidEmail || invalidPassword || invalidUsername" 
+                                (click)="registerUser()"
+                                mat-raised-button>Register</button>
+                        </div>
+        
+                </div>
+            </div>
 </div>
 
-<div [ngStyle]="loginStyle">
-        <div class="loginTabs" [ngStyle]="tabTextStyle" >
-                <div 
-                class="loginTab" 
-                [ngClass]="{'activeTab':loginSelected}"
-                role="button"
-                (click)="loginClicked()"
-                [ngStyle]="tabTextAlignStyle">
-                LOGIN
-            </div>
-            <div 
-                class="loginTab" 
-                [ngClass]="{'activeTab':regSelected}"
-                role="button"
-                (click)="registerClicked()"
-                [ngStyle]="tabTextAlignStyle">
-                REGISTER
-            </div>
-        </div>
-        <div [hidden]="regSelected" class="loginFormSection" [ngStyle]="inputTextStyle">
-                <div class="loginputField">
-                        <mat-form-field color="accent">
-                                <input matInput 
-                                (focus)="inputFocused=true" (blur)="inputFocused=false"
-                                #first
-                                [(ngModel)]="username" 
-                                placeholder="Username/Email"
-                                (ngModelChange)="onLoginUsernameChange($event)"
-                                (cdkAutofill)="onLoginAutofilled($event)"
-                                
-                                >
-                        </mat-form-field>
-                        <mat-error *ngIf="invalidUsername">{{errorUserMsg}}</mat-error>
-                </div>
-                <div class="loginputField">
-                        <mat-form-field color="accent">
-                                <input matInput
-                                (focus)="inputFocused=true" (blur)="inputFocused=false" 
-                                placeholder="Password"
-                                [(ngModel)]="pwd"
-                                (ngModelChange)="onPwdChange($event)"
-                                [type]="hidePwd ? 'password' : 'text'">
-                                <button mat-icon-button matSuffix (click)="hidePwd = !hidePwd" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                                        <mat-icon>{{hidePwd ? 'visibility_off' : 'visibility'}}</mat-icon>
-                                </button>
-                        </mat-form-field>
-                        <mat-error *ngIf="invalidPassword">Password must have 6-20 characters</mat-error>
-                       
-                </div>
-                <div class="loginButton">
-                    <div class="buttons">
-                        <button 
-                        [ngStyle]="inputTextStyle"
-                        [disabled]="invalidPassword || invalidUsername"
-                        (click)="checkPasswordLogin()" 
-                        mat-raised-button>
-                        Login
-                    </button>
-                    <button 
-                        [ngStyle]="inputTextStyle" 
-                        mat-raised-button
-                        (click)="openMusicGuest()">
-                        Guest Login
-                    </button>
-                    </div>
-                    <mat-error *ngIf="loginError">{{loginErrorMsg}}</mat-error>
-                    <mat-error *ngIf="showLoginText" style="color: antiquewhite;">Logging in....</mat-error>
-                </div>
-                
 
-        </div>
-        <div [hidden]="loginSelected" class="regFormSection" [ngStyle]="inputTextStyle">
-                <div class="reginputField">
-                        <mat-form-field color="accent">
-                                <input matInput
-                                (focus)="inputFocused=true" (blur)="inputFocused=false"
-                                [(ngModel)]="username" 
-                                placeholder="Username"
-                                (ngModelChange)="onUsernameChange($event)">
-                        </mat-form-field>
-                        <mat-error *ngIf="invalidUsername">{{errorUserMsg}}</mat-error>
-                </div>
-                <div class="reginputField">
-                        <mat-form-field color="accent">
-                                <input matInput
-                                (focus)="inputFocused=true" (blur)="inputFocused=false"
-                                [(ngModel)]="eml" 
-                                placeholder="Email ID"
-                                (ngModelChange)="onEmailChange($event)"
-                               >
-                        </mat-form-field>
-                        <mat-error *ngIf="invalidEmail">{{errorEmailMsg}}</mat-error>
-                </div>
-                <div class="reginputField">
-                        <mat-form-field color="accent">
-                                <input matInput
-                                (focus)="inputFocused=true" (blur)="inputFocused=false"
-                                [(ngModel)]="pwd"  
-                                placeholder="Password"
-                                (ngModelChange)="onPwdChange($event)"
-                                [type]="hidePwd ? 'password' : 'text'"
-                               >
-                               <button mat-icon-button matSuffix (click)="hidePwd = !hidePwd" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                                         <mat-icon>{{hidePwd ? 'visibility_off' : 'visibility'}}</mat-icon>
-                                </button>
-                        </mat-form-field>
-                        <mat-error *ngIf="invalidPassword">Password must have 6-20 characters</mat-error>
-                </div>
-                <div class="reginputField">
-                        <mat-form-field color="accent">
-                                <input matInput
-                                (focus)="inputFocused=true" (blur)="inputFocused=false"
-                                [disabled]="!otpSentOnce" 
-                                [(ngModel)]="otp"
-                                (ngModelChange)="onOTPChange($event)" 
-                                placeholder="OTP">
-                        </mat-form-field>
-                        <mat-error *ngIf="otpSentOnce && invalidOtp">OTP doesn't match</mat-error>
-                </div>
-                <div class="regButton">
-                    <button 
-                        [ngStyle]="inputTextStyle"
-                        [disabled]="invalidEmail || invalidPassword || invalidUsername" 
-                        mat-raised-button
-                        (click)="sendOTP()">
-                        {{otpSentOnce?'Resend OTP':'Send OTP'}}
-                    </button>
-                        <button 
-                        [ngStyle]="inputTextStyle"
-                        [disabled]="!otpSentOnce || invalidEmail || invalidPassword || invalidUsername" 
-                        (click)="registerUser()"
-                        mat-raised-button>Register</button>
-                </div>
-
-        </div>
-    </div>
     

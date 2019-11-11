@@ -1,7 +1,9 @@
+
+
 <div [ngStyle]="headerBarStyle">
     <app-header [username]="loggedInUser"></app-header>
 </div>
-<div [ngStyle]="musicPlayerStyle">
+<div class="setBackground" [ngStyle]="musicPlayerStyle">
     <div [ngStyle]="leftStyle">
         <div [ngStyle]="playerStyle">
             <app-player [queExpanded]="expanded" [playerQueue]="playerQueue" [currentIndex]="currentIndex" (onIndexChange)="currentIndex=$event" ></app-player>

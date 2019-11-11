@@ -68,6 +68,22 @@ export class AppComponent implements OnInit{
         'search',
         sanitizer.bypassSecurityTrustResourceUrl('assets/icons/search.svg')
       );
+      iconRegistry.addSvgIcon(
+        'up',
+        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/uparrow.svg')
+      );
+      iconRegistry.addSvgIcon(
+        'down',
+        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/arrow.svg')
+      );
+      iconRegistry.addSvgIcon(
+        'edit',
+        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/edit.svg')
+      );
+      iconRegistry.addSvgIcon(
+        'delete',
+        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/delete.svg')
+      );
   }
 
   ngOnInit(){

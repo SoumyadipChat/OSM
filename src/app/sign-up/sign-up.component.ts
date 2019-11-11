@@ -24,6 +24,7 @@ export class SignUpComponent implements OnInit,AfterViewInit {
   tabTextAlignStyle;
   abbrLogoStyle;
   fullLogoStyle;
+  loginContainer;
 
   loginSelected:boolean=true;
   regSelected:boolean=false;
@@ -104,6 +105,11 @@ export class SignUpComponent implements OnInit,AfterViewInit {
   onScreensizeChange(scrSz:screenSize){
     if(this.inputFocused){
       return;
+    }
+    this.loginContainer={
+      'width':  (scrSz.width-3)+'px',
+      'height': (scrSz.height-3)+'px',
+
     }
     this.loginStyle=this.styleSetter.loginStyleSetter(scrSz);
     this.logoStyle=this.styleSetter.logoStyleSetter(scrSz);

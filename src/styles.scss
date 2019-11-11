@@ -17,11 +17,13 @@
     ::-webkit-scrollbar-track {
       box-shadow: inset 0 0 5px grey; 
       border-radius: 10px;
+      margin-top: 10px;
+      margin-bottom: 10px;
     }
      
     /* Handle */
     ::-webkit-scrollbar-thumb {
-      background: #00968775; 
+      background: rgba(0, 0, 0, 0.6); 
       border-radius: 10px;
       height: 40px;
     }

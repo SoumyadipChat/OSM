@@ -2,7 +2,12 @@ import { Component, OnInit, HostListener, ViewChild, ElementRef, Input, Output, 
 import { videoElem } from '../music-player/music-player.component';
 import { screenSizeState } from '../services/screen-size.service';
 import { Observable, interval } from 'rxjs';
-
+import { max } from 'rxjs/operators';
+import {
+  OnPageVisible, OnPageHidden,
+  OnPageVisibilityChange,
+  AngularPageVisibilityStateEnum,
+  OnPagePrerender, OnPageUnloaded} from 'angular-page-visibility';
 
 @Component({
   selector: 'app-player',
@@ -25,6 +30,13 @@ export class PlayerComponent implements OnInit{
 
   @Output() onIndexChange:EventEmitter<any>=new EventEmitter();
 
+  @OnPageHidden()
+  logWhenPageHidden (): void {
+    if(this.playerState==1){
+      this.player.playVideo();
+    }
+  }
+
   OnIndChanges(){
       this.onIndexChange.emit(this.currentIndex);
   }
@@ -37,10 +49,14 @@ export class PlayerComponent implements OnInit{
   @ViewChild("outpt", {read: ElementRef,static:false}) outpt: ElementRef;
 
   showYoutube:boolean=false;
-  paused:boolean=true;
+  paused='d';
   repeatOn:boolean=false;
   isMinimized:boolean=false;
   queInitilized:boolean=false;
+  minimizedCall:boolean=false;
+  val;
+
+  playerState;
 
 
   constructor(private screenState:screenSizeState) { }
@@ -49,17 +65,14 @@ export class PlayerComponent implements OnInit{
     this.screenState.screenSize.subscribe(scrSz=>{
         this.screenSt=scrSz;
     });
-    window.addEventListener('visibilitychange', this.myPageHideListenerFunc, false);
+    
   }
 
-  myPageHideListenerFunc($event){
-    this.isMinimized=!this.isMinimized;
-    if(!this.paused && this.isMinimized){
-      this.player.playVideo();
-    }
+  @HostListener('window:pagehide',['$event'])
+  onMinimize(event){
+    console.log("blurred");
+    this.val=1;
   }
-
-
   
 
   @HostListener('window:resize', ['$event'])
@@ -88,7 +101,6 @@ export class PlayerComponent implements OnInit{
     .subscribe((val) => {
       this.elapsedTime=this.player.getCurrentTime();
       this.songTime=this.player.getDuration();
-      console.log('called');
     });
     this.initializing=true;
       setTimeout(()=>{
@@ -101,6 +113,7 @@ export class PlayerComponent implements OnInit{
         this.OnIndChanges();
         this.player.loadVideoById(this.playerQueue[0].videoId);
         this.pause();
+        console.log(this.paused);
       }
       this.initializing=false
       },timer);
@@ -117,7 +130,7 @@ export class PlayerComponent implements OnInit{
       this.player.loadVideoById(this.playerQueue[index].videoId);
         this.currentIndex=index;
         this.OnIndChanges();
-        this.paused=false;
+        this.paused='a';
     }
 
 
@@ -130,15 +143,18 @@ export class PlayerComponent implements OnInit{
         this.player.loadVideoById(this.playerQueue[0].videoId);
         this.currentIndex=0;
         this.OnIndChanges();
-        this.paused=false;
+        this.paused='a';
+        console.log(this.paused);
         return;
       }
       this.player.playVideo();
-      this.paused=false;
+      this.paused='a';
+      console.log(this.paused);
     }
 
     pause(){
-      this.paused=true;
+      this.paused='d';
+      console.log(this.paused);
       this.player.pauseVideo();
     }
 
@@ -152,7 +168,7 @@ export class PlayerComponent implements OnInit{
         this.currentIndex=this.currentIndex+1==this.playerQueue.length?0:this.currentIndex+1;
         this.OnIndChanges();
         this.player.loadVideoById(this.playerQueue[this.currentIndex].videoId);
-        if(this.paused){
+        if(this.paused=='d' || this.paused=='b'){
           this.pause();
         }
     }
@@ -167,15 +183,19 @@ export class PlayerComponent implements OnInit{
       this.currentIndex=this.currentIndex==0?this.playerQueue.length-1:this.currentIndex-1;
       this.OnIndChanges();
       this.player.loadVideoById(this.playerQueue[this.currentIndex].videoId);
-      if(this.paused){
+      if(this.paused=='d' || this.paused=='b'){
         this.pause();
       }
     }
   onStateChange(event){
-    //console.log('player state', event);
+   setTimeout(()=>{
+    this.playerState=event.data;
+   },500); 
+    console.log('player state', event.data);
     if(event.data==0){
       this.next();
     }
+   
   }
 
 }

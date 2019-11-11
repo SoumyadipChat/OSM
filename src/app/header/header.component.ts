@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Inject } from '@angular/core';
+import { Component, OnInit, Input, Inject, HostListener } from '@angular/core';
 import { screenSizeState, screenSize } from '../services/screen-size.service';
 import { YouTubeSearchService } from '../services/youtube-search.service';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
@@ -15,7 +15,6 @@ export class HeaderComponent implements OnInit {
   @Input() username:string;
 
   screenSz:screenSize;
-
   constructor(private screenState:screenSizeState,public dialog: MatDialog,private router:Router) { }
 
   ngOnInit() {

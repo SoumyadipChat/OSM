@@ -16,7 +16,7 @@
       </div>
     </div>
 
-    <div [hidden]="paused || showYoutube || queExpanded" class="soundBars">
+    <div [hidden]="playerState!=1 || showYoutube || queExpanded" class="soundBars">
         <div class="bars">
 
             <div class="bar"></div>
@@ -31,8 +31,8 @@
             <div class="bar"></div>
         </div>
     </div>
-    <div [hidden]="!paused || showYoutube || queExpanded" class="soundBars">
-      <div class="bars">
+    <div [hidden]="playerState==1 || showYoutube || queExpanded" class="soundBars">
+      <div class="bars"> 
           <div class="staticbar"></div>
             <div class="staticbar"></div>
             <div class="staticbar"></div>
@@ -75,7 +75,7 @@
   </div> -->
   <div [hidden]="!initializing" class="screenSwap">
     <div class="initText">
-        
+        <div hidden id="mininized">max</div>
        <div class="textIn">
           <div [ngStyle]="loaderStyle" class="loader"></div>
            <div style="padding-left: 20px;">Initializing.....</div>

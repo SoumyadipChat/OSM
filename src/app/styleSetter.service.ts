@@ -14,7 +14,7 @@ export class styleSetterService{
         return {
             'width':  (scrSz.width-3)+'px',
             'height': (scrSz.height-3)+'px',
-            'border':'1px solid white'
+            'border':'1px solid white',
            }
     }
 

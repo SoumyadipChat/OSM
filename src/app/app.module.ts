@@ -11,7 +11,7 @@ import { MusicPlayerComponent } from './music-player/music-player.component';
 import { ButtonsComponent } from './buttons/buttons.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatFormFieldModule,MatInputModule,MatButtonModule, MatIconModule, MatDialogModule, MatRadioModule, MatCheckboxModule} from '@angular/material';
+import {MatFormFieldModule,MatInputModule,MatButtonModule, MatIconModule, MatDialogModule, MatRadioModule, MatCheckboxModule, MatSelectModule} from '@angular/material';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {TextFieldModule} from '@angular/cdk/text-field';
 import {DragDropModule } from '@angular/cdk/drag-drop'
@@ -20,6 +20,7 @@ import { LauncherComponent } from './launcher/launcher.component';
 import { YouTubeSearchService } from './services/youtube-search.service';
 import { YouTubeServiceInjectables } from './services/youtube-search.injectables';
 import { ModalCompComponent } from './modal-comp/modal-comp.component';
+import { AngularPageVisibilityModule } from 'angular-page-visibility';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,9 @@ import { ModalCompComponent } from './modal-comp/modal-comp.component';
     DragDropModule,
     MatDialogModule,
     MatRadioModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    AngularPageVisibilityModule,
+    MatSelectModule
   ],
   providers: [YouTubeSearchService, YouTubeServiceInjectables],
   bootstrap: [AppComponent],

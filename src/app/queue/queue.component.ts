@@ -24,6 +24,42 @@ export class QueueComponent implements OnInit {
 
   expanded=false;
   showExpand=true;
+  isClosed=true;
+
+  playlists=[
+    {
+      id:1,
+      name:'Default',
+      isDefault:'Y'
+    },
+    {
+      id:1,
+      name:'WWWWWWWWWW',
+      isDefault:'Y'
+    },
+    {
+      id:1,
+      name:'Default',
+      isDefault:'Y'
+    },{
+      id:1,
+      name:'Default',
+      isDefault:'Y'
+    },{
+      id:1,
+      name:'Default',
+      isDefault:'Y'
+    }
+  ]
+  selectedPlaylist={
+    id:1,
+    name:'Default',
+    isDefault:'Y'
+  };
+
+  cantAddplayList=true;
+
+  selectedValue='Default';
 
   @Output() onIndexChange:EventEmitter<any>=new EventEmitter();
   @Output() onDoubleClic:EventEmitter<number>=new EventEmitter();
