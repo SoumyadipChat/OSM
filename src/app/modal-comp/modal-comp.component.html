@@ -1,6 +1,6 @@
 <div mat-dialog-title>Title: 
         <mat-form-field color="accent">
-                <input [disabled]="noOfTru!=1" matInput (ngModelChange)="updateTitle()" [(ngModel)]="titleText">
+                <input [disabled]="noOfTru!=1" maxlength="20" matInput (ngModelChange)="updateTitle()" [(ngModel)]="titleText">
         </mat-form-field>
 </div>
 <div mat-dialog-content>
@@ -20,7 +20,10 @@
                         <img [src]="song.thumbnailUrl">
                     </div>
                     <div class="songTitle">
-                            {{song.title | titlecase}}
+                            <div class="title"> {{song.title | titlecase}}</div>
+                                <div class="chanell">
+                                       By {{song.channelTitle}}
+                                </div>
                     </div>
                     <div [hidden]="in==currentIndex" class="closer">
                                 <mat-checkbox class="example-margin" (ngModelChange)="boolChange($event)" [(ngModel)]="checkboxBool[in]"></mat-checkbox>

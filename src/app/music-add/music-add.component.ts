@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, ElementRef, ViewChild, AfterViewInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, HostListener, ElementRef, ViewChild, AfterViewInit, Output, EventEmitter, Input } from '@angular/core';
 import { videoElem } from '../music-player/music-player.component';
 import { screenSizeState, screenSize } from '../services/screen-size.service';
 import { MusicDataFetcher } from '../services/musicDataFetcher.service';
@@ -23,6 +23,9 @@ export class MusicAddComponent implements OnInit{
   screenSt:screenSize;
 
   inputFocused=false;
+
+  @Input() playlists=[];
+  @Input() selectedPlaylist=0;
   
   @Output() onAdd:EventEmitter<videoElem>=new EventEmitter();
 
@@ -67,6 +70,9 @@ export class MusicAddComponent implements OnInit{
       let user=sessionStorage.getItem('username')?sessionStorage.getItem('username'):'Guest';
       if(user!='Guest'){
         videoElem.username=user.substring(1,user.length-1)
+        if(this.playlists[this.selectedPlaylist].id>=0){
+          videoElem.playlist=this.playlists[this.selectedPlaylist].playlist;
+        }
         this.musicDataFetcher.saveSong(videoElem).subscribe(data=>{
           console.log(data);
         });

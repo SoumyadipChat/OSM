@@ -8,11 +8,13 @@ import {
   OnPageVisibilityChange,
   AngularPageVisibilityStateEnum,
   OnPagePrerender, OnPageUnloaded} from 'angular-page-visibility';
+import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-player',
   templateUrl: './player.component.html',
-  styleUrls: ['./player.component.scss']
+  styleUrls: ['./player.component.scss'],
+  
 })
 export class PlayerComponent implements OnInit{
   
@@ -49,8 +51,8 @@ export class PlayerComponent implements OnInit{
   @ViewChild("outpt", {read: ElementRef,static:false}) outpt: ElementRef;
 
   showYoutube:boolean=false;
-  paused='d';
-  repeatOn:boolean=false;
+  paused=true;
+  repeatOn:boolean=true;
   isMinimized:boolean=false;
   queInitilized:boolean=false;
   minimizedCall:boolean=false;
@@ -58,6 +60,15 @@ export class PlayerComponent implements OnInit{
 
   playerState;
 
+  showVolSLider=false;
+  volume=4;
+  volumeicons=[
+    'mute',
+    'one',
+    'one',
+    'two',
+    'three'
+ ]
 
   constructor(private screenState:screenSizeState) { }
   
@@ -88,6 +99,17 @@ export class PlayerComponent implements OnInit{
      console.log(this.elapsedTime);
      this.player.seekTo(this.elapsedTime,true);
      this.player.playVideo();
+   }
+
+   onVolChange(){
+     this.player.setVolume(this.volume*25);
+   }
+
+   volToggle(){
+     this.showVolSLider=!this.showVolSLider;
+     setTimeout(()=>{
+       this.showVolSLider=false;
+     },2000);
    }
   
  
@@ -122,7 +144,6 @@ export class PlayerComponent implements OnInit{
 
     queueInitializer(){
       this.queInitilized=true;
-      console.log(this.playerQueue);
     }
 
     
@@ -130,7 +151,12 @@ export class PlayerComponent implements OnInit{
       this.player.loadVideoById(this.playerQueue[index].videoId);
         this.currentIndex=index;
         this.OnIndChanges();
-        this.paused='a';
+        setTimeout(()=>{
+          if(this.playerState==-1){
+            this.next();
+          }
+        },2000);
+        this.paused=false;
     }
 
 
@@ -143,17 +169,25 @@ export class PlayerComponent implements OnInit{
         this.player.loadVideoById(this.playerQueue[0].videoId);
         this.currentIndex=0;
         this.OnIndChanges();
-        this.paused='a';
-        console.log(this.paused);
+        this.paused=false;
+        setTimeout(()=>{
+          if(this.playerState==-1){
+            this.next();
+          }
+        },2000);
         return;
       }
       this.player.playVideo();
-      this.paused='a';
-      console.log(this.paused);
+      this.paused=false;
+      setTimeout(()=>{
+        if(this.playerState==-1){
+          this.next();
+        }
+      },2000);
     }
 
     pause(){
-      this.paused='d';
+      this.paused=true;
       console.log(this.paused);
       this.player.pauseVideo();
     }
@@ -168,9 +202,14 @@ export class PlayerComponent implements OnInit{
         this.currentIndex=this.currentIndex+1==this.playerQueue.length?0:this.currentIndex+1;
         this.OnIndChanges();
         this.player.loadVideoById(this.playerQueue[this.currentIndex].videoId);
-        if(this.paused=='d' || this.paused=='b'){
+        if(this.paused){
           this.pause();
         }
+        setTimeout(()=>{
+          if(this.playerState==-1){
+            this.next();
+          }
+        },2000);
     }
 
     previous(){
@@ -183,17 +222,27 @@ export class PlayerComponent implements OnInit{
       this.currentIndex=this.currentIndex==0?this.playerQueue.length-1:this.currentIndex-1;
       this.OnIndChanges();
       this.player.loadVideoById(this.playerQueue[this.currentIndex].videoId);
-      if(this.paused=='d' || this.paused=='b'){
+      if(this.paused){
         this.pause();
       }
+      setTimeout(()=>{
+        if(this.playerState==-1){
+          this.next();
+        }
+      },2000);
     }
+
+    
   onStateChange(event){
    setTimeout(()=>{
     this.playerState=event.data;
    },500); 
-    console.log('player state', event.data);
+    console.log('player state', event);
     if(event.data==0){
       this.next();
+    }
+    if(event.data==2){
+      this.paused=true;
     }
    
   }

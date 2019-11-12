@@ -35,15 +35,22 @@
 
     .songTitle{
         height: 35px;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        overflow: hidden;
         width: 60%;
         padding-left: 10%;
         padding-right: 5%;
         padding-top: 3%;
         padding-bottom: 2%;
         font-family: 'Ubuntu', sans-serif;
+        .title{
+            margin-bottom:3px ;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+        .chanell{
+            font-size: 70%;
+            color:#64ffda;
+        }
             
     }
     .closer{
@@ -84,10 +91,15 @@
     display: block;
     margin: 0 -24px;
     padding: 0 11px;
-    max-height: 65vh;
+    max-height: 300px;
     overflow: auto;
     -webkit-overflow-scrolling: touch;
+    
+    
 }
+.mat-dialog-content::-webkit-scrollbar {
+    width: 2px;
+  }
 
 .isMobile{
 

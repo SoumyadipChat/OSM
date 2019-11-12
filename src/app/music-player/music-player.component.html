@@ -9,10 +9,23 @@
             <app-player [queExpanded]="expanded" [playerQueue]="playerQueue" [currentIndex]="currentIndex" (onIndexChange)="currentIndex=$event" ></app-player>
         </div>
         <div [hidden]="expanded" [ngStyle]="adderStyle">
-            <app-music-add  (onAdd)="addVideo($event)"></app-music-add>
+            <app-music-add
+            [playlists]="playlists"
+            [selectedPlaylist]="selectedPlaylist"
+            (onAdd)="addVideo($event)"></app-music-add>
         </div>
     </div>
     <div [ngStyle]="rightStyle">
-        <app-queue [playerQueue]="playerQueue" (onExpCollapse)="onExpCollapse($event)" [currentIndex]="currentIndex" (onIndexChange)="currentIndex=$event" (onDoubleClic)="playSong($event)"></app-queue>
+        <app-queue 
+            [playerQueue]="playerQueue"
+            [playlists]="playlists"
+            [selectedPlaylist]="selectedPlaylist"
+            [addable]="addable"
+            [defaultPlaylist]="defaultPlaylist"
+            (onAddPlaylist)="onAddPlaylist($event)"
+            (onModifyPlaylist)="onModifyPlaylist($event)"
+            (onDeletePlaylist)="onDeletePlaylist($event)"
+            (onChangePlaylist)="onChangePlaylist($event)"
+            (onExpCollapse)="onExpCollapse($event)" [currentIndex]="currentIndex" (onIndexChange)="currentIndex=$event" (onDoubleClic)="playSong($event)"></app-queue>
     </div>
 </div>

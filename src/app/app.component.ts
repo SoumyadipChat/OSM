@@ -84,6 +84,30 @@ export class AppComponent implements OnInit{
         'delete',
         sanitizer.bypassSecurityTrustResourceUrl('assets/icons/delete.svg')
       );
+      iconRegistry.addSvgIcon(
+        'addblack',
+        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/addblack.svg')
+      );
+      iconRegistry.addSvgIcon(
+        'mute',
+        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/mute.svg')
+      );
+      iconRegistry.addSvgIcon(
+        'one',
+        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/volume1.svg')
+      );
+      iconRegistry.addSvgIcon(
+        'two',
+        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/volume2.svg')
+      );
+      iconRegistry.addSvgIcon(
+        'three',
+        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/volume3.svg')
+      );
+      iconRegistry.addSvgIcon(
+        'info',
+        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/help.svg')
+      );
   }
 
   ngOnInit(){

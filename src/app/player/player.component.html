@@ -53,12 +53,17 @@
         <div class="ellTime">{{elapsedTime *1000 | date:'mm:ss':'GMT+0'}}</div>
         <div class="fullTime">{{songTime *1000 | date:'mm:ss':'GMT+0'}}</div>
     </div>
-    <div [ngClass]="{'expanded':queExpanded}" class="sliderPart" >
+    <div [ngClass]="{'expanded':queExpanded}" class="sliderPart">
        <input type="range" min="1" [max]="songTime" [(ngModel)]="elapsedTime" (ngModelChange)="onSLiderChange()" class="slider" id="myRange">
     </div>
     
-    <div [ngClass]="{'expanded':queExpanded}" class="utubeIcon">
-      <mat-icon role="button" class="icons" (click)="showYoutube=!showYoutube" [svgIcon]="showYoutube?'ipod':'youtube'" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
+    <div [ngClass]="{'expanded':queExpanded,'volClosed':!showVolSLider}" class="utubeIcon left">
+        <mat-icon role="button" (click)="volToggle()" class="icons" [svgIcon]="volumeicons[volume]" aria-hidden="false" ></mat-icon>
+        <div *ngIf="showVolSLider" class="volSlider">
+            <input type="range" min="0" max="4" [(ngModel)]="volume" (ngModelChange)="onVolChange()" class="slider" id="myRange">
+        </div>
+    </div>
+    <div [ngClass]="{'expanded':queExpanded,'volClosed':!showVolSLider}" class="utubeIcon">
       <mat-icon role="button" (click)="previous()" class="icons" svgIcon="prev" aria-hidden="false" ></mat-icon>
       <mat-icon role="button" (click)="play()" class="icons" svgIcon="play" aria-hidden="false" ></mat-icon>
       <mat-icon role="button" (click)="pause()" class="icons" svgIcon="pause" aria-hidden="false" ></mat-icon>

@@ -263,6 +263,8 @@ export class SignUpComponent implements OnInit,AfterViewInit {
         this.resetModel();
         this.regSelected=false;
         this.loginSelected=true;
+        this.allUsername.push(this.username);
+        this.allEmail.push(this.eml);
     });
   }
 

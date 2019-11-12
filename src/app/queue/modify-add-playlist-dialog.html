@@ -1,0 +1,13 @@
+<h1 mat-dialog-title style="margin-bottom: 10px;">{{data.type}} Playlist</h1>
+<div mat-dialog-content style="min-height: 160px">
+  <p style="margin-bottom: 0;">Title:</p>
+  <mat-form-field color="accent">
+    <input autocomplete="off" maxlength="10" matInput [(ngModel)]="data.title" (ngModelChange)="onNameChange()" >
+  </mat-form-field>
+  <mat-error *ngIf="!validName || blankNm" style="margin-bottom: 5px;font-size: 70%;">Can't have same/blank name</mat-error>
+  <mat-checkbox [(ngModel)]="data.default" >Set as default</mat-checkbox>
+</div>
+<div mat-dialog-actions style="display: flex;justify-content: flex-end;">
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button [disabled]="!validName || blankNm" mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+</div>

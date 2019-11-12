@@ -47,7 +47,7 @@ export class ModalCompComponent implements OnInit {
           this.searchResults=this.searchResults.slice(0,4);
         }
         else{
-          this.searchResults=this.searchResults.slice(0,10);
+          this.searchResults=this.searchResults.slice(0,20);
         }
         for(let result in this.searchResults){
           this.checkboxBool.push(false);

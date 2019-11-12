@@ -38,7 +38,7 @@
         top: 50%;
         width: 160px;
         .icons{
-            height: 20%;
+            height: 40%;
             width: auto;
             position: absolute;
             top: 50%;
@@ -50,7 +50,7 @@
     }
 
     .repeatButton .icons.isNotMobile{
-            height: 40%;
+            height: 60%;
             left:60%;
         }
     
@@ -120,14 +120,75 @@
      .staticbar:nth-child(10) { left: 148px; height: 30px; }
 
     .utubeIcon{
-        width: 100%;
+        width: 70%;
         height: 16%;
        position: absolute;
         top: 88%;
+        left:30%;
         transform: translateY(-50%);
         z-index: 999;
         display: flex;
         justify-content: space-around;
+        transition: display 3s;
+    }
+
+    .utubeIcon.volClosed{
+        width: 80%;
+        left: 19%;
+    }
+
+
+    .utubeIcon.left.volClosed{
+        width: 24%;
+    }
+
+    .utubeIcon.left{
+        width: 30%;
+        left: 0;
+        justify-content: center;
+        .icons{
+           width: 35%;
+        }
+        .volSlider{
+            width: 55%;
+            position: relative;
+        }
+        .slider {
+            -webkit-appearance: none;
+            position: absolute;
+            top: 45%;
+            left:0%;
+            transform: translateY(-50%);
+            width: 100%;
+            height: 6px;
+            border-radius: 4px;
+            background: #ccc;
+            outline: none;
+            opacity: 0.7;
+            -webkit-transition: .2s;
+            transition: opacity .2s;
+          }
+          
+          .slider:hover {
+            opacity: 1;
+          }
+          
+          .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 12px;
+            height: 12px;
+            border-radius: 7px;
+            background: #4b90ff;
+            cursor: pointer;
+          }
+          
+          .slider::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            background: #4b90ff;
+            cursor: pointer;
+          }
     }
 
     .expanded.utubeIcon{
@@ -171,14 +232,14 @@
 
     .expanded.sliderPart{
         height: 20%;
-        top:50%
+        top:45%
     }
     
     .sliderPart{
         width: 90%;
         height: 12%;
         position: absolute;
-        top: 73%;
+        top: 71%;
         left: 5%;
         transform: translateY(-50%);
         z-index: 999;
@@ -204,17 +265,17 @@
           .slider::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
-            width: 10px;
-            height: 10px;
+            width: 12px;
+            height: 12px;
             border-radius: 7px;
-            background: #4CAF50;
+            background: linear-gradient(135deg, rgba(0,63,65,1) 0%, rgb(0, 36, 43) 35%);
             cursor: pointer;
           }
           
           .slider::-moz-range-thumb {
             width: 25px;
             height: 25px;
-            background: #4CAF50;
+            background: linear-gradient(135deg, rgba(0,63,65,1) 0%, rgb(0, 36, 43) 35%);
             cursor: pointer;
           }
     }

@@ -15,7 +15,13 @@
     top: 50%;
     transform: translateY(-50%);
     font-family: 'Cookie', cursive;
-    font-size: 150%;    
+    font-size: 150%;
+    .icons{
+        position: absolute;
+        top:5%;
+        width: 30%;
+        height: 60%;
+    }    
 }
 .userName{
     right: 2%;

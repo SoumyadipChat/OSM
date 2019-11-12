@@ -25,47 +25,75 @@
         padding-top: 3px;
         color: #1e3d26;
       }
+      
       .dropbox{
-        width: 45%;
+        width: 70%;
         height: 95%;
-        background-color: rgba(0,0,0,0.5);
-        border-radius: 50px;
-        padding-left: 10px;
         color: white;
         font-family: 'Ubuntu', sans-serif;
         display: flex;
         justify-content: space-between;
         position: relative;
-        .playlistName{
+        .addPL{
+          width: 20%;
+          color: rgba(0, 0, 0, 0.8);
+          .icons{
+            width: 15%;
+            height: 60%;
+            top: 20%;
+            position: absolute;
+            left: 75%;
+          }
+          .expand.icons{
+            left: 80%;
+          }
+        }
+        .content{
+          width: 75%;
+          background-color: rgba(0,0,0,0.5);
+          border-radius: 50px;
+          position: relative;
+          .playlistName{
           width: 70%;
           position: absolute;
           transform: translateY(-50%);
           top: 50%;
           left: 5%;
-        }
-        .arrow{
-          width: 5%;
-          position: absolute;
-          top: 50%;
-          transform: translateY(-50%);
-         right: 5%;
-         .icons{
-          height: 100%;
-          width: 100%;
-          rotate: (90);
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+          }
+          .arrow{
+            width: 5%;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+          right: 5%;
+          .icons{
+            height: 100%;
+            width: 100%;
+            rotate: (90);
+          }
         }
         }
         .optionList{
           width: 120%;
+          min-width: 230px;
           position: absolute;
           top: 100%;
+          left: 5px;
           z-index: 9999;
-          background-color: white;
-          color: black;
+          background-color: #f0f0f0;
+          color: rgb(39, 39, 39);
           border-radius: 5px;
+          .selected{
+            color: #2D5036;
+            font-size: 85%;
+            font-weight: bold;
+          }
           .listItems{
             width: 100%;
-            height: 30px;
+            height: 40px;
             display: flex;
             justify-content: space-between;
             position: relative;
@@ -74,7 +102,7 @@
               width: 70%;
               position: absolute;
               top: 50%;
-              left: 2%;
+              left: 5%;
               transform: translateY(-50%);
             }
             .border{
@@ -97,7 +125,7 @@
               right: 0;
               .icons{
                 height: 100%;
-                width: 35%;
+                width: 30%;
                 padding-left: 10%;
               }
             }
@@ -162,14 +190,15 @@
   }
   
   .songList{
-    height: 92%;
+    height: 89%;
     overflow: auto;
+    margin-top: 5px;
   }
 
   .example-box {
     width: 95%;
     margin: auto;
-    margin-top: 5px;
+    margin-bottom: 5px;
     height: 60px;
     padding: 1%;
     color: white;

@@ -12,12 +12,14 @@ export class Result {
     desc: string
     thumbnailUrl: string
     videoUrl: string
+    channelTitle:string
   
     constructor(obj?: any) {
       this.id           = obj && obj.id           || null
       this.title        = obj && obj.title        || null
       this.desc         = obj && obj.desc         || null
       this.thumbnailUrl = obj && obj.thumbnailUrl || null
+      this.channelTitle = obj && obj.channelTitle || null
       this.videoUrl     = obj && obj.videoUrl     || `https://www.youtube.com/watch?v=${this.id}`
     }
   
@@ -37,7 +39,7 @@ export class YouTubeSearchService {
       `key=${this.apiKey}`,
       `part=snippet`,
       `type=video`,
-      `maxResults=10`
+      `maxResults=20`
     ].join('&')
     const queryUrl = `${this.apiUrl}?${params}`
     console.log(queryUrl)
@@ -48,6 +50,7 @@ export class YouTubeSearchService {
           id: item.id.videoId,
           title: item.snippet.title,
           desc: item.snippet.description,
+          channelTitle:item.snippet.channelTitle,
           thumbnailUrl: item.snippet.thumbnails.high.url
         })
       })

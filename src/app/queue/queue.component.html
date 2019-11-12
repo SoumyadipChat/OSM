@@ -17,27 +17,31 @@
         <div cdkDropList class="box example-list" (cdkDropListDropped)="drop($event)">
                 <div class="queueHeader">
                          <div class="dropbox">
-                               <div (click)="isClosed=!isClosed" class="content">
-                                <div  class="playlistName">{{selectedPlaylist.name}}</div>
-                                <div class="arrow">
-                                     <mat-icon class="icons" [svgIcon]="isClosed?'down':'up'" aria-hidden="false" ></mat-icon>
-                                </div>
+                               <div role="button" (click)="isClosed=!isClosed" class="content">
+                                    <div  class="playlistName">{{playlists[selectedPlaylist].playlist}}</div>
+                                    <div class="arrow">
+                                        <mat-icon class="icons" [svgIcon]="isClosed?'down':'up'" aria-hidden="false" ></mat-icon>
+                                    </div>
+                               </div>
+                               <div [hidden]="!addable" class="addPL">
+                                <mat-icon (click)="addPL()" class="icons" [ngClass]="{'expand':!showExpand}" svgIcon="addblack" aria-hidden="false" ></mat-icon>
                                </div>
                                <div [hidden]="isClosed" class="optionList">
-                                   <div class="listItems" *ngFor="let playlist of playlists;let in=index">
-                                       <div class="listItem">
-                                           {{playlist.name}}
+                                   <div class="listItems" [ngClass]="{'selected':selectedPlaylist==in}" *ngFor="let playlist of playlists;let in=index">
+                                       <div (click)="selectPL(in)" class="listItem">
+                                           {{playlist.playlist}}
                                        </div>
                                        <div [hidden]="in==0" class="border"></div>
                                        <div [hidden]="in==0" class="optionIcon">
-                                            <mat-icon class="icons" svgIcon="edit" aria-hidden="false" ></mat-icon>
-                                            <mat-icon class="icons" svgIcon="delete" aria-hidden="false" ></mat-icon>
+                                            <mat-icon (click)="editPL(in)" class="icons" svgIcon="edit" aria-hidden="false" ></mat-icon>
+                                            <mat-icon (click)="deletePL(in)" class="icons" svgIcon="delete" aria-hidden="false" ></mat-icon>
                                        </div> 
                                        
                                     </div>
 
                                </div>
                             </div>
+                            
                     <div role="button" [hidden]="!showExpand" (click)="onExpandCollapse()" class="expand">{{expanded?'Collapse':'Expand'}}</div>
                     </div>
                 <div class="songList">

@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { PlayerComponent } from './player/player.component';
 import { HeaderComponent, LogoutConfirmDialog } from './header/header.component';
 import { MusicAddComponent } from './music-add/music-add.component';
-import { QueueComponent, DialogOverviewExampleDialog } from './queue/queue.component';
+import { QueueComponent, DialogOverviewExampleDialog, ModifyAddDialog } from './queue/queue.component';
 import { MusicPlayerComponent } from './music-player/music-player.component';
 import { ButtonsComponent } from './buttons/buttons.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
@@ -35,7 +35,8 @@ import { AngularPageVisibilityModule } from 'angular-page-visibility';
     LauncherComponent,
     ModalCompComponent,
     DialogOverviewExampleDialog,
-    LogoutConfirmDialog 
+    LogoutConfirmDialog,
+    ModifyAddDialog 
   ],
   imports: [
     BrowserModule,
@@ -60,6 +61,6 @@ import { AngularPageVisibilityModule } from 'angular-page-visibility';
   ],
   providers: [YouTubeSearchService, YouTubeServiceInjectables],
   bootstrap: [AppComponent],
-  entryComponents:[ModalCompComponent,DialogOverviewExampleDialog,LogoutConfirmDialog]
+  entryComponents:[ModalCompComponent,DialogOverviewExampleDialog,LogoutConfirmDialog,ModifyAddDialog]
 })
 export class AppModule { }
