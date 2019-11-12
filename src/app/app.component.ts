@@ -108,6 +108,18 @@ export class AppComponent implements OnInit{
         'info',
         sanitizer.bypassSecurityTrustResourceUrl('assets/icons/help.svg')
       );
+      iconRegistry.addSvgIcon(
+        'gmail',
+        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/gmail.svg')
+      );
+      iconRegistry.addSvgIcon(
+        'fb',
+        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/facebook.svg')
+      );
+      iconRegistry.addSvgIcon(
+        'lin',
+        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/linkedin.svg')
+      );
   }
 
   ngOnInit(){

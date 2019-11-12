@@ -1,7 +1,7 @@
 <div class="header" [ngClass]="{'isMobile':screenSz.isMobile}">
     <div class="appName">
         One.Stop.Music
-        
+        <mat-icon role="button" (click)="showInfo()" class="icons" svgIcon="info" aria-hidden="false" ></mat-icon>
     </div>
     <div class="userName">
        Welcome, {{username}}

@@ -1,0 +1,34 @@
+<h1 mat-dialog-title style="display: flex;justify-content: space-between;">
+    <div class="abbr">
+        OSM
+    </div>
+    <div class="name">
+        One.Stop.Music
+    </div>
+</h1>
+<div mat-dialog-content>
+  <div style="display: flex;justify-content: flex-start;">
+      <p (click)="created=true;cred=false;" [ngClass]="{'focused':created}" style="margin-right: 30px;">Created By</p>
+      <p (click)="created=false;cred=true;" [ngClass]="{'focused':cred}">Credits</p>
+  </div>
+  <div *ngIf="created">
+    <h3>Soumyadip Chattopadhyay</h3>
+    <div class="contacts">
+        <mat-icon role="button" (click)="FBRedirect()" class="icons" svgIcon="fb" aria-hidden="false" ></mat-icon>
+        <mat-icon role="button" (click)="GMRedirect()" class="icons" svgIcon="gmail" aria-hidden="false" ></mat-icon>
+        <mat-icon role="button" (click)="LIRedirect()" class="icons" svgIcon="lin" aria-hidden="false" ></mat-icon>
+    </div>
+  </div>
+  <div *ngIf="cred">
+      Icons Sources:
+      <div style="font-size: 60%;">Icons made by <a href="https://www.flaticon.com/authors/roundicons" title="Roundicons">Roundicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div> 
+      <div style="font-size: 60%;">Icons made by <a href="https://www.flaticon.com/<?=_('authors/')?>freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div> 
+      <div style="font-size: 60%;">Icons made by <a href="https://www.flaticon.com/authors/bqlqn" title="bqlqn">bqlqn</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+      <div style="font-size: 60%;">Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div> 
+      <div style="font-size: 60%;">Icons made by <a href="https://www.flaticon.com/authors/good-ware" title="Good Ware">Good Ware</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div> 
+      <div style="font-size: 60%;">Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+  </div>
+</div>
+<div mat-dialog-actions style="display: flex;justify-content: flex-end;">
+  <button mat-button (click)="onNoClick()">Close</button>
+</div>

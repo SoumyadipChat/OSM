@@ -4,7 +4,7 @@ import { YoutubePlayerModule } from 'ng2-youtube-player';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PlayerComponent } from './player/player.component';
-import { HeaderComponent, LogoutConfirmDialog } from './header/header.component';
+import { HeaderComponent, LogoutConfirmDialog, AppInfoDialog } from './header/header.component';
 import { MusicAddComponent } from './music-add/music-add.component';
 import { QueueComponent, DialogOverviewExampleDialog, ModifyAddDialog } from './queue/queue.component';
 import { MusicPlayerComponent } from './music-player/music-player.component';
@@ -36,7 +36,8 @@ import { AngularPageVisibilityModule } from 'angular-page-visibility';
     ModalCompComponent,
     DialogOverviewExampleDialog,
     LogoutConfirmDialog,
-    ModifyAddDialog 
+    ModifyAddDialog,
+    AppInfoDialog 
   ],
   imports: [
     BrowserModule,
@@ -61,6 +62,12 @@ import { AngularPageVisibilityModule } from 'angular-page-visibility';
   ],
   providers: [YouTubeSearchService, YouTubeServiceInjectables],
   bootstrap: [AppComponent],
-  entryComponents:[ModalCompComponent,DialogOverviewExampleDialog,LogoutConfirmDialog,ModifyAddDialog]
+  entryComponents:[
+    ModalCompComponent,
+    DialogOverviewExampleDialog,
+    LogoutConfirmDialog,
+    ModifyAddDialog,
+    AppInfoDialog
+  ]
 })
 export class AppModule { }

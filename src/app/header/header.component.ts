@@ -40,6 +40,11 @@ onLogout(){
   });
 
 }
+showInfo(){
+  const dialogRef = this.dialog.open(AppInfoDialog, {
+    width: '400px',
+  });
+}
 
 }
 
@@ -57,6 +62,47 @@ export class LogoutConfirmDialog implements OnInit {
     ngOnInit(){
     }
 
+  
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+}
+
+@Component({
+  selector: 'info-details',
+  templateUrl: 'info-details.html',
+  styleUrls: ['./info-details.scss'],
+})
+export class AppInfoDialog implements OnInit {
+  created=true;
+  cred=false;
+
+  constructor(
+    public dialogRef: MatDialogRef<LogoutConfirmDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: string) {}
+
+    ngOnInit(){
+    }
+
+    FBRedirect(){
+      window.open("https://www.facebook.com/soumyadip.chattopadhyay.1", "_blank");
+    }
+
+   
+    LIRedirect(){
+      window.open("https://www.linkedin.com/in/soumyadip-c-95106186", "_blank");
+    }
+
+    GMRedirect(){
+      let emailTo="soumya.c11@gmail.com";
+      let emailCC="onestopmusic.osm@yahoo.com";
+      let emailSub="One Stop Music Feedback/ Contact Creator"
+      window.open('mailto:'+emailTo, '_blank');
+    }
+
+    
   
 
   onNoClick(): void {
