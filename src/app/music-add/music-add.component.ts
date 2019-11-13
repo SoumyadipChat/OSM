@@ -63,7 +63,7 @@ export class MusicAddComponent implements OnInit{
   addValue(id,title,thumb){
     let videoElem:videoElem={
       videoId:id,
-      title:title.split('|')[0].substring(0,20),
+      title:title.split('|')[0].substring(0,30),
       thumbnail:thumb
     }
     if(sessionStorage.getItem('loggedIn') && sessionStorage.getItem('loggedIn')=='true'){

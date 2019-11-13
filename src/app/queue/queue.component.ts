@@ -185,20 +185,16 @@ export class QueueComponent implements OnInit {
   }
 
   playSong(index){
-    if (this.touchtime == 0) {
-      // set first click
-      this.touchtime = new Date().getTime();
-  } else {
-      // compare first click to this click and see if they occurred within double click threshold
-      if (((new Date().getTime()) - this.touchtime) < 800) {
-          // double click occurred
+    // if (this.touchtime == 0) {
+    //  this.touchtime = new Date().getTime();
+    // } else {
+    //   if (((new Date().getTime()) - this.touchtime) < 800) {
           this.onDoubleClic.emit(index);
-          this.touchtime = 0;
-      } else {
-          // not a double click so set as a new first click
-          this.touchtime = new Date().getTime();
-      }
-  }
+  //         this.touchtime = 0;
+  //     } else {
+  //         this.touchtime = new Date().getTime();
+  //     }
+  // }
   }
 
 }

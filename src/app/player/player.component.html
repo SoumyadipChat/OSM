@@ -54,6 +54,9 @@
         <div class="fullTime">{{songTime *1000 | date:'mm:ss':'GMT+0'}}</div>
     </div>
     <div [ngClass]="{'expanded':queExpanded}" class="sliderPart">
+        <input type="range" min="1" [max]="songTime" [value]="loadedTime" class="slider1" id="myRange">
+     </div>
+    <div [ngClass]="{'expanded':queExpanded}" class="sliderPart">
        <input type="range" min="1" [max]="songTime" [(ngModel)]="elapsedTime" (ngModelChange)="onSLiderChange()" class="slider" id="myRange">
     </div>
     

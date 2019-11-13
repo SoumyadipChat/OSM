@@ -28,6 +28,7 @@
                                </div>
                                <div [hidden]="isClosed" class="optionList">
                                    <div class="listItems" [ngClass]="{'selected':selectedPlaylist==in}" *ngFor="let playlist of playlists;let in=index">
+
                                        <div (click)="selectPL(in)" class="listItem">
                                            {{playlist.playlist}}
                                        </div>
@@ -46,6 +47,9 @@
                     </div>
                 <div class="songList">
                     <div class="example-box" role="button"  *ngFor="let song of playerQueue;let in = index" (click)="playSong(in)" [ngClass]="{'current':in==currentIndex}" cdkDrag>
+                        <div [hidden]="in==currentIndex" class="handler">
+                            <mat-icon role="button" class="icons" svgIcon="drag" aria-hidden="false" cdkDragHandle></mat-icon>
+                        </div>
                         <div class="thumbNail">
                             <img [src]="song.thumbnail">
                         </div>

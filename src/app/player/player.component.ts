@@ -27,6 +27,8 @@ export class PlayerComponent implements OnInit{
 
   elapsedTime=0;
   songTime=300;
+  loadedTime=0;
+  loading=false;
   
   sub;
 
@@ -67,7 +69,7 @@ export class PlayerComponent implements OnInit{
     'one',
     'one',
     'two',
-    'three'
+    'two'
  ]
 
   constructor(private screenState:screenSizeState) { }
@@ -95,10 +97,15 @@ export class PlayerComponent implements OnInit{
    }
 
    onSLiderChange(){
+     if(this.paused){
+      this.player.seekTo(this.elapsedTime,true);
+      return;
+     }
      this.player.pauseVideo();
      console.log(this.elapsedTime);
      this.player.seekTo(this.elapsedTime,true);
      this.player.playVideo();
+     this.paused=false;
    }
 
    onVolChange(){
@@ -109,7 +116,7 @@ export class PlayerComponent implements OnInit{
      this.showVolSLider=!this.showVolSLider;
      setTimeout(()=>{
        this.showVolSLider=false;
-     },2000);
+     },5000);
    }
   
  
@@ -123,6 +130,10 @@ export class PlayerComponent implements OnInit{
     .subscribe((val) => {
       this.elapsedTime=this.player.getCurrentTime();
       this.songTime=this.player.getDuration();
+      this.loadedTime=this.player.getVideoLoadedFraction()*this.songTime;
+      if(this.playerState==2 && this.loadedTime<=this.elapsedTime){
+        this.loading=true;
+      }
     });
     this.initializing=true;
       setTimeout(()=>{
@@ -151,12 +162,12 @@ export class PlayerComponent implements OnInit{
       this.player.loadVideoById(this.playerQueue[index].videoId);
         this.currentIndex=index;
         this.OnIndChanges();
+        this.paused=false;
         setTimeout(()=>{
           if(this.playerState==-1){
             this.next();
           }
-        },2000);
-        this.paused=false;
+        },5000);
     }
 
 
@@ -174,7 +185,7 @@ export class PlayerComponent implements OnInit{
           if(this.playerState==-1){
             this.next();
           }
-        },2000);
+        },5000);
         return;
       }
       this.player.playVideo();
@@ -183,7 +194,7 @@ export class PlayerComponent implements OnInit{
         if(this.playerState==-1){
           this.next();
         }
-      },2000);
+      },5000);
     }
 
     pause(){
@@ -204,12 +215,13 @@ export class PlayerComponent implements OnInit{
         this.player.loadVideoById(this.playerQueue[this.currentIndex].videoId);
         if(this.paused){
           this.pause();
+          return;
         }
         setTimeout(()=>{
           if(this.playerState==-1){
             this.next();
           }
-        },2000);
+        },5000);
     }
 
     previous(){
@@ -224,12 +236,13 @@ export class PlayerComponent implements OnInit{
       this.player.loadVideoById(this.playerQueue[this.currentIndex].videoId);
       if(this.paused){
         this.pause();
+        return;
       }
       setTimeout(()=>{
         if(this.playerState==-1){
           this.next();
         }
-      },2000);
+      },5000);
     }
 
     
@@ -243,6 +256,9 @@ export class PlayerComponent implements OnInit{
     }
     if(event.data==2){
       this.paused=true;
+    }
+    if(event.data==1){
+      this.paused=false;
     }
    
   }

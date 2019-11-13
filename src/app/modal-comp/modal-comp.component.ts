@@ -54,7 +54,7 @@ export class ModalCompComponent implements OnInit {
         }
         this.showLoading=false;
         this.isEmptySearch=false;
-        this.titleText=this.searchResults[0].title.split('|')[0].substring(0,20);
+        this.titleText=this.searchResults[0].title.split('|')[0].substring(0,30);
         this.selectedVal=this.searchResults[0];
     })
   }

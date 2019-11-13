@@ -120,6 +120,10 @@ export class AppComponent implements OnInit{
         'lin',
         sanitizer.bypassSecurityTrustResourceUrl('assets/icons/linkedin.svg')
       );
+      iconRegistry.addSvgIcon(
+        'drag',
+        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/dragger.svg')
+      );
   }
 
   ngOnInit(){

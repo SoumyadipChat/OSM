@@ -38,7 +38,7 @@
         top: 50%;
         width: 160px;
         .icons{
-            height: 40%;
+            height: 30%;
             width: auto;
             position: absolute;
             top: 50%;
@@ -249,11 +249,12 @@
         .slider {
             -webkit-appearance: none;
             width: 100%;
-            height: 4px;
+            height: 0px;
+            margin-top: 4px;
             border-radius: 4px;
             background: #666;
             outline: none;
-            opacity: 0.7;
+            opacity: 1;
             -webkit-transition: .2s;
             transition: opacity .2s;
           }
@@ -273,8 +274,9 @@
           }
           
           .slider::-moz-range-thumb {
-            width: 25px;
-            height: 25px;
+            width: 12px;
+            height: 12px;
+            border-radius: 7px;
             background: linear-gradient(135deg, rgba(0,63,65,1) 0%, rgb(0, 36, 43) 35%);
             cursor: pointer;
           }
@@ -326,5 +328,81 @@
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   }
+
+
+.slider1{ 
+    -webkit-appearance: none;
+    width: 100%;
+    height: 4px;
+    border-radius: 4px;
+    background: #666;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+    overflow: hidden;
+}
+
+.slider1::-webkit-slider-runnable-track {
+    background: #666;
+}
+
+/*
+ * 1. Set to 0 width and remove border for a slider without a thumb
+ */
+ .slider1::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 0px; /* 1 */
+    height: 40px;
+    background: #fff;
+    box-shadow: -100vw 0 0 100vw rgba(1, 210, 189, 0.63);
+    border: 0px solid #999; /* 1 */
+}
+
+.slider1::-moz-range-track {
+    height: 40px;
+    background: #ddd;
+}
+
+.slider1::-moz-range-thumb {
+    background: #fff;
+    height: 40px;
+    width: 20px;
+    border: 3px solid #999;
+    border-radius: 0 !important;
+    box-shadow: -100vw 0 0 100vw rgba(1, 210, 189, 0.63);
+    box-sizing: border-box;
+}
+
+.slider1::-ms-fill-lower { 
+    background: rgba(1, 210, 189, 0.63);
+}
+
+.slider1::-ms-thumb { 
+    background: #fff;
+    border: 2px solid #999;
+    height: 40px;
+    width: 20px;
+    box-sizing: border-box;
+}
+
+.slider1::-ms-ticks-after { 
+    display: none; 
+}
+
+.slider1::-ms-ticks-before { 
+    display: none; 
+}
+
+.slider1::-ms-track { 
+    background: #ddd;
+    color: transparent;
+    height: 40px;
+    border: none;
+}
+
+.slider1::-ms-tooltip { 
+    display: none;
+}
 
  
