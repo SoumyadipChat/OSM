@@ -31,6 +31,7 @@ export class QueueComponent implements OnInit {
   @Input() defaultPlaylist;
   @Input() selectedPlaylist=0;
   @Input() addable=false;
+ 
 
   cantAddplayList=true;
 
@@ -43,9 +44,8 @@ export class QueueComponent implements OnInit {
   @Output() onModifyPlaylist:EventEmitter<{index:number,title:string,isDefault:boolean}>=new EventEmitter();
   @Output() onDeletePlaylist:EventEmitter<number>=new EventEmitter();
   @Output() onChangePlaylist:EventEmitter<number>=new EventEmitter();
-
-
-  touchtime=0;
+ 
+  isRemSong=false;
 
   OnIndChanges(){
       //console.log(this.currentIndex);
@@ -155,6 +155,8 @@ export class QueueComponent implements OnInit {
 
   remSong(index){
 
+    this.isRemSong=true;
+
     const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
       width: '250px',
       data: {title: this.playerQueue[index].title, returnVal: false,type:'Queue'}
@@ -163,8 +165,8 @@ export class QueueComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       //console.log('The dialog was closed');
       if(result && result.returnVal){
-        if(sessionStorage.getItem('loggedIn') && sessionStorage.getItem('loggedIn')=='true'){
-          let user=sessionStorage.getItem('username')?sessionStorage.getItem('username'):'Guest';
+        if(localStorage.getItem('loggedIn') && localStorage.getItem('loggedIn')=='true'){
+          let user=localStorage.getItem('username')?localStorage.getItem('username'):'Guest';
           if(user!='Guest'){
             let videoElem=this.playerQueue[index];
             this.musicDataFetcher.deleteSong(videoElem).subscribe(data=>{
@@ -185,16 +187,15 @@ export class QueueComponent implements OnInit {
   }
 
   playSong(index){
-    // if (this.touchtime == 0) {
-    //  this.touchtime = new Date().getTime();
-    // } else {
-    //   if (((new Date().getTime()) - this.touchtime) < 800) {
-          this.onDoubleClic.emit(index);
-  //         this.touchtime = 0;
-  //     } else {
-  //         this.touchtime = new Date().getTime();
-  //     }
-  // }
+    setTimeout(()=>{
+      if(this.isRemSong){
+        this.isRemSong=false;
+        return;
+      }
+      this.onDoubleClic.emit(index);
+    })
+          
+  
   }
 
 }

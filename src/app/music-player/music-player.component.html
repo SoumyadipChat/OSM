@@ -5,17 +5,23 @@
 </div>
 <div class="setBackground" [ngStyle]="musicPlayerStyle">
     <div [ngStyle]="leftStyle">
-        <div [ngStyle]="playerStyle">
-            <app-player [queExpanded]="expanded" [playerQueue]="playerQueue" [currentIndex]="currentIndex" (onIndexChange)="currentIndex=$event" ></app-player>
+        <div [ngStyle]="largePlayer?largePlayerStyle:playerStyle">
+            <app-player 
+                [queExpanded]="expanded" 
+                [playerQueue]="playerQueue" 
+                [currentIndex]="currentIndex" 
+                (onIndexChange)="currentIndex=$event" 
+                [largePlayer]="largePlayer"
+                (onLargePlayerChange)="onLargePlayerChange($event)"></app-player>
         </div>
-        <div [hidden]="expanded" [ngStyle]="adderStyle">
+        <div [hidden]="expanded || largePlayer" [ngStyle]="adderStyle">
             <app-music-add
             [playlists]="playlists"
             [selectedPlaylist]="selectedPlaylist"
             (onAdd)="addVideo($event)"></app-music-add>
         </div>
     </div>
-    <div [ngStyle]="rightStyle">
+    <div [hidden]="largePlayer" [ngStyle]="rightStyle">
         <app-queue 
             [playerQueue]="playerQueue"
             [playlists]="playlists"

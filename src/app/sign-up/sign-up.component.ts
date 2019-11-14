@@ -168,7 +168,7 @@ export class SignUpComponent implements OnInit,AfterViewInit {
   }
 
   openMusicGuest(){
-    sessionStorage.setItem('loggedIn','false');
+    localStorage.setItem('loggedIn','false');
     this.router.navigateByUrl("/music");
   }
 
@@ -202,9 +202,9 @@ export class SignUpComponent implements OnInit,AfterViewInit {
     this.dataFetcher.checkPassword({username:this.username,password:this.pwd}).subscribe(data=>{
         if(data==1){
             this.dataFetcher.getUser(this.username).subscribe((user)=>{
-              sessionStorage.setItem('loggedIn','true');
+              localStorage.setItem('loggedIn','true');
               console.log(user);
-              sessionStorage.setItem('username',JSON.stringify(user));
+              localStorage.setItem('username',JSON.stringify(user));
               this.showLoginText=false;
             this.router.navigateByUrl("/music");
             })

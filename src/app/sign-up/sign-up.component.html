@@ -44,6 +44,7 @@
                                         (focus)="inputFocused=true" (blur)="inputFocused=false" 
                                         placeholder="Password"
                                         [(ngModel)]="pwd"
+                                        (keyup.enter)="checkPasswordLogin()"
                                         (ngModelChange)="onPwdChange($event)"
                                         [type]="hidePwd ? 'password' : 'text'">
                                         <button mat-icon-button matSuffix (click)="hidePwd = !hidePwd" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">

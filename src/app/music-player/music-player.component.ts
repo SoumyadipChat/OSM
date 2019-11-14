@@ -31,11 +31,14 @@ export class MusicPlayerComponent implements OnInit,AfterViewInit {
   rightStyle;
   playerStyle;
   adderStyle;
+  largePlayerStyle;
 
   adderToggleShow;
   adderShow;
   expanded=false;
   lastScreenSz;
+
+  largePlayer=true;
 
   mobileDimset=false;
 
@@ -48,17 +51,17 @@ export class MusicPlayerComponent implements OnInit,AfterViewInit {
   defplayerQueue=[
     {
       videoId:'YKcgwUg39yY',
-      thumbnail:"http://img.youtube.com/vi/YKcgwUg39yY/hqdefault.jpg",
+      thumbnail:"https://img.youtube.com/vi/YKcgwUg39yY/hqdefault.jpg",
       title:'Dhadak(Title Track)'
     },
     {
       videoId:'DMRRC0rwO_I',
-      thumbnail:"http://img.youtube.com/vi/DMRRC0rwO_I/hqdefault.jpg",
+      thumbnail:"https://img.youtube.com/vi/DMRRC0rwO_I/hqdefault.jpg",
       title:'Khairiyat'
     },
     {
       videoId:'2kN3THdRih8',
-      thumbnail:"http://img.youtube.com/vi/2kN3THdRih8/hqdefault.jpg",
+      thumbnail:"https://img.youtube.com/vi/2kN3THdRih8/hqdefault.jpg",
       title:'Tum hi aana'
     }
   ];
@@ -84,6 +87,7 @@ export class MusicPlayerComponent implements OnInit,AfterViewInit {
   addable=false;
 
   playerQueue;
+  initCallDone=false;
 
   currentIndex=-1;
 
@@ -99,10 +103,14 @@ export class MusicPlayerComponent implements OnInit,AfterViewInit {
   ngAfterViewInit(){
     
     this.screenState.screenSize.subscribe(screen=>{
+      if(!this.initCallDone){
+        this.largePlayer=screen.isMobile;
+        this.initCallDone=true;
+      }
       this.onScreensizeChange(screen,(screen.isMobile&&this.expanded))
      })
-    if(sessionStorage.getItem('loggedIn')){
-      this.loggedInUser=(sessionStorage.getItem('loggedIn')=='true' && sessionStorage.getItem('username'))?sessionStorage.getItem('username'):'Guest';
+    if(localStorage.getItem('loggedIn')!==null){
+      this.loggedInUser=(localStorage.getItem('loggedIn')=='true' && localStorage.getItem('username'))?localStorage.getItem('username'):'Guest';
       if(this.loggedInUser!='Guest'){
         this.usernm=this.loggedInUser.substring(1,this.loggedInUser.length-1);
         this.playlistFetcher.getAllPlaylists(this.usernm).subscribe((playlsts:Array<any>)=>{
@@ -153,6 +161,10 @@ export class MusicPlayerComponent implements OnInit,AfterViewInit {
             this.playrComp.player.stopVideo();
             this.currentIndex=-1;
 
+  }
+
+  onLargePlayerChange(isLarge){
+      this.largePlayer=isLarge;
   }
 
   onDeletePlaylist(index){
@@ -247,6 +259,7 @@ export class MusicPlayerComponent implements OnInit,AfterViewInit {
       this.leftStyle=expanded?this.styleSetter.leftStyleSetter(scrSz,expanded):this.styleSetter.leftStyleSetter(scrSz);
       this.rightStyle=expanded?this.styleSetter.rightStyleSetter(scrSz,expanded):this.styleSetter.rightStyleSetter(scrSz);
       this.playerStyle=expanded?this.styleSetter.playerStyleSetter(scrSz,expanded):this.styleSetter.playerStyleSetter(scrSz);
+      this.largePlayerStyle=this.styleSetter.largePlayerStyleSetter(scrSz);
       this.adderStyle=this.styleSetter.adderStyleSetter(scrSz);
      
    }

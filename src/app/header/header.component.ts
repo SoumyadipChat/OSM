@@ -34,7 +34,7 @@ onLogout(){
     //console.log('The dialog was closed');
     if(result && result=='logout'){
         console.log("logged out");
-        sessionStorage.setItem('loggedIn','false');
+        localStorage.setItem('loggedIn','false');
         this.router.navigateByUrl("/login");
     }
   });

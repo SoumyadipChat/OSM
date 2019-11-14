@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, ViewChild, ElementRef, Input, Output, EventEmitter, OnChanges } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild, ElementRef, Input, Output, EventEmitter, OnChanges, NgZone } from '@angular/core';
 import { videoElem } from '../music-player/music-player.component';
 import { screenSizeState } from '../services/screen-size.service';
 import { Observable, interval } from 'rxjs';
@@ -55,12 +55,14 @@ export class PlayerComponent implements OnInit{
   showYoutube:boolean=false;
   paused=true;
   repeatOn:boolean=true;
+  shuffleOn:boolean=false;
   isMinimized:boolean=false;
   queInitilized:boolean=false;
   minimizedCall:boolean=false;
   val;
 
   playerState;
+  imgStyle;
 
   showVolSLider=false;
   volume=4;
@@ -72,13 +74,42 @@ export class PlayerComponent implements OnInit{
     'two'
  ]
 
-  constructor(private screenState:screenSizeState) { }
+ @Input() largePlayer=false;
+ @Output() onLargePlayerChange:EventEmitter<boolean>=new EventEmitter();
+
+
+  constructor(private screenState:screenSizeState,private zone: NgZone) {
+
+    window['angularComponentReference'] = {
+      zone: zone,
+      playFn: () => this.play(),
+      pauseFn:()=>this.pause(),
+      nextFn:()=>this.next(),
+      prevFn:()=>this.previous(),
+      titleFn:()=>this.getTitle(),
+      component: this,
+  };
+
+
+   }
   
   ngOnInit() {
     this.screenState.screenSize.subscribe(scrSz=>{
         this.screenSt=scrSz;
+        this.imgStyle={
+          'width':scrSz.width*0.5+'px',
+          'height':scrSz.width*0.5+'px',
+          'position':'absolute',
+          'left':scrSz.width*0.25+'px',
+          'border-radius':'15px',
+          'box-shadow': '0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22)'
+        }
     });
     
+  }
+
+  getTitle(){
+      return this.currentIndex>=0?this.playerQueue[this.currentIndex].title:'';
   }
 
   @HostListener('window:pagehide',['$event'])
@@ -106,6 +137,12 @@ export class PlayerComponent implements OnInit{
      this.player.seekTo(this.elapsedTime,true);
      this.player.playVideo();
      this.paused=false;
+   }
+
+   largePlayerChange(){
+     console.log(this.largePlayer);
+     this.largePlayer=!this.largePlayer;
+     this.onLargePlayerChange.emit(this.largePlayer);
    }
 
    onVolChange(){
@@ -210,7 +247,15 @@ export class PlayerComponent implements OnInit{
         if(this.currentIndex==-1){
           this.currentIndex++;
         }
-        this.currentIndex=this.currentIndex+1==this.playerQueue.length?0:this.currentIndex+1;
+        if(this.shuffleOn){
+          let index=Math.floor(Math.random()*(this.playerQueue.length));
+          let index2=Math.floor(Math.random()*(this.playerQueue.length-1));
+          this.currentIndex=(index==this.currentIndex)?(index+index2)%this.playerQueue.length:index;
+        }
+        else{
+          this.currentIndex=this.currentIndex+1==this.playerQueue.length?0:this.currentIndex+1;
+        }
+        
         this.OnIndChanges();
         this.player.loadVideoById(this.playerQueue[this.currentIndex].videoId);
         if(this.paused){
@@ -250,7 +295,9 @@ export class PlayerComponent implements OnInit{
    setTimeout(()=>{
     this.playerState=event.data;
    },500); 
-    console.log('player state', event);
+    console.log('playerState|'+event.data);
+    console.log('SongTitle|'+this.getTitle());
+    console.log('SongId|'+this.playerQueue[this.currentIndex].videoId);
     if(event.data==0){
       this.next();
     }

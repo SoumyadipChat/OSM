@@ -19,6 +19,17 @@ export class launcherStyleService{
              }
     }
 
+    errorStyleSetter(scrSz:screenSize){
+        let boxSize=0.1*Math.min(scrSz.width,scrSz.height);
+        return {
+            'width':  '100%',
+            'height': boxSize+'px',
+            'position':'absolute',
+            'top':((scrSz.height-boxSize)/2+boxSize+50)+'px',
+            'text-align':'center'
+             }
+    }
+
     loaderStyleSetter(scrSz:screenSize){
         let boxSize=0.1*Math.min(scrSz.width,scrSz.height);
         return {

@@ -66,8 +66,8 @@ export class MusicAddComponent implements OnInit{
       title:title.split('|')[0].substring(0,30),
       thumbnail:thumb
     }
-    if(sessionStorage.getItem('loggedIn') && sessionStorage.getItem('loggedIn')=='true'){
-      let user=sessionStorage.getItem('username')?sessionStorage.getItem('username'):'Guest';
+    if(localStorage.getItem('loggedIn') && localStorage.getItem('loggedIn')=='true'){
+      let user=localStorage.getItem('username')?localStorage.getItem('username'):'Guest';
       if(user!='Guest'){
         videoElem.username=user.substring(1,user.length-1)
         if(this.playlists[this.selectedPlaylist].id>=0){

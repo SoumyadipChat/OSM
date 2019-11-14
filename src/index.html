@@ -11,6 +11,38 @@
 
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+  <script src="https://kit.fontawesome.com/c2b250faf6.js" crossorigin="anonymous"></script>
+  
+  <script>
+
+      function playClick(){
+        window.angularComponentReference.zone.run(function()
+            {window.angularComponentReference.playFn();});
+      }
+      function pauseClick(){
+        window.angularComponentReference.zone.run(function()
+            {window.angularComponentReference.pauseFn();});
+      }
+      function nextClick(){
+        window.angularComponentReference.zone.run(function()
+            {window.angularComponentReference.nextFn();});
+      }
+      function prevClick(){
+        window.angularComponentReference.zone.run(function()
+            {window.angularComponentReference.prevFn();});
+      }
+      function getTitle(){
+        return window.angularComponentReference.zone.run(function()
+            {
+              return window.angularComponentReference.titleFn();
+            });
+      }
+
+  </script>
+
+
 </head>
 <body class="appBody">
   <app-root></app-root>

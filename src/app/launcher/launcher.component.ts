@@ -19,6 +19,8 @@ export class LauncherComponent implements OnInit {
   fullLogoStyle;
   loginStyle;
   loaderStyle;
+  errorStyle;
+  errorShow=false;
 
   constructor(private screenState:screenSizeState,private styleSetter:launcherStyleService,private router:Router,private loginDtaFetcher:LoginDataFetcher) { }
 
@@ -28,10 +30,13 @@ export class LauncherComponent implements OnInit {
         this.onScreensizeChange(scrSz);
       }
     );
+    setTimeout(()=>{
+      this.errorShow=true;
+    },15000);
     this.loginDtaFetcher.getUser('Soumyadip').subscribe(name=>{
       console.log(name=="Soumyadip");
       setTimeout(()=>{
-      (sessionStorage.getItem('loggedIn') && sessionStorage.getItem('loggedIn')=='true')?
+      (localStorage.getItem('loggedIn') && localStorage.getItem('loggedIn')=='true')?
       this.router.navigateByUrl("/music"):
       this.router.navigateByUrl("/login");
       },5000); 
@@ -47,6 +52,7 @@ export class LauncherComponent implements OnInit {
     this.fullLogoStyle=this.styleSetter.fullLogoStyler(scrSz);
     this.loginStyle=this.styleSetter.loginStyleSetter(scrSz);
     this.loaderStyle=this.styleSetter.loaderStyleSetter(scrSz);
+    this.errorStyle=this.styleSetter.errorStyleSetter(scrSz);
   }
 
 }

@@ -115,6 +115,15 @@ export class musicStyleService{
         }
     }
 
+    largePlayerStyleSetter(scrSz:screenSize,expanded?:boolean){
+        return {
+                'width':  (scrSz.width-3)+'px',
+                'height': (0.97*scrSz.height-3)+'px',
+                'background-color':'rgba(0,0,0,0)',
+                }
+        
+    }
+
     adderStyleSetter(scrSz:screenSize){
         if(scrSz.isMobile){
             return {

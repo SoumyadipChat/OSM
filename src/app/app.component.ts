@@ -124,6 +124,22 @@ export class AppComponent implements OnInit{
         'drag',
         sanitizer.bypassSecurityTrustResourceUrl('assets/icons/dragger.svg')
       );
+      iconRegistry.addSvgIcon(
+        'plist',
+        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/playlist.svg')
+      );
+      iconRegistry.addSvgIcon(
+        'plisthd',
+        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/playlisthd.svg')
+      );
+      iconRegistry.addSvgIcon(
+        'shuffleOn',
+        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/shuffleac.svg')
+      );
+      iconRegistry.addSvgIcon(
+        'shuffleOff',
+        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/shuffle.svg')
+      );
   }
 
   ngOnInit(){

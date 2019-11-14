@@ -1,4 +1,4 @@
-<div  class="playr">
+<div [ngClass]="{'largePlayer':largePlayer}"  class="playr">
   <div [hidden]="initializing" #outpt class="screenSwap">
     <div [hidden]="!showYoutube" class="videoOutput">
   
@@ -10,9 +10,27 @@
     
     </div>
 
+    <div  class="soundBars">
+      <div [hidden]="!largePlayer" class="thumbnail">
+          <img [ngStyle]="imgStyle" [src]="currentIndex>-1?'https://img.youtube.com/vi/'+playerQueue[currentIndex].videoId+'/hqdefault.jpg':''" alt="img">
+      </div>
+    </div>
+
+    <div  class="soundBars">
+      <div [hidden]="!screenSt.isMobile" [ngClass]="{'expanded':queExpanded}" class="expandCollPL">
+          <mat-icon role="button" (click)="largePlayerChange()" class="icons" [ngClass]="{'isNotMobile':!screenSt.isMobile}" [svgIcon]="largePlayer?'plisthd':'plist'" aria-hidden="false" ></mat-icon>
+      </div>
+    </div>
+
     <div [hidden]="queExpanded" class="soundBars">
       <div class="repeatButton">
           <mat-icon [hidden]="!repeatOn" role="button" (click)="repeatOn=!repeatOn" class="icons" [ngClass]="{'isNotMobile':!screenSt.isMobile}" [svgIcon]="repeatOn?'repeatOn':'repeatOff'" aria-hidden="false" ></mat-icon>
+      </div>
+    </div>
+
+    <div [hidden]="queExpanded" class="soundBars">
+      <div class="shuffle">
+          <mat-icon role="button" class="icons" (click)="shuffleOn=!shuffleOn" [ngClass]="{'isNotMobile':!screenSt.isMobile}" [svgIcon]="shuffleOn?'shuffleOn':'shuffleOff'" aria-hidden="false" ></mat-icon>
       </div>
     </div>
 
