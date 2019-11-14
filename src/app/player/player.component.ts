@@ -87,6 +87,7 @@ export class PlayerComponent implements OnInit{
       nextFn:()=>this.next(),
       prevFn:()=>this.previous(),
       titleFn:()=>this.getTitle(),
+      showPLFn:()=>this.showPL(),
       component: this,
   };
 
@@ -147,6 +148,12 @@ export class PlayerComponent implements OnInit{
 
    onVolChange(){
      this.player.setVolume(this.volume*25);
+   }
+
+   showPL(){
+     if(this.largePlayer){
+       this.largePlayerChange();
+     }
    }
 
    volToggle(){
@@ -255,7 +262,6 @@ export class PlayerComponent implements OnInit{
         else{
           this.currentIndex=this.currentIndex+1==this.playerQueue.length?0:this.currentIndex+1;
         }
-        
         this.OnIndChanges();
         this.player.loadVideoById(this.playerQueue[this.currentIndex].videoId);
         if(this.paused){
