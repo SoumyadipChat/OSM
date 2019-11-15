@@ -54,12 +54,18 @@
           background-color: rgba(0,0,0,0.5);
           border-radius: 50px;
           position: relative;
+          .iconn{
+            color: white;
+            width: 10%;
+            padding-top: 5%;
+            padding-left: 6%;
+          }
           .playlistName{
           width: 70%;
           position: absolute;
           transform: translateY(-50%);
           top: 50%;
-          left: 5%;
+          left: 20%;
           text-overflow: ellipsis;
           white-space: nowrap;
           overflow: hidden;
@@ -300,4 +306,18 @@
     .thumbNail{
       padding-left: 26px;
     }
+  }
+
+  .adderPart{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 8%;
+    max-height: 40px;
+    width: 100%;
+    z-index: 9999;
+  }
+  .sendBack.adderPart{
+    width:30%;
+    left: 84%;
   }

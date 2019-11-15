@@ -45,6 +45,12 @@
               return window.angularComponentReference.showPLFn();
             });
       }
+      function showLarge(){
+        return window.angularComponentReference.zone.run(function()
+            {
+              return window.angularComponentReference.showLargePlayer();
+            });
+      }
 
   </script>
 

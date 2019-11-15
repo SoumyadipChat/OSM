@@ -140,6 +140,14 @@ export class AppComponent implements OnInit{
         'shuffleOff',
         sanitizer.bypassSecurityTrustResourceUrl('assets/icons/shuffle.svg')
       );
+      iconRegistry.addSvgIcon(
+        'cancel',
+        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/cancel.svg')
+      );
+      iconRegistry.addSvgIcon(
+        'pllist',
+        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/playlisticn.svg')
+        );
   }
 
   ngOnInit(){

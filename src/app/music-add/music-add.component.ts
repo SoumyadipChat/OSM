@@ -6,12 +6,39 @@ import { DataFetcher } from '../services/DataFetcher.service';
 import { YouTubeSearchService, Result } from '../services/youtube-search.service';
 import { MatDialog } from '@angular/material';
 import { ModalCompComponent } from '../modal-comp/modal-comp.component';
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+  // ...
+} from '@angular/animations';
 
 @Component({
   selector: 'app-music-add',
   templateUrl: './music-add.component.html',
   styleUrls: ['./music-add.component.scss'],
-  providers:[MusicDataFetcher,DataFetcher,YouTubeSearchService]
+  providers:[MusicDataFetcher,DataFetcher,YouTubeSearchService],
+  animations: [
+    trigger('openClose', [
+      // ...
+      state('open', style({
+        width: '80%',
+        opacity: 1,
+      })),
+      state('closed', style({
+        width:'5%',
+        opacity: 0.9,
+        })),
+      transition('open => closed', [
+        animate('0.3s')
+      ]),
+      transition('closed => open', [
+        animate('0.3s')
+      ]),
+    ]),
+  ]
 })
 export class MusicAddComponent implements OnInit{
 
@@ -23,11 +50,19 @@ export class MusicAddComponent implements OnInit{
   screenSt:screenSize;
 
   inputFocused=false;
+  
+  isOpen=false;
+  hideSearch=true;
 
   @Input() playlists=[];
   @Input() selectedPlaylist=0;
+  @Input() mode="mobile";
   
   @Output() onAdd:EventEmitter<videoElem>=new EventEmitter();
+  @Output() onSearch:EventEmitter<boolean>=new EventEmitter();
+
+  @ViewChild("input", {read: ElementRef,static:false}) input: ElementRef;
+  @ViewChild("input1", {read: ElementRef,static:false}) input1: ElementRef;
 
   constructor(public dialog: MatDialog,private screenState:screenSizeState,private musicDataFetcher:MusicDataFetcher) { }
   
@@ -37,7 +72,33 @@ export class MusicAddComponent implements OnInit{
     });
   }
 
+  hideClick(){
+    if(this.isOpen){
+      this.isOpen=!this.isOpen;
+      setTimeout(()=>{
+        this.hideSearch=!this.hideSearch;
+        this.onSearch.emit(this.hideSearch);
+      },300)
+    }
+    else{
+      
+      this.hideSearch=!this.hideSearch;
+      this.onSearch.emit(this.hideSearch);
+      setTimeout(()=>{
+        this.isOpen=!this.isOpen;
+        this.input.nativeElement.focus();
+      },100)
+    }
+  }
+  
+
   openDialog(type){
+    if(this.input){
+      this.input.nativeElement.blur();
+    }
+    if(this.input1){
+      this.input1.nativeElement.blur();
+    }
     if(this.searchInp.length==0){
       return;
     }

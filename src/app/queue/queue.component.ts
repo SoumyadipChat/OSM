@@ -1,9 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter, Inject } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, Inject, ElementRef, ViewChild } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { MusicDataFetcher } from '../services/musicDataFetcher.service';
 import { DataFetcher } from '../services/DataFetcher.service';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { screenSizeState } from '../services/screen-size.service';
+import { videoElem } from '../music-player/music-player.component';
+import { interval } from 'rxjs';
 
 export interface DialogData {
   title: string;
@@ -23,7 +25,7 @@ export class QueueComponent implements OnInit {
   @Input() playerQueue;
   @Input() currentIndex;
 
-  expanded=false;
+  @Input() expanded=false;
   showExpand=true;
   isClosed=true;
 
@@ -35,7 +37,11 @@ export class QueueComponent implements OnInit {
 
   cantAddplayList=true;
 
+  hideSearch=true;
+
   selectedValue='Default';
+
+  @ViewChild('divToScroll', {read: ElementRef,static:false}) divToScroll: ElementRef;
 
   @Output() onIndexChange:EventEmitter<any>=new EventEmitter();
   @Output() onDoubleClic:EventEmitter<number>=new EventEmitter();
@@ -44,12 +50,23 @@ export class QueueComponent implements OnInit {
   @Output() onModifyPlaylist:EventEmitter<{index:number,title:string,isDefault:boolean}>=new EventEmitter();
   @Output() onDeletePlaylist:EventEmitter<number>=new EventEmitter();
   @Output() onChangePlaylist:EventEmitter<number>=new EventEmitter();
+  @Output() onAdd:EventEmitter<videoElem>=new EventEmitter();
  
   isRemSong=false;
+
+  sub;
 
   OnIndChanges(){
       //console.log(this.currentIndex);
       this.onIndexChange.emit(this.currentIndex);
+  }
+
+  addVideo(event){
+    this.onAdd.emit(event);
+  }
+
+  hideSear(event){
+    this.hideSearch=event;
   }
 
   constructor(private musicDataFetcher:MusicDataFetcher,public dialog: MatDialog,private screenState:screenSizeState) { }
@@ -65,6 +82,12 @@ export class QueueComponent implements OnInit {
         this.showExpand=true;
       }
      })
+      
+     
+  }
+
+  scrollPlacement(){
+    this.divToScroll.nativeElement.scrollTop=(this.currentIndex-1)*60;
   }
 
   selectPL(index){

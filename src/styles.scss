@@ -4,10 +4,14 @@
 @import '@angular/cdk/_text-field'; 
 @import './my-material-theme.scss';
 
+html{
+  overflow: hidden;
+}
+
 .appBody{
     margin: 0px;
     font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    overflow: auto;
+    overflow: hidden;
 
     ::-webkit-scrollbar {
       width: 12px;

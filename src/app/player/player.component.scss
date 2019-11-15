@@ -54,24 +54,24 @@
         z-index: 999;
         font-size: 150%;
         height: 29%;
-        left: 82%;
+        left: 87%;
         position: absolute;
-        top: 12%;
+        top:11%;
         width: 60px;
         .icons{
-            height: 30%;
+            height: 35%;
             width: auto;
             position: absolute;
-            top: 50%;
+            top: 40%;
             transform: translateY(-50%);
         
             flex-grow: 1;
-            margin: -10px 0 0 0;
+            margin: 0px 0 0 0;
         }
     }
     .expanded.expandCollPL{
-        height: 16%;
-        top: 16%;
+        height: 25%;
+        top: 17%;
     }
 
     .shuffle{
@@ -183,13 +183,14 @@
     }
 
     .utubeIcon.volClosed{
-        width: 80%;
-        left: 19%;
+        width: 70%;
+        left: 23%;
     }
 
 
     .utubeIcon.left.volClosed{
-        width: 24%;
+        width: 28%;
+        left: 0%;
     }
 
     .utubeIcon.left{
@@ -212,7 +213,7 @@
             width: 100%;
             height: 6px;
             border-radius: 4px;
-            background: #ccc;
+            background: rgba(0,0,0,0.8);
             outline: none;
             opacity: 0.7;
             -webkit-transition: .2s;
@@ -458,22 +459,29 @@
 
 
 .largePlayer{
-    .utubeIcon{
-        height: 7%;
-        top: 93%;
+    .expanded.utubeIcon{
+        height: 30%;
+        top: 104%;
     }
-    .ellFullTime{
-        top:89%;
-        font-size: 70%;
+    .utubeIcon.left.volClosed{
+        width: 21%;
+        left: 4%;
     }
-    .sliderPart{
-        top: 87%;
+    .utubeIcon.volClosed{
+        left: 27%;
+    }
+.expanded.ellFullTime{
+        top:90%;
+        font-size: 80%;
+    }
+    .expanded.sliderPart{
+        top: 91%;
     }
     .repeatButton{
-        top: 78%;
+        top: 74%;
     }
     .shuffle{
-        top: 78%;
+        top: 74%;
     }
     .bars{
         top: 72%;
@@ -482,9 +490,23 @@
         font-size: 150%;
         width: 70%;
     }
-    .expandCollPL{
-        height: 12%;
+    .expanded.expandCollPL{
+        height: 25%;
         left: 82%;
+        top: 12%;
     }
+    @media(max-height: 1000px){
+        @media(min-width: 400px){
+            .utubeTitle{
+                font-size: 180%;
+        }
+    }
+    .expanded .icons{
+        height: 20%;
+    }
+    .volSlider{
+        height: 20%;
+    }
+}
 }
  

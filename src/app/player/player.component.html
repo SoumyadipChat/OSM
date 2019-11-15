@@ -22,19 +22,19 @@
       </div>
     </div>
 
-    <div [hidden]="queExpanded" class="soundBars">
+    <div [hidden]="queExpanded && !largePlayer" class="soundBars">
       <div class="repeatButton">
           <mat-icon [hidden]="!repeatOn" role="button" (click)="repeatOn=!repeatOn" class="icons" [ngClass]="{'isNotMobile':!screenSt.isMobile}" [svgIcon]="repeatOn?'repeatOn':'repeatOff'" aria-hidden="false" ></mat-icon>
       </div>
     </div>
 
-    <div [hidden]="queExpanded" class="soundBars">
+    <div [hidden]="queExpanded && !largePlayer" class="soundBars">
       <div class="shuffle">
           <mat-icon role="button" class="icons" (click)="shuffleOn=!shuffleOn" [ngClass]="{'isNotMobile':!screenSt.isMobile}" [svgIcon]="shuffleOn?'shuffleOn':'shuffleOff'" aria-hidden="false" ></mat-icon>
       </div>
     </div>
 
-    <div [hidden]="playerState!=1 || showYoutube || queExpanded" class="soundBars">
+    <div [hidden]="playerState!=1 || showYoutube || (queExpanded && !largePlayer)" class="soundBars">
         <div class="bars">
 
             <div class="bar"></div>
@@ -49,7 +49,7 @@
             <div class="bar"></div>
         </div>
     </div>
-    <div [hidden]="playerState==1 || showYoutube || queExpanded" class="soundBars">
+    <div [hidden]="playerState==1 || showYoutube || (queExpanded && !largePlayer)" class="soundBars">
       <div class="bars"> 
           <div class="staticbar"></div>
             <div class="staticbar"></div>
@@ -86,8 +86,8 @@
     </div>
     <div [ngClass]="{'expanded':queExpanded,'volClosed':!showVolSLider}" class="utubeIcon">
       <mat-icon role="button" (click)="previous()" class="icons" svgIcon="prev" aria-hidden="false" ></mat-icon>
-      <mat-icon role="button" (click)="play()" class="icons" svgIcon="play" aria-hidden="false" ></mat-icon>
-      <mat-icon role="button" (click)="pause()" class="icons" svgIcon="pause" aria-hidden="false" ></mat-icon>
+      <mat-icon role="button" (click)="playerState==1?pause():play()" class="icons" [svgIcon]="playerState==1?'pause':'play'" aria-hidden="false" ></mat-icon>
+      <!-- <mat-icon role="button" (click)="pause()" class="icons" svgIcon="pause" aria-hidden="false" ></mat-icon> -->
       <mat-icon role="button" (click)="next()" class="icons" svgIcon="next" aria-hidden="false" ></mat-icon>
     </div>
     

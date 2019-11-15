@@ -52,6 +52,7 @@ export class PlayerComponent implements OnInit{
   private thumbnail:string;
   @ViewChild("outpt", {read: ElementRef,static:false}) outpt: ElementRef;
 
+
   showYoutube:boolean=false;
   paused=true;
   repeatOn:boolean=true;
@@ -63,6 +64,8 @@ export class PlayerComponent implements OnInit{
 
   playerState;
   imgStyle;
+
+  volTimeOut
 
   showVolSLider=false;
   volume=4;
@@ -88,6 +91,7 @@ export class PlayerComponent implements OnInit{
       prevFn:()=>this.previous(),
       titleFn:()=>this.getTitle(),
       showPLFn:()=>this.showPL(),
+      showLargePlayer:()=>this.largePlayerChange(),
       component: this,
   };
 
@@ -141,7 +145,8 @@ export class PlayerComponent implements OnInit{
    }
 
    largePlayerChange(){
-     console.log(this.largePlayer);
+    let largeState=this.largePlayer?"small":"large";
+     console.log("largePlayer|"+largeState);
      this.largePlayer=!this.largePlayer;
      this.onLargePlayerChange.emit(this.largePlayer);
    }
@@ -157,8 +162,11 @@ export class PlayerComponent implements OnInit{
    }
 
    volToggle(){
+     if(this.volTimeOut){
+       clearTimeout(this.volTimeOut);
+     }
      this.showVolSLider=!this.showVolSLider;
-     setTimeout(()=>{
+     this.volTimeOut=setTimeout(()=>{
        this.showVolSLider=false;
      },5000);
    }
@@ -300,7 +308,7 @@ export class PlayerComponent implements OnInit{
   onStateChange(event){
    setTimeout(()=>{
     this.playerState=event.data;
-   },500); 
+   },200); 
     console.log('playerState|'+event.data);
     console.log('SongTitle|'+this.getTitle());
     console.log('SongId|'+this.playerQueue[this.currentIndex].videoId);

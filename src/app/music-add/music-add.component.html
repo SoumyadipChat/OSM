@@ -1,8 +1,8 @@
 
-    <div class="adder" >
+    <div *ngIf="mode=='web'" class="adder" >
         <div class="box">
                 <div class="boxItems" [ngClass]="{'horizontal':!screenSt.isMobile}">
-                        <input class="inputBox" [(ngModel)]="searchInp" (focus)="inputFocused=true" (blur)="inputFocused=false" type="text" (keyup.enter)="openDialog(0)" placeholder="Search / Add by url" />
+                        <input #input1 class="inputBox" [(ngModel)]="searchInp" (focus)="inputFocused=true" (blur)="inputFocused=false" type="text" (keyup.enter)="openDialog(0)" placeholder="Search / Add by url" />
                         <div class="buttons">
                                 <mat-icon role="button" (click)="openDialog(0)" class="icons" svgIcon="search" aria-hidden="false" ></mat-icon>
                         </div>
@@ -10,5 +10,16 @@
                 </div>
          
         </div>
+    </div>
+
+    <div *ngIf="mode=='mobile'" [ngClass]="{'hideSearch':hideSearch}" class="adderMob" >
+        <div [@openClose]="isOpen ? 'open' : 'closed'" *ngIf="!hideSearch" class="box">
+                <input #input class="inputBox" [(ngModel)]="searchInp" (focus)="inputFocused=true" (blur)="inputFocused=false" type="text" (keyup.enter)="openDialog(0)" placeholder="Search / Add by url" />
+                <i role="button" (click)="openDialog(0)" class="fas fa-search srch"></i>
+        </div>
+        <div class="searIcon">
+                <mat-icon role="button" class="icon" (click)="hideClick()" [svgIcon]="hideSearch?'search':'cancel'" aria-hidden="false" ></mat-icon>
+        </div>
+  
     </div>
 

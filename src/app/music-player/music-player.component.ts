@@ -7,6 +7,7 @@ import { PlayerComponent } from '../player/player.component';
 import { MusicAddComponent } from '../music-add/music-add.component';
 import { PlaylistDataFetcher } from '../services/PlayList.service';
 import { Playlist } from '../services/model';
+import { QueueComponent } from '../queue/queue.component';
 
 export interface videoElem{
   videoId:string,
@@ -35,8 +36,12 @@ export class MusicPlayerComponent implements OnInit,AfterViewInit {
 
   adderToggleShow;
   adderShow;
-  expanded=false;
-  lastScreenSz;
+  expanded=true;
+  lastScreenSz={
+    height:0,
+    width:0,
+    isMobile:false
+  };
 
   largePlayer=true;
 
@@ -47,6 +52,8 @@ export class MusicPlayerComponent implements OnInit,AfterViewInit {
   @ViewChild(PlayerComponent,{read: PlayerComponent,static:false}) playrComp:PlayerComponent;
 
   @ViewChild(MusicAddComponent,{read: MusicAddComponent,static:false}) addrComp:MusicAddComponent;
+
+  @ViewChild(QueueComponent,{read: QueueComponent,static:false}) queueComp:QueueComponent;
 
   defplayerQueue=[
     {
@@ -109,6 +116,7 @@ export class MusicPlayerComponent implements OnInit,AfterViewInit {
       }
       this.onScreensizeChange(screen,(screen.isMobile&&this.expanded))
      })
+     this.onExpCollapse(true);
     if(localStorage.getItem('loggedIn')!==null){
       this.loggedInUser=(localStorage.getItem('loggedIn')=='true' && localStorage.getItem('username'))?localStorage.getItem('username'):'Guest';
       if(this.loggedInUser!='Guest'){
@@ -165,6 +173,10 @@ export class MusicPlayerComponent implements OnInit,AfterViewInit {
 
   onLargePlayerChange(isLarge){
       this.largePlayer=isLarge;
+      this.queueComp.scrollPlacement();
+       //this.expanded=false;
+       //this.onExpCollapse(this.expanded);
+      
   }
 
   onDeletePlaylist(index){
@@ -252,13 +264,13 @@ export class MusicPlayerComponent implements OnInit,AfterViewInit {
     if(this.addrComp && this.addrComp.inputFocused==true){
       return;
     }
-     this.adderToggleShow=scrSz.isMobile;
-      this.adderShow=!scrSz.isMobile;
-      this.headerBarStyle=this.styleSetter.headerStyleSetter(scrSz);
+    this.expanded=scrSz.isMobile;
+    console.log("Expanded",expanded,this.largePlayer);
+     this.headerBarStyle=this.styleSetter.headerStyleSetter(scrSz);
       this.musicPlayerStyle=this.styleSetter.bodyStyleSetter(scrSz);
-      this.leftStyle=expanded?this.styleSetter.leftStyleSetter(scrSz,expanded):this.styleSetter.leftStyleSetter(scrSz);
-      this.rightStyle=expanded?this.styleSetter.rightStyleSetter(scrSz,expanded):this.styleSetter.rightStyleSetter(scrSz);
-      this.playerStyle=expanded?this.styleSetter.playerStyleSetter(scrSz,expanded):this.styleSetter.playerStyleSetter(scrSz);
+      this.leftStyle=expanded?this.styleSetter.leftStyleSetter(scrSz,true):this.styleSetter.leftStyleSetter(scrSz,scrSz.isMobile);
+      this.rightStyle=expanded?this.styleSetter.rightStyleSetter(scrSz,true):this.styleSetter.rightStyleSetter(scrSz,scrSz.isMobile);
+      this.playerStyle=expanded?this.styleSetter.playerStyleSetter(scrSz,true):this.styleSetter.playerStyleSetter(scrSz,scrSz.isMobile);
       this.largePlayerStyle=this.styleSetter.largePlayerStyleSetter(scrSz);
       this.adderStyle=this.styleSetter.adderStyleSetter(scrSz);
      

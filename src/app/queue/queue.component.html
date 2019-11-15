@@ -1,24 +1,24 @@
    
     <div class="queue" >
-        <!-- <div cdkDropList class="box" (cdkDropListDropped)="drop($event)" >
-            <div *ngFor="let song of playerQueue;let in = index" class="queElements" cdkDrag >
-                <div  class="queueElem" [ngClass]="{'current':in==currentIndex}">
-                    <div class="thumbNail">
-                        <img [src]="song.thumbnail">
-                    </div>
-                    <div class="songTitle">
-                            {{song.title}} {{currentIndex}}
-                    </div>
-                </div>
-                
-            </div>
-        </div> -->
+        
+        
         
         <div cdkDropList class="box example-list" (cdkDropListDropped)="drop($event)">
+                <div [ngClass]="{'sendBack':hideSearch}" class="adderPart">
+                        <app-music-add
+                        (onSearch)="hideSear($event)"
+                        [mode]="'mobile'"
+                        [playlists]="playlists"
+                        [selectedPlaylist]="selectedPlaylist"
+                        (onAdd)="addVideo($event)"></app-music-add>
+                </div>
                 <div class="queueHeader">
                          <div class="dropbox">
                                <div role="button" (click)="isClosed=!isClosed" class="content">
-                                    <div  class="playlistName">{{playlists[selectedPlaylist].playlist}}</div>
+                                    <mat-icon class="iconn" svgIcon="pllist" aria-hidden="false" ></mat-icon>
+                                    <div class="playlistName">
+                                        {{playlists[selectedPlaylist].playlist}}
+                                    </div>
                                     <div class="arrow">
                                         <mat-icon class="icons" [svgIcon]="isClosed?'down':'up'" aria-hidden="false" ></mat-icon>
                                     </div>
@@ -43,9 +43,11 @@
                                </div>
                             </div>
                             
-                    <div role="button" [hidden]="!showExpand" (click)="onExpandCollapse()" class="expand">{{expanded?'Collapse':'Expand'}}</div>
+                   
+                        
+                    
                     </div>
-                <div class="songList">
+                <div class="songList" #divToScroll>
                     <div class="example-box" role="button"  *ngFor="let song of playerQueue;let in = index" (click)="playSong(in)" [ngClass]="{'current':in==currentIndex}" cdkDrag>
                         <div [hidden]="in==currentIndex" class="handler">
                             <mat-icon role="button" class="icons" svgIcon="drag" aria-hidden="false" cdkDragHandle></mat-icon>
