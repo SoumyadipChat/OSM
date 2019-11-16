@@ -6,6 +6,7 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { screenSizeState } from '../services/screen-size.service';
 import { videoElem } from '../music-player/music-player.component';
 import { interval } from 'rxjs';
+import { MusicAddComponent } from '../music-add/music-add.component';
 
 export interface DialogData {
   title: string;
@@ -42,6 +43,7 @@ export class QueueComponent implements OnInit {
   selectedValue='Default';
 
   @ViewChild('divToScroll', {read: ElementRef,static:false}) divToScroll: ElementRef;
+  @ViewChild(MusicAddComponent,{read: MusicAddComponent,static:false}) addrComp:MusicAddComponent;
 
   @Output() onIndexChange:EventEmitter<any>=new EventEmitter();
   @Output() onDoubleClic:EventEmitter<number>=new EventEmitter();

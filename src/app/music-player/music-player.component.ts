@@ -261,7 +261,7 @@ export class MusicPlayerComponent implements OnInit,AfterViewInit {
 
   onScreensizeChange(scrSz:screenSize,expanded?:boolean){
     this.lastScreenSz=scrSz
-    if(this.addrComp && this.addrComp.inputFocused==true){
+    if((this.addrComp && this.addrComp.inputFocused==true) || (this.queueComp && this.queueComp.addrComp && this.queueComp.addrComp.inputFocused) ){
       return;
     }
     this.expanded=scrSz.isMobile;
