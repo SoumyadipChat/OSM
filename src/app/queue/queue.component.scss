@@ -143,6 +143,21 @@
         border-radius: 10px;
       }
     }
+
+    .example-box.loginDisclaimer{
+      margin-top: 5px;
+      height: 30px;
+      background: rgba(220, 20, 60, 0.356);
+      .songTitle{
+        width: 100%;
+        color: rgb(92, 1, 1);
+        text-align: center;
+      }
+    }
+
+    .songList.smaller{
+      height: 84%;
+    }
      
     
     .queElements{
@@ -262,6 +277,9 @@
         width: 15px;
         rotate: (90);
       }
+    }
+    .closer.editIcon{
+      top: 35px;
     }
     .player{
       position: absolute;

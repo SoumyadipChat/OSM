@@ -81,6 +81,10 @@ export class AppComponent implements OnInit{
         sanitizer.bypassSecurityTrustResourceUrl('assets/icons/edit.svg')
       );
       iconRegistry.addSvgIcon(
+        'editttl',
+        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/editTtl.svg')
+      );
+      iconRegistry.addSvgIcon(
         'delete',
         sanitizer.bypassSecurityTrustResourceUrl('assets/icons/delete.svg')
       );

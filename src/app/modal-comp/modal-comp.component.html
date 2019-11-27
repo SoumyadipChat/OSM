@@ -1,6 +1,6 @@
 <div mat-dialog-title>Title: 
         <mat-form-field color="accent">
-                <input [disabled]="noOfTru!=1" maxlength="30" matInput (ngModelChange)="updateTitle()" [(ngModel)]="titleText">
+                <input [disabled]="noOfTru!=1" maxlength="30" matInput [(ngModel)]="titleText">
         </mat-form-field>
 </div>
 <div mat-dialog-content>
@@ -14,7 +14,7 @@
                     No rows to Show
             </div>
         </div>
-        <mat-radio-group [(ngModel)]="selectIndex" (ngModelChange)="updateSelection()">
+        <mat-radio-group>
             <div class="example-box" role="button" *ngFor="let song of searchResults;let in = index">
                     <div class="thumbNail">
                         <img [src]="song.thumbnailUrl">

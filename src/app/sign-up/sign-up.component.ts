@@ -63,6 +63,10 @@ export class SignUpComponent implements OnInit,AfterViewInit {
   }
 
   ngOnInit() {
+    
+  }
+
+  ngAfterViewInit(){
     this.screenState.screenSize.subscribe((scrSz)=>{
       this.onScreensizeChange(scrSz);
   })
@@ -72,10 +76,6 @@ export class SignUpComponent implements OnInit,AfterViewInit {
     this.dataFetcher.getAllEmails().subscribe(data=>{
       this.allEmail=data;
     })
-  }
-
-  ngAfterViewInit(){
-    
   }
 
   showLoginError(message){
@@ -169,6 +169,7 @@ export class SignUpComponent implements OnInit,AfterViewInit {
 
   openMusicGuest(){
     localStorage.setItem('loggedIn','false');
+    localStorage.setItem('username','Guest');
     this.router.navigateByUrl("/music");
   }
 

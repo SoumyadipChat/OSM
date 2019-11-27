@@ -53,9 +53,12 @@ export class QueueComponent implements OnInit {
   @Output() onDeletePlaylist:EventEmitter<number>=new EventEmitter();
   @Output() onChangePlaylist:EventEmitter<number>=new EventEmitter();
   @Output() onAdd:EventEmitter<videoElem>=new EventEmitter();
+  @Output() onEditTitle:EventEmitter<Object>=new EventEmitter();
+  @Output() onChangePos:EventEmitter<number>=new EventEmitter();
  
   isRemSong=false;
-
+  isEditSong=false;
+  isGuestQueue=false;
   sub;
 
   OnIndChanges(){
@@ -84,12 +87,16 @@ export class QueueComponent implements OnInit {
         this.showExpand=true;
       }
      })
-      
+     console.log("is guest",localStorage.getItem('username'));
+   this.isGuestQueue=localStorage.getItem('username')=='Guest';
      
   }
 
   scrollPlacement(){
-    this.divToScroll.nativeElement.scrollTop=(this.currentIndex-1)*60;
+    setTimeout(()=>{
+      this.divToScroll.nativeElement.scrollTop=(this.currentIndex)*60;
+    },200)
+    
   }
 
   selectPL(index){
@@ -167,6 +174,8 @@ export class QueueComponent implements OnInit {
     if(event.previousIndex==this.currentIndex){
       return;
     }
+    moveItemInArray(this.playerQueue, event.previousIndex, event.currentIndex);
+    
     if(event.previousIndex>this.currentIndex && event.currentIndex<=this.currentIndex){
       this.currentIndex++;
       this.OnIndChanges();
@@ -175,7 +184,8 @@ export class QueueComponent implements OnInit {
       this.currentIndex--;
       this.OnIndChanges();
     }
-    moveItemInArray(this.playerQueue, event.previousIndex, event.currentIndex);
+    
+    this.onChangePos.emit(event.currentIndex);
   }
 
   remSong(index){
@@ -211,14 +221,36 @@ export class QueueComponent implements OnInit {
     
   }
 
+  editTitle(index){
+
+      this.isEditSong=true;
+
+      const dialogRef = this.dialog.open(ModifyAddDialog, {
+        width: '280px',
+        data: {title:this.playerQueue[index].title,default:false,type:'Edit',prevVals:[]}
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+        //console.log('The dialog was closed');
+       if(result){
+         
+        this.onEditTitle.emit({
+          index:index,
+          title:result.title
+        })
+      } 
+    })
+  }
+
   playSong(index){
     setTimeout(()=>{
-      if(this.isRemSong){
+      if(this.isRemSong || this.isEditSong){
         this.isRemSong=false;
+        this.isEditSong=false;
         return;
       }
       this.onDoubleClic.emit(index);
-    })
+    },100)
           
   
   }
@@ -268,6 +300,7 @@ export class ModifyAddDialog implements OnInit {
   blankNm=true;
   origNm='';
   origBool=true;
+  inputStyle;
 
   constructor(
     public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
@@ -278,6 +311,16 @@ export class ModifyAddDialog implements OnInit {
       if(this.origNm.length>0){
         this.blankNm=false;
         this.validName=true;
+      }
+      if(this.data.type=='Edit'){
+        this.inputStyle={
+          'min-height':'100px'
+        }
+      }
+      else{
+        this.inputStyle={
+          'min-height':'160px'
+        }
       }
     }
 
@@ -306,3 +349,5 @@ export class ModifyAddDialog implements OnInit {
   }
 
 }
+
+

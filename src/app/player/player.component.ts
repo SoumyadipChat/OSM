@@ -64,6 +64,7 @@ export class PlayerComponent implements OnInit{
 
   playerState;
   imgStyle;
+  loaderStyle;
 
   volTimeOut
 
@@ -101,14 +102,14 @@ export class PlayerComponent implements OnInit{
   ngOnInit() {
     this.screenState.screenSize.subscribe(scrSz=>{
         this.screenSt=scrSz;
+        let boxSize=Math.min(scrSz.width,scrSz.height/1.5)
         this.imgStyle={
-          'width':scrSz.width*0.5+'px',
-          'height':scrSz.width*0.5+'px',
-          'position':'absolute',
-          'left':scrSz.width*0.25+'px',
+          'width':boxSize*0.5+'px',
+          'height':boxSize*0.5+'px',
           'border-radius':'15px',
           'box-shadow': '0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22)'
         }
+        
     });
     
   }
@@ -177,7 +178,7 @@ export class PlayerComponent implements OnInit{
     this.videoHgt=this.outpt.nativeElement.offsetHeight;
     this.videoWdt=this.outpt.nativeElement.offsetWidth;
     this.player.setSize(this.videoWdt,this.videoHgt);
-    let timer=2000;
+    let timer=1000;
     this.sub = interval(1000)
     .subscribe((val) => {
       this.elapsedTime=this.player.getCurrentTime();
@@ -194,9 +195,9 @@ export class PlayerComponent implements OnInit{
           this.OnIndChanges();
       }
       else{
-        this.currentIndex=0;
+        this.currentIndex=this.currentIndex>0?this.currentIndex:0;
         this.OnIndChanges();
-        this.player.loadVideoById(this.playerQueue[0].videoId);
+        this.player.loadVideoById(this.playerQueue[this.currentIndex].videoId);
         this.pause();
         console.log(this.paused);
       }
@@ -323,5 +324,23 @@ export class PlayerComponent implements OnInit{
     }
    
   }
+
+  left(){
+    console.log("swipe left")
+    this.previous();
+  }
+
+  right(){
+    console.log("swipe right")
+    this.next()
+  }
+
+  panstart(event){
+    console.log(event,event.x,event.y);
+  }
+  panmove(event){
+    console.log(event,event.x,event.y);
+  }
+  
 
 }

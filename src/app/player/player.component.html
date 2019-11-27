@@ -11,7 +11,8 @@
     </div>
 
     <div  class="soundBars">
-      <div [hidden]="!largePlayer" class="thumbnail">
+      <div [hidden]="!largePlayer"     
+      [ngClass]="{'largeThumb':largePlayer}" class="thumbnail">
           <img [ngStyle]="imgStyle" [src]="currentIndex>-1?'https://img.youtube.com/vi/'+playerQueue[currentIndex].videoId+'/hqdefault.jpg':''" alt="img">
       </div>
     </div>
@@ -25,6 +26,12 @@
     <div [hidden]="queExpanded && !largePlayer" class="soundBars">
       <div class="repeatButton">
           <mat-icon [hidden]="!repeatOn" role="button" (click)="repeatOn=!repeatOn" class="icons" [ngClass]="{'isNotMobile':!screenSt.isMobile}" [svgIcon]="repeatOn?'repeatOn':'repeatOff'" aria-hidden="false" ></mat-icon>
+      </div>
+    </div>
+
+    <div [hidden]="!largePlayer" class="soundBars"> 
+      <div class="repeatButton up">
+        <i role="button" (click)="largePlayerChange()"  class="fas fa-angle-up" ></i>
       </div>
     </div>
 
@@ -103,7 +110,14 @@
     <div class="initText">
         <div hidden id="mininized">max</div>
        <div class="textIn">
-          <div [ngStyle]="loaderStyle" class="loader"></div>
+          <!-- <div [ngStyle]="loaderStyle" class="loader"></div> -->
+          <div class="container">
+            <div class="item-1"></div>
+            <div class="item-2"></div>
+            <div class="item-3"></div>
+            <div class="item-4"></div>
+            <div class="item-5"></div>
+          </div>
            <div style="padding-left: 20px;">Initializing.....</div>
       </div> 
     </div>

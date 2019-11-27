@@ -12,6 +12,7 @@ export class screenSizeState{
 
     private screenSizeSource = new BehaviorSubject<screenSize>({width:1280,height:720,isMobile:true});
   screenSize = this.screenSizeSource.asObservable();
+  currentScreen:screenSize;
 
   constructor() { }
 
@@ -21,7 +22,12 @@ export class screenSizeState{
         height:hgt,
         isMobile:isMob
       }
+      this.currentScreen=newScreen;
     this.screenSizeSource.next(newScreen);
+  }
+
+  getCurrentScreen():screenSize{
+    return this.currentScreen;
   }
 
    

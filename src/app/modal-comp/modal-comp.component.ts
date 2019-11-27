@@ -54,7 +54,7 @@ export class ModalCompComponent implements OnInit {
         }
         this.showLoading=false;
         this.isEmptySearch=false;
-        this.titleText=this.searchResults[0].title.split('|')[0].substring(0,30);
+        this.titleText=('').concat(this.searchResults[0].title.split('|')[0].substring(0,30));
         this.selectedVal=this.searchResults[0];
     })
   }
@@ -86,20 +86,10 @@ export class ModalCompComponent implements OnInit {
         })
       }
     }
-    if(resultArr.length==1){
+    if(resultArr.length==1 && this.titleText.length>0){
       resultArr[0].title=this.titleText;
     }
     return resultArr;
   }
-
-  updateSelection(){
-    this.selectedVal=this.searchResults[this.selectIndex];
-    this.titleText=this.searchResults[this.selectIndex].title.split('|')[0].substring(0,20);
-  }
-
-  updateTitle(){
-    this.selectedVal.title=this.titleText;
-  }
-  
 
 }

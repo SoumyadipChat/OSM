@@ -5,8 +5,8 @@
     </div>
     <div class="userName">
        Welcome, {{username}}
-       <div [hidden]="username=='Guest'" class="logOut">
-          <div role="button" class="lgotext" (click)="onLogout()">Logout</div> 
+       <div class="logOut">
+          <div role="button" class="lgotext" (click)="onLogout()">{{ username=='Guest' ?'Login/Register':'Logout'}}</div> 
        </div>
     </div>
 </div>

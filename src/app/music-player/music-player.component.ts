@@ -15,7 +15,8 @@ export interface videoElem{
   title:string,
   username?:string,
   id?:number,
-  playlist?:string
+  playlist?:string,
+  lexoRank?:string
 }
 
 @Component({
@@ -57,19 +58,9 @@ export class MusicPlayerComponent implements OnInit,AfterViewInit {
 
   defplayerQueue=[
     {
-      videoId:'YKcgwUg39yY',
-      thumbnail:"https://img.youtube.com/vi/YKcgwUg39yY/hqdefault.jpg",
-      title:'Dhadak(Title Track)'
-    },
-    {
-      videoId:'DMRRC0rwO_I',
-      thumbnail:"https://img.youtube.com/vi/DMRRC0rwO_I/hqdefault.jpg",
-      title:'Khairiyat'
-    },
-    {
-      videoId:'2kN3THdRih8',
-      thumbnail:"https://img.youtube.com/vi/2kN3THdRih8/hqdefault.jpg",
-      title:'Tum hi aana'
+      videoId:'P8PWN1OmZOA',
+      thumbnail:"https://img.youtube.com/vi/P8PWN1OmZOA/hqdefault.jpg",
+      title:'Tu Jaane Na'
     }
   ];
 
@@ -116,11 +107,18 @@ export class MusicPlayerComponent implements OnInit,AfterViewInit {
       }
       this.onScreensizeChange(screen,(screen.isMobile&&this.expanded))
      })
-     this.onExpCollapse(true);
+     //this.onExpCollapse(true);
     if(localStorage.getItem('loggedIn')!==null){
       this.loggedInUser=(localStorage.getItem('loggedIn')=='true' && localStorage.getItem('username'))?localStorage.getItem('username'):'Guest';
       if(this.loggedInUser!='Guest'){
         this.usernm=this.loggedInUser.substring(1,this.loggedInUser.length-1);
+
+        console.log("last index",localStorage.getItem('lastIndex')!='undefined',localStorage.getItem('lastIndex'));
+
+        let lastPlaylist=(localStorage.getItem('playlist')!=null && localStorage.getItem('playlist')!='undefined')?JSON.parse(localStorage.getItem('playlist')):null;
+        let lastIndexId=(localStorage.getItem('lastIndex')!=null && localStorage.getItem('lastIndex')!='undefined')?JSON.parse(localStorage.getItem('lastIndex')):null;
+
+
         this.playlistFetcher.getAllPlaylists(this.usernm).subscribe((playlsts:Array<any>)=>{
           this.playlists=this.playlists.concat(playlsts);
           this.addable=playlsts.length<4;
@@ -128,7 +126,12 @@ export class MusicPlayerComponent implements OnInit,AfterViewInit {
           let index=0;
           playlsts.forEach(plst=>{
             index++;
-            if(plst.isDefault=='Y'){
+            if(lastPlaylist!=null && plst.id==lastPlaylist){
+              defVal=plst.playlist;
+              this.defaultPlaylist=plst;
+              this.selectedPlaylist=index;
+            }
+            else if(lastPlaylist === null && plst.isDefault=='Y'){
               defVal=plst.playlist;
               this.defaultPlaylist=plst;
               this.selectedPlaylist=index;
@@ -144,9 +147,17 @@ export class MusicPlayerComponent implements OnInit,AfterViewInit {
             }
           
             this.playerQueue=this.playerQueue.filter(x=>x.videoId!=null);
+            for(let song in this.playerQueue){
+              if(lastIndexId != null && this.playerQueue[song].id==lastIndexId){
+                this.currentIndex=+song;
+                break;
+              }
+            }
             });
-            this.playrComp.queueInitializer();
-        })
+          });
+            
+            //this.playrComp.queueInitializer();
+            
       }
       else{
         this.playerQueue=this.defplayerQueue;
@@ -155,6 +166,7 @@ export class MusicPlayerComponent implements OnInit,AfterViewInit {
   }
 
   onChangePlaylist(index){
+    localStorage.setItem('playlist',JSON.stringify(this.playlists[index].id));
     this.selectedPlaylist=index;
     this.musicDataFetcher.getAllSongs(this.usernm).subscribe((songList)=>{
       this.playerQueue=songList;
@@ -177,6 +189,12 @@ export class MusicPlayerComponent implements OnInit,AfterViewInit {
        //this.expanded=false;
        //this.onExpCollapse(this.expanded);
       
+  }
+
+  onIndexChange(index){
+    this.currentIndex=index;
+    this.queueComp.scrollPlacement();
+    localStorage.setItem('lastIndex',JSON.stringify(this.playerQueue[index].id))
   }
 
   onDeletePlaylist(index){
@@ -265,6 +283,9 @@ export class MusicPlayerComponent implements OnInit,AfterViewInit {
       return;
     }
     this.expanded=scrSz.isMobile;
+    if(!expanded){
+      this.largePlayer=false;
+    }
     console.log("Expanded",expanded,this.largePlayer);
      this.headerBarStyle=this.styleSetter.headerStyleSetter(scrSz);
       this.musicPlayerStyle=this.styleSetter.bodyStyleSetter(scrSz);
@@ -277,11 +298,71 @@ export class MusicPlayerComponent implements OnInit,AfterViewInit {
    }
 
    addVideo(video){
+    if(localStorage.getItem('loggedIn') && localStorage.getItem('loggedIn')=='true'){
+      let user=localStorage.getItem('username')?localStorage.getItem('username'):'Guest';
+      if(user!='Guest'){
+        let index=this.playerQueue.length;
+        let id=video.id;
+        let prev=index==0?'first':this.playerQueue[index-1].lexoRank;
+        let next='last';
+        this.musicDataFetcher.setLexoRank(id,prev,next).subscribe((data:string)=>{
+          if(data=='-1'){
+            return;
+          }
+          else{
+            let valArr=data.split('@');
+            video.lexoRank=valArr[0];
+            if(valArr.length>1 && valArr[1]=='rebalance'){
+              this.musicDataFetcher.rebalancePL(video.username,video.playlist).subscribe(data=>{
+                console.log("Rebalanced");
+              })
+            }
+          }
+        });
+      }
+    }
      this.playerQueue.push(video);
+   }
+
+   onEditTitle(item){
+     console.log(item)
+     let index=item.index;
+     let title=item.title;
+     
+     this.musicDataFetcher.editTitle(this.playerQueue[index].id,title).subscribe(data=>{
+        if(data!=-1){
+          this.playerQueue[index].title=title;
+        }
+     });
    }
 
    playSong(index){
      this.playrComp.playIndexNumber(index);
+   }
+
+   onChangePos(index){
+    if(localStorage.getItem('loggedIn') && localStorage.getItem('loggedIn')=='true'){
+      let user=localStorage.getItem('username')?localStorage.getItem('username'):'Guest';
+      if(user!='Guest'){
+        let id=this.playerQueue[index].id;
+        let prev=index==0?'first':this.playerQueue[index-1].lexoRank;
+        let next=index==this.playerQueue.length-1?'last':this.playerQueue[index+1].lexoRank;
+        this.musicDataFetcher.setLexoRank(id,prev,next).subscribe((data:string)=>{
+          if(data=='-1'){
+            return;
+          }
+          else{
+            let valArr=data.split('@');
+            this.playerQueue[index].lexoRank=valArr[0];
+            if(valArr.length>1 && valArr[1]=='rebalance'){
+              this.musicDataFetcher.rebalancePL(this.playerQueue[index].username,this.playerQueue[index].playlist).subscribe(data=>{
+                console.log("Rebalanced");
+              })
+            }
+          }
+        });
+      }
+    }
    }
 
 }

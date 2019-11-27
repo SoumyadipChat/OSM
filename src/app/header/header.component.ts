@@ -25,6 +25,12 @@ export class HeaderComponent implements OnInit {
 }
 
 onLogout(){
+
+  if(this.username=='Guest'){
+    this.router.navigateByUrl("/login");
+    return;
+  }
+
   const dialogRef = this.dialog.open(LogoutConfirmDialog, {
     width: '250px',
     data: this.username
@@ -35,6 +41,7 @@ onLogout(){
     if(result && result=='logout'){
         console.log("logged out");
         localStorage.setItem('loggedIn','false');
+        localStorage.setItem('username','Guest');
         this.router.navigateByUrl("/login");
     }
   });

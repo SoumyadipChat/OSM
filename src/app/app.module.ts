@@ -1,4 +1,4 @@
-import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
+import { BrowserModule, DomSanitizer, HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { YoutubePlayerModule } from 'ng2-youtube-player';
 import { AppRoutingModule } from './app-routing.module';
@@ -21,6 +21,9 @@ import { YouTubeSearchService } from './services/youtube-search.service';
 import { YouTubeServiceInjectables } from './services/youtube-search.injectables';
 import { ModalCompComponent } from './modal-comp/modal-comp.component';
 import { AngularPageVisibilityModule } from 'angular-page-visibility';
+
+import 'hammerjs';
+import 'hammer-timejs'
 
 @NgModule({
   declarations: [

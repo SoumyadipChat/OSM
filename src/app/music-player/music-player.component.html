@@ -10,7 +10,7 @@
                 [queExpanded]="expanded" 
                 [playerQueue]="playerQueue" 
                 [currentIndex]="currentIndex" 
-                (onIndexChange)="currentIndex=$event;queueComp.scrollPlacement();" 
+                (onIndexChange)="onIndexChange($event)" 
                 [largePlayer]="largePlayer"
                 (onLargePlayerChange)="onLargePlayerChange($event)"></app-player>
         </div>
@@ -35,6 +35,8 @@
             (onModifyPlaylist)="onModifyPlaylist($event)"
             (onDeletePlaylist)="onDeletePlaylist($event)"
             (onChangePlaylist)="onChangePlaylist($event)"
-            (onExpCollapse)="onExpCollapse($event)" [currentIndex]="currentIndex" (onIndexChange)="currentIndex=$event;queueComp.scrollPlacement();" (onDoubleClic)="playSong($event)"></app-queue>
+            (onExpCollapse)="onExpCollapse($event)"
+            (onEditTitle)="onEditTitle($event)"
+            (onChangePos)="onChangePos($event)" [currentIndex]="currentIndex" (onIndexChange)="onIndexChange($event)" (onDoubleClic)="playSong($event)"></app-queue>
     </div>
 </div>

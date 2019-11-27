@@ -21,6 +21,7 @@ export class LauncherComponent implements OnInit {
   loaderStyle;
   errorStyle;
   errorShow=false;
+  errorShowConf=false;
 
   constructor(private screenState:screenSizeState,private styleSetter:launcherStyleService,private router:Router,private loginDtaFetcher:LoginDataFetcher) { }
 
@@ -33,13 +34,17 @@ export class LauncherComponent implements OnInit {
     setTimeout(()=>{
       this.errorShow=true;
     },15000);
+    setTimeout(()=>{
+      this.errorShow=false;
+      this.errorShowConf=true;
+    },30000);
     this.loginDtaFetcher.getUser('Soumyadip').subscribe(name=>{
       console.log(name=="Soumyadip");
       setTimeout(()=>{
       (localStorage.getItem('loggedIn') && localStorage.getItem('loggedIn')=='true')?
       this.router.navigateByUrl("/music"):
       this.router.navigateByUrl("/login");
-      },5000); 
+      },200); 
     }) 
     
 

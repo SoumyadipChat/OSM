@@ -134,12 +134,16 @@ export class MusicAddComponent implements OnInit{
         if(this.playlists[this.selectedPlaylist].id>=0){
           videoElem.playlist=this.playlists[this.selectedPlaylist].playlist;
         }
-        this.musicDataFetcher.saveSong(videoElem).subscribe(data=>{
+        this.musicDataFetcher.saveSong(videoElem).subscribe((data:number)=>{
           console.log(data);
+          videoElem.id=data;
+          this.onAdd.emit(videoElem);
         });
       }
     }
-    this.onAdd.emit(videoElem);
+    else{
+      this.onAdd.emit(videoElem);
+    }
   }
 
   onURLChange(){

@@ -9,13 +9,13 @@ export class launcherStyleService{
     }
 
     loginStyleSetter(scrSz:screenSize){
-        let boxSize=0.1*Math.min(scrSz.width,scrSz.height);
+        let boxSize=0.4*Math.min(scrSz.width,scrSz.height);
         return {
-            'width':  boxSize+'px',
+            'width':  boxSize*2+'px',
             'height': boxSize+'px',
             'position':'absolute',
-            'top':(scrSz.height-boxSize)/2+'px',
-            'left':(scrSz.width-boxSize)/2+'px',
+            'top':(scrSz.height-boxSize)/1.9+'px',
+            'left':(scrSz.width-boxSize*2)/2+'px',
              }
     }
 
@@ -31,10 +31,11 @@ export class launcherStyleService{
     }
 
     loaderStyleSetter(scrSz:screenSize){
-        let boxSize=0.1*Math.min(scrSz.width,scrSz.height);
+        let boxSize=0.4*Math.min(scrSz.width,scrSz.height);
         return {
-            'width':  boxSize-16+'px',
-            'height': boxSize-16+'px'
+            'width':  (boxSize*2-2)+'px',
+            'height': boxSize-16+'px',
+            'margin-left':'1px'
         }
     }
     
