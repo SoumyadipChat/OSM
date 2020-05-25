@@ -211,6 +211,9 @@ export class PlayerComponent implements OnInit{
           return;
         }
         if(this.playerQueue.length==0){
+          if(this.screenSt.isMobile){
+            this.largePlayerChange();
+          }
           this.currentIndex=-1;
           this.OnIndChanges();
         }
