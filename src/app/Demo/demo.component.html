@@ -1,0 +1,23 @@
+<div class="launcherBg">
+        <div [ngStyle]="picStyle" class="LogoContainer">
+                <!-- <div [ngStyle]="abbrLogoStyle" class="abbrLogo">Demo</div> -->
+                <!-- <div class="fullLogo">One.Stop.Music</div> -->
+
+                <img [hidden]="current!=in" class="headerImg" src="../../assets/icons/{{img}}" alt="img" *ngFor="let img of demoImages;let in = index">
+                
+        </div>
+        <div [ngStyle]="bottomStyle">
+                <div  class="dots">
+                        <div role="button" class="dot" [ngClass]="{'act':current==in}" *ngFor="let song of demoImages;let in = index"></div>
+                        <!-- <div role="button" class="dot"></div>
+                        <div role="button" class="dot"></div>
+                        <div role="button" class="dot"></div>
+                        <div role="button" class="dot"></div> -->
+                        <button mat-stroked-button class="buttonNx" (click)="buttonClicked()" color="accent">{{current != (demoImages.length-1)?'Next':'Go!'}}</button>
+    
+                </div>
+                <div role="button" (click)="goToMusic()" class="link">Skip. Go to Player.</div>
+        </div>
+        
+        
+</div>

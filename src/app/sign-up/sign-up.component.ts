@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, Inject } from '@angular/core';
 import { screenSizeState, screenSize } from '../services/screen-size.service';
 import { signupStyleService } from './sign-up-style.service';
 import { FormControl, Validators, ValidationErrors, AbstractControl, ValidatorFn } from '@angular/forms';
@@ -7,6 +7,7 @@ import { LoginDataFetcher } from '../services/loginDataFetche.service';
 import { DataFetcher } from '../services/DataFetcher.service';
 import { User } from '../services/model';
 import { AutofillMonitor } from '@angular/cdk/text-field';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 
 
 @Component({
@@ -32,6 +33,7 @@ export class SignUpComponent implements OnInit,AfterViewInit {
   otpSentOnce:boolean=false;
   hidePwd:boolean = true ;
   
+  scrSz:screenSize;
 
   username:string='';
   eml:string='';
@@ -59,7 +61,7 @@ export class SignUpComponent implements OnInit,AfterViewInit {
 
   
 
-  constructor(private _autofill: AutofillMonitor,private dataFetcher:LoginDataFetcher,private router:Router,private screenState:screenSizeState,private styleSetter:signupStyleService) { 
+  constructor(private _autofill: AutofillMonitor,public dialog: MatDialog,private dataFetcher:LoginDataFetcher,private router:Router,private screenState:screenSizeState,private styleSetter:signupStyleService) { 
 
   }
 
@@ -107,6 +109,7 @@ export class SignUpComponent implements OnInit,AfterViewInit {
     if(this.inputFocused){
       return;
     }
+    this.scrSz=scrSz;
     this.loginContainer={
       'width':  (scrSz.width-3)+'px',
       'height': (scrSz.height-3)+'px',
@@ -172,7 +175,28 @@ export class SignUpComponent implements OnInit,AfterViewInit {
   openMusicGuest(){
     localStorage.setItem('loggedIn','false');
     localStorage.setItem('username','Guest');
-    this.router.navigateByUrl("/music");
+    this.navigateToDemoOrPlayer();
+  }
+
+  navigateToDemoOrPlayer(){
+    if(!this.scrSz.isMobile){
+      this.router.navigateByUrl("/music");
+      return;
+    }
+    const dialogRef = this.dialog.open(DemoConfirmDialog, {
+      width: '300px',
+      data: "Demo"
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      //console.log('The dialog was closed');
+      if(result && result=='demo'){
+        this.router.navigateByUrl("/demo");
+      }
+      else if(result && result=='skip'){
+        this.router.navigateByUrl("/music");
+      }
+    });
   }
 
   onLoginUsernameChange(username){
@@ -209,7 +233,7 @@ export class SignUpComponent implements OnInit,AfterViewInit {
               console.log(user);
               localStorage.setItem('username',JSON.stringify(user));
               this.showLoginText=false;
-            this.router.navigateByUrl("/music");
+              this.navigateToDemoOrPlayer();
             })
         }
         else if(data==0){
@@ -269,6 +293,27 @@ export class SignUpComponent implements OnInit,AfterViewInit {
         this.allUsername.push(this.username);
         this.allEmail.push(this.eml);
     });
+  }
+
+}
+
+@Component({
+  selector: 'demo-dialog',
+  templateUrl: 'demo-dialog.html',
+})
+export class DemoConfirmDialog implements OnInit {
+
+  constructor(
+    public dialogRef: MatDialogRef<DemoConfirmDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: string) {}
+
+    ngOnInit(){
+    }
+
+  
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
 }

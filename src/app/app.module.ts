@@ -9,7 +9,7 @@ import { MusicAddComponent } from './music-add/music-add.component';
 import { QueueComponent, DialogOverviewExampleDialog, ModifyAddDialog } from './queue/queue.component';
 import { MusicPlayerComponent } from './music-player/music-player.component';
 import { ButtonsComponent } from './buttons/buttons.component';
-import { SignUpComponent } from './sign-up/sign-up.component';
+import { SignUpComponent, DemoConfirmDialog } from './sign-up/sign-up.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatFormFieldModule,MatInputModule,MatButtonModule, MatIconModule, MatDialogModule, MatRadioModule, MatCheckboxModule, MatSelectModule} from '@angular/material';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -24,6 +24,7 @@ import { AngularPageVisibilityModule } from 'angular-page-visibility';
 
 import 'hammerjs';
 import 'hammer-timejs'
+import { DemoComponent } from './Demo/demo.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,9 @@ import 'hammer-timejs'
     DialogOverviewExampleDialog,
     LogoutConfirmDialog,
     ModifyAddDialog,
-    AppInfoDialog 
+    AppInfoDialog,
+    DemoComponent,
+    DemoConfirmDialog 
   ],
   imports: [
     BrowserModule,
@@ -70,7 +73,8 @@ import 'hammer-timejs'
     DialogOverviewExampleDialog,
     LogoutConfirmDialog,
     ModifyAddDialog,
-    AppInfoDialog
+    AppInfoDialog,
+    DemoConfirmDialog
   ]
 })
 export class AppModule { }
