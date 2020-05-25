@@ -14,8 +14,20 @@
 
     <div *ngIf="mode=='mobile'" [ngClass]="{'hideSearch':hideSearch}" class="adderMob" >
         <div [@openClose]="isOpen ? 'open' : 'closed'" *ngIf="!hideSearch" class="box">
-                <input #input class="inputBox" [(ngModel)]="searchInp" (focus)="inputFocused=true" (blur)="inputFocused=false" type="text" (keyup.enter)="openDialog(0)" placeholder="Search / Add by url" />
+                <input #input class="inputBox" [(ngModel)]="searchInp" (ngModelChange)="onChangeInput($event)" (focus)="inputFocused=true" (blur)="inputFocused=false" type="text" (keyup.enter)="openDialog(0)" placeholder="Search / Add by url" />
                 <i role="button" (click)="openDialog(0)" class="fas fa-search srch"></i>
+                <div *ngIf="showSuggestions" class="suggestions">
+                        <div *ngIf="showSuggestionsLoading" class="suggestion">
+                                Loading....
+                        </div>
+                        <div role="button" 
+                        [hidden]="showSuggestionsLoading" 
+                        *ngFor="let suggestion of suggestions" 
+                        class="suggestion"
+                        (click)="onSelectSuggestion(suggestion)">
+                                {{suggestion}}
+                        </div>    
+                </div>
         </div>
         <div class="searIcon">
                 <mat-icon role="button" class="icon" (click)="hideClick()" [svgIcon]="hideSearch?'search':'cancel'" aria-hidden="false" ></mat-icon>

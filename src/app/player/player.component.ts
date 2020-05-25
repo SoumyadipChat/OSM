@@ -55,7 +55,7 @@ export class PlayerComponent implements OnInit{
 
   showYoutube:boolean=false;
   paused=true;
-  repeatOn:boolean=true;
+  repeatOn:number=1;
   shuffleOn:boolean=false;
   isMinimized:boolean=false;
   queInitilized:boolean=false;
@@ -65,6 +65,8 @@ export class PlayerComponent implements OnInit{
   playerState;
   imgStyle;
   loaderStyle;
+
+  hdQuality=true;
 
   volTimeOut
 
@@ -111,6 +113,9 @@ export class PlayerComponent implements OnInit{
         }
         
     });
+    if(localStorage.getItem('repeatOpn')=='0' || localStorage.getItem('repeatOpn')=='1' || localStorage.getItem('repeatOpn')=='2'){
+      this.repeatOn=JSON.parse(localStorage.getItem('repeatOpn'));
+    }
     
   }
 
@@ -133,15 +138,19 @@ export class PlayerComponent implements OnInit{
     this.player.setSize(this.videoWdt,this.videoHgt);
    }
 
-   onSLiderChange(){
+   onSLiderChange(seekerTime?){
+    //  clearInterval(this.sub);
+     seekerTime=seekerTime!=undefined?seekerTime:this.elapsedTime;
      if(this.paused){
-      this.player.seekTo(this.elapsedTime,true);
+      this.player.seekTo(seekerTime,true);
+      // this.startIntervalTimer();
       return;
      }
      this.player.pauseVideo();
-     console.log(this.elapsedTime);
-     this.player.seekTo(this.elapsedTime,true);
+     console.log(seekerTime);
+     this.player.seekTo(seekerTime,true);
      this.player.playVideo();
+    //  this.startIntervalTimer();
      this.paused=false;
    }
 
@@ -171,39 +180,49 @@ export class PlayerComponent implements OnInit{
        this.showVolSLider=false;
      },5000);
    }
-  
- 
-    savePlayer (player) {
-    this.player = player;
-    this.videoHgt=this.outpt.nativeElement.offsetHeight;
-    this.videoWdt=this.outpt.nativeElement.offsetWidth;
-    this.player.setSize(this.videoWdt,this.videoHgt);
-    let timer=1000;
-    this.sub = interval(1000)
-    .subscribe((val) => {
+
+   startIntervalTimer(){
+    this.sub = setInterval(()=> {
       this.elapsedTime=this.player.getCurrentTime();
       this.songTime=this.player.getDuration();
       this.loadedTime=this.player.getVideoLoadedFraction()*this.songTime;
       if(this.playerState==2 && this.loadedTime<=this.elapsedTime){
         this.loading=true;
       }
-    });
-    this.initializing=true;
+    },1000);
+   }
+  
+ 
+    savePlayer (player) {
+      this.player = player;
+      this.videoHgt=this.outpt.nativeElement.offsetHeight;
+      this.videoWdt=this.outpt.nativeElement.offsetWidth;
+      this.player.setSize(70,100);
+      this.player.setPlaybackQuality("medium");
+      this.startIntervalTimer();
+      this.initializing=true;
+      this.initialize();
+    }
+
+    initialize(){
       setTimeout(()=>{
+        if(!this.playerQueue){
+          this.initialize();
+          return;
+        }
         if(this.playerQueue.length==0){
           this.currentIndex=-1;
           this.OnIndChanges();
-      }
-      else{
-        this.currentIndex=this.currentIndex>0?this.currentIndex:0;
-        this.OnIndChanges();
-        this.player.loadVideoById(this.playerQueue[this.currentIndex].videoId);
-        this.pause();
-        console.log(this.paused);
-      }
-      this.initializing=false
-      },timer);
-    
+        }
+        else{
+          this.currentIndex=this.currentIndex>0?this.currentIndex:0;
+          this.OnIndChanges();
+          this.player.loadVideoById(this.playerQueue[this.currentIndex].videoId);
+          this.pause();
+          console.log(this.paused);
+        }
+      this.initializing=false;
+      },1000);
     }
 
     queueInitializer(){
@@ -256,8 +275,17 @@ export class PlayerComponent implements OnInit{
       this.player.pauseVideo();
     }
 
+    changeRep(){
+      this.repeatOn=(this.repeatOn+1)%3;
+      localStorage.setItem('repeatOpn',JSON.stringify(this.repeatOn));
+    }
+
     next(){
-        if(this.playerQueue.length==0 || (this.currentIndex==this.playerQueue.length-1 && !this.repeatOn)){
+        if(this.playerQueue.length==0 || (this.currentIndex==this.playerQueue.length-1 && this.repeatOn==0)){
+          return;
+        }
+        if(this.repeatOn==2){
+          this.onSLiderChange(0);
           return;
         }
         if(this.currentIndex==-1){
@@ -285,7 +313,11 @@ export class PlayerComponent implements OnInit{
     }
 
     previous(){
-      if(this.playerQueue.length==0 || (this.currentIndex==0 && !this.repeatOn)){
+      if(this.playerQueue.length==0 || (this.currentIndex==0 && this.repeatOn==0)){
+        return;
+      }
+      if(this.repeatOn==2 || this.elapsedTime>10){
+        this.onSLiderChange(0);
         return;
       }
       if(this.currentIndex==-1){
@@ -325,22 +357,16 @@ export class PlayerComponent implements OnInit{
    
   }
 
-  left(){
-    console.log("swipe left")
-    this.previous();
+  hdToggle(){
+      this.hdQuality=!this.hdQuality;
+      if(this.hdQuality){
+        this.player.setPlaybackQuality("hd720");
+        console.log(this.player.getPlaybackQuality());
+      }
+      else{
+        this.player.setPlaybackQuality("small");
+        console.log(this.player.getPlaybackQuality());
+      }
   }
-
-  right(){
-    console.log("swipe right")
-    this.next()
-  }
-
-  panstart(event){
-    console.log(event,event.x,event.y);
-  }
-  panmove(event){
-    console.log(event,event.x,event.y);
-  }
-  
 
 }

@@ -12,8 +12,11 @@ import {
   style,
   animate,
   transition,
+  query,
   // ...
 } from '@angular/animations';
+import { pipe, Subject, onErrorResumeNext, of } from 'rxjs';
+import { debounceTime, switchMap, tap, catchError, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-music-add',
@@ -54,6 +57,10 @@ export class MusicAddComponent implements OnInit{
   isOpen=false;
   hideSearch=true;
 
+  suggestions=[];
+  showSuggestions=false;
+  showSuggestionsLoading=false;
+
   @Input() playlists=[];
   @Input() selectedPlaylist=0;
   @Input() mode="mobile";
@@ -64,17 +71,49 @@ export class MusicAddComponent implements OnInit{
   @ViewChild("input", {read: ElementRef,static:false}) input: ElementRef;
   @ViewChild("input1", {read: ElementRef,static:false}) input1: ElementRef;
 
-  constructor(public dialog: MatDialog,private screenState:screenSizeState,private musicDataFetcher:MusicDataFetcher) { }
+
+  txtQueryChanged: Subject<string> = new Subject<string>();
+  
+  constructor(public dialog: MatDialog,private screenState:screenSizeState,private musicDataFetcher:MusicDataFetcher,private dataFetcher:DataFetcher) { }
   
   ngOnInit() {
     this.screenState.screenSize.subscribe(scrSz=>{
         this.screenSt=scrSz;
     });
+
+    this.txtQueryChanged.pipe(
+        tap(query=>this.beforeSuggestions()),
+        debounceTime(200),
+        switchMap(query=>this.musicDataFetcher.getYoutubeAutocomplete(query).pipe(
+        catchError(()=>this.onError()))),
+        tap(data=>this.setSuggestions(data))
+    ).subscribe();
+
+  }
+
+  onSelectSuggestion(query){
+    this.searchInp=query;
+    this.showSuggestions=false;
+    this.openDialog(0);
+  }
+
+  onError(){
+    let errVal=["",[["No results"]]];
+    return of(errVal);
+  }
+
+  beforeSuggestions(){
+    this.suggestions=[];
+    this.showSuggestions=true;
+    this.showSuggestionsLoading=true;
   }
 
   hideClick(){
     if(this.isOpen){
       this.isOpen=!this.isOpen;
+      this.searchInp="";
+      this.showSuggestions=false;
+      this.suggestions=[];
       setTimeout(()=>{
         this.hideSearch=!this.hideSearch;
         this.onSearch.emit(this.hideSearch);
@@ -114,8 +153,11 @@ export class MusicAddComponent implements OnInit{
     dialogRef.afterClosed().subscribe((results) => {
       //console.log('The dialog was closed');
       if(results && results.length>0){
-        for(let result of results){
-        this.addValue(result.id,result.title,result.thumbnailUrl);
+        for(let index in results){
+          // setTimeout(() => {
+          //   this.addValue(results[index].id,results[index].title,results[index].thumbnailUrl);
+          // }, (+index*1000));
+          this.addValue(results[index].id,results[index].title,results[index].thumbnailUrl);
         }
       }
     });
@@ -148,6 +190,25 @@ export class MusicAddComponent implements OnInit{
 
   onURLChange(){
     this.invalidURL=false;
+  }
+
+  setSuggestions(data){
+      let results=(JSON.parse(data[0])[1]);
+      results=results.map(item=>item[0]);
+      this.suggestions=results.slice(0,5);
+      this.showSuggestionsLoading=false;
+  }
+
+  onChangeInput(query){
+    var regex=new RegExp("^[a-zA-Z0-9 ]{1,}$")
+    if(query.length>0 && regex.test(query)){
+      console.log("test passed");
+      this.txtQueryChanged.next(query);
+    }
+    else{
+      console.log("test failed");
+      this.showSuggestions=false;
+    }
   }
 
   onTitleChange(){

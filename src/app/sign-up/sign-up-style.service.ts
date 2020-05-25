@@ -25,15 +25,31 @@ export class signupStyleService{
 
     logoStyleSetter(scrSz:screenSize){
         let boxSize=0.6*Math.min(scrSz.width,scrSz.height);
-        return {
-            'width':  boxSize+'px',
-            'height': (scrSz.height-boxSize)/2+'px',
-            'position':'absolute',
-            'top':'0px',
-            'padding-top':(scrSz.height-boxSize)/8+'px',
-            'left':(scrSz.width-boxSize)/2+'px',
-            'font-size':(scrSz.height-boxSize)/20+'px'
-           }
+        let rat=2*boxSize/(scrSz.height-boxSize);
+        if(rat<1.4){
+            return {
+                'width':  boxSize+'px',
+                'height': (scrSz.height-boxSize)/2+'px',
+                'position':'absolute',
+                'top':'0px',
+                'left':(scrSz.width-boxSize)/2+'px',
+                'font-size':(scrSz.height-boxSize)/20+'px',
+                'padding-top':(scrSz.height-boxSize)/12+'px',
+               }
+        }
+        else{
+            return {
+                'width':  boxSize+'px',
+                'height': (scrSz.height-boxSize)/2+'px',
+                'position':'absolute',
+                'top':'0px',
+                'left':(scrSz.width-boxSize)/2+'px',
+                'font-size':(scrSz.height-boxSize)/20+'px',
+                'display':'flex',
+                'justify-content':'center'
+               }
+        }
+        
     }
 
     abbrLogoStyler(scrSz:screenSize){
@@ -41,6 +57,21 @@ export class signupStyleService{
         return {
             'line-height':((scrSz.height-boxSize)/5)+'px',
             }
+    }
+
+    imgLogoStyler(scrSz:screenSize){
+        let boxSize=0.6*Math.min(scrSz.width,scrSz.height);
+        let rat=2*boxSize/(scrSz.height-boxSize);
+        if(rat<1.6){
+            return{
+                'width':'100%'
+            }
+        }
+        else{
+            return{
+                'height':'100%'
+            }
+        }
     }
 
     fullLogoStyler(scrSz:screenSize){

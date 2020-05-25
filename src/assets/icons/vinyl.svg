@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="536px" height="536px" viewBox="0 0 536 536" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <desc>Created with Lunacy</desc>
+  <g id="music-and-multimedia">
+    <path d="M0 0L512 0L512 512L0 512L0 0Z" transform="translate(12.39307 13.39551)" id="Background" fill="none" stroke="none" />
+    <g id="Group" transform="translate(12.39307 69.89551)">
+      <g id="Group" transform="translate(384.137 19.23801)">
+        <path d="M0 0L0 360.524C74.384 334.395 127.863 263.462 127.863 180.262C127.863 97.062 74.384 26.129 0 7.62939e-06L0 0Z" id="Shape" fill="#28485E" stroke="none" />
+        <path d="M0 7.62939e-06L0 296.192C57.483 271.593 97.863 214.473 97.863 148.096C97.863 81.719 57.483 24.599 0 0L0 7.62939e-06Z" transform="translate(0 32.16599)" id="Shape" fill="#36607D" stroke="none" />
+      </g>
+      <g id="Group">
+        <g id="Group">
+          <path d="M18.167 0L0 205.234L18.167 399L128 316.833L217.667 199.5L217.667 0L18.167 0Z" transform="translate(181.333 1.525879E-05)" id="Shape" fill="#FDAE02" stroke="none" />
+          <path d="M199.5 199.5L199.5 0L0 199.5L199.5 199.5Z" transform="translate(199.5 199.5)" id="Shape" fill="#DC4B4B" stroke="none" />
+          <path d="M199.5 0L74.667 92.833L0 200.796L0 399L199.5 399L199.5 0Z" transform="translate(0 1.525879E-05)" id="Shape" fill="#FDCB02" stroke="none" />
+          <path d="M0 200.796L199.5 0L0 0L0 200.796Z" id="Shape" fill="#0ED678" stroke="none" />
+        </g>
+        <g id="Group" transform="translate(119.9 99.16701)">
+          <path d="M30 145.867L0 145.867L0 0L60.719 0L60.719 30L30 30L30 145.867Z" transform="translate(79.60001 0)" id="Shape" fill="#C4E2FE" stroke="none" />
+          <g id="Group" transform="translate(0 91.06699)">
+            <path d="M37.5 48.843C37.5 27.55 25.284 9.06801 7.5 0L0 50.976L7.5 97.685C25.284 88.618 37.5 70.136 37.5 48.843L37.5 48.843Z" transform="translate(72.10001 5.957016)" id="Shape" fill="#F7F0EB" stroke="none" />
+            <path d="M54.8 1.52588e-05C24.583 1.52588e-05 0 24.583 0 54.8C0 85.017 24.583 109.6 54.8 109.6C63.723 109.6 72.147 107.442 79.6 103.643L79.6 5.957C72.147 2.158 63.723 0 54.8 0L54.8 1.52588e-05Z" id="Shape" fill="#FFFBF5" stroke="none" />
+          </g>
+        </g>
+      </g>
+    </g>
+    <g id="vynil">
+      <path d="M0 0L536 0L536 536L0 536L0 0Z" id="Background" fill="none" stroke="none" />
+      <g id="Group" transform="translate(0 59.14844)">
+        <path d="M417.703 26.3457C487.364 57.6357 536 127.669 536 208.852C536 290.035 487.364 360.067 417.703 391.357L417.703 417.703L0 417.703L0 0L417.703 0L417.703 26.3457ZM386.297 220.676L220.676 386.297L31.4063 386.297L31.4063 197.027L197.027 31.4063L386.297 31.4063L386.297 220.676ZM31.4063 152.612L152.612 31.4063L31.4063 31.4063L31.4063 152.612ZM504.594 208.852C504.594 145.522 469.478 90.248 417.703 61.4516L417.703 356.252C469.478 327.455 504.594 272.181 504.594 208.852ZM265.091 386.297L386.297 265.091L386.297 386.297L265.091 386.297Z" id="Shape" fill="#000000" fill-rule="evenodd" stroke="none" />
+        <path d="M57.3688 95.3358C66.71 95.3358 75.5289 97.5949 83.3313 101.572L83.3313 0L146.896 0L146.896 31.4062L114.738 31.4062L114.738 152.705C114.738 184.338 89.0022 210.073 57.3688 210.073C25.7353 210.073 0 184.338 0 152.705C0 121.071 25.7353 95.3358 57.3688 95.3358ZM31.4073 152.703C31.4073 167.019 43.0537 178.666 57.3698 178.666C71.6847 178.666 83.3323 167.019 83.3323 152.703C83.3323 138.387 71.6858 126.741 57.3698 126.741C43.0537 126.741 31.4073 138.387 31.4073 152.703Z" transform="translate(127.5512 103.8154)" id="Shape" fill="#000000" fill-rule="evenodd" stroke="none" />
+      </g>
+    </g>
+  </g>
+</svg>

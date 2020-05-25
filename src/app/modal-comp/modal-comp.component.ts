@@ -63,12 +63,18 @@ export class ModalCompComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  boolChange(value){
+  boolChange(value,index){
       if(value){
         this.noOfTru++;
       }
       else{
         this.noOfTru--;
+      }
+      if(this.noOfTru==1){
+        for(let result in this.checkboxBool)
+        if(this.checkboxBool[result]==true){
+          this.titleText=('').concat(this.searchResults[result].title.split('|')[0].substring(0,30));
+        }
       }
   }
 

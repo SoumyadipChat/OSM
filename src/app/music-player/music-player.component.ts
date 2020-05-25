@@ -8,6 +8,8 @@ import { MusicAddComponent } from '../music-add/music-add.component';
 import { PlaylistDataFetcher } from '../services/PlayList.service';
 import { Playlist } from '../services/model';
 import { QueueComponent } from '../queue/queue.component';
+import { interval } from 'rxjs';
+import { LoginDataFetcher } from '../services/loginDataFetche.service';
 
 export interface videoElem{
   videoId:string,
@@ -23,7 +25,7 @@ export interface videoElem{
   selector: 'app-music-player',
   templateUrl: './music-player.component.html',
   styleUrls: ['./music-player.component.scss'],
-  providers:[musicStyleService,MusicDataFetcher,DataFetcher,PlaylistDataFetcher]
+  providers:[musicStyleService,MusicDataFetcher,DataFetcher,PlaylistDataFetcher,LoginDataFetcher]
 })
 export class MusicPlayerComponent implements OnInit,AfterViewInit {
 
@@ -43,6 +45,9 @@ export class MusicPlayerComponent implements OnInit,AfterViewInit {
     width:0,
     isMobile:false
   };
+
+  noOfSongAdded=0;
+  lexInterval;
 
   largePlayer=true;
 
@@ -88,13 +93,21 @@ export class MusicPlayerComponent implements OnInit,AfterViewInit {
   initCallDone=false;
 
   currentIndex=-1;
+  sub;
 
 
-  constructor(private screenState:screenSizeState,private styleSetter:musicStyleService,private musicDataFetcher:MusicDataFetcher,private playlistFetcher:PlaylistDataFetcher) { 
+  constructor(private screenState:screenSizeState,private loginDtaFetcher:LoginDataFetcher,private styleSetter:musicStyleService,private musicDataFetcher:MusicDataFetcher,private playlistFetcher:PlaylistDataFetcher) { 
 
   }
 
   ngOnInit() {
+
+    this.sub = interval(25*60*1000)
+    .subscribe((val) => {
+      this.loginDtaFetcher.getUser('Soumyadip').subscribe(name=>{
+        console.log("Keep Server Alive");
+      });
+    });
     
   }
 
@@ -298,6 +311,21 @@ export class MusicPlayerComponent implements OnInit,AfterViewInit {
    }
 
    addVideo(video){
+      this.noOfSongAdded++;
+      clearTimeout(this.lexInterval);
+      this.lexInterval=setTimeout(()=>{
+          if(this.noOfSongAdded==1){
+            this.setLexoRankNew(video);
+          }
+          else{
+            this.rebalance(video);
+          }
+          this.noOfSongAdded=0;
+      },3000)
+     this.playerQueue.push(video);
+   }
+
+   setLexoRankNew(video){
     if(localStorage.getItem('loggedIn') && localStorage.getItem('loggedIn')=='true'){
       let user=localStorage.getItem('username')?localStorage.getItem('username'):'Guest';
       if(user!='Guest'){
@@ -305,23 +333,33 @@ export class MusicPlayerComponent implements OnInit,AfterViewInit {
         let id=video.id;
         let prev=index==0?'first':this.playerQueue[index-1].lexoRank;
         let next='last';
-        this.musicDataFetcher.setLexoRank(id,prev,next).subscribe((data:string)=>{
-          if(data=='-1'){
-            return;
-          }
-          else{
-            let valArr=data.split('@');
-            video.lexoRank=valArr[0];
-            if(valArr.length>1 && valArr[1]=='rebalance'){
-              this.musicDataFetcher.rebalancePL(video.username,video.playlist).subscribe(data=>{
-                console.log("Rebalanced");
-              })
+        if(!prev){
+          this.rebalance(video);
+        }
+        else{
+          this.musicDataFetcher.setLexoRank(id,prev,next).subscribe((data:string)=>{
+            if(data=='-1'){
+              return;
             }
-          }
-        });
+            else{
+              let valArr=data.split('@');
+              video.lexoRank=valArr[0];
+              if(valArr.length>1 && valArr[1]=='rebalance'){
+                this.rebalance(video);
+              }
+            }
+          });
+        }
+        
       }
     }
-     this.playerQueue.push(video);
+   }
+
+   rebalance(video){
+     console.log("rebalancing");
+    this.musicDataFetcher.rebalancePL(video.username,video.playlist).subscribe(data=>{
+      console.log("Rebalanced");
+    })
    }
 
    onEditTitle(item){

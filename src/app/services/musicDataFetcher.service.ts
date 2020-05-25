@@ -30,14 +30,22 @@ export class MusicDataFetcher{
     }
 
     setLexoRank(id:number,prev:string,next:string){
+        console.log("inside call",prev,next);
         let uri="lexo/setLexorank"
         return this.dataFetcher.post(uri,{id:id,prev:prev,next:next});
     }
 
     rebalancePL(usernm:string,playlist:string){
+        playlist=playlist?playlist:"rebalanceUndefinedPL";
         let uri="lexo/rebalance/"+usernm+"/"+playlist;
         return this.dataFetcher.get(uri);
     }
+
+    getYoutubeAutocomplete(query:string){
+        let uri="music/getSuggestions/"+query;
+        return this.dataFetcher.get(uri);
+    }
+
     
 
 }

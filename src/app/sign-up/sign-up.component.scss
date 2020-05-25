@@ -42,6 +42,11 @@
     vertical-align: middle;
 }
 
+.headerImg{
+    height: 100%;
+  }
+
+  
 .loginTabs .activeTab{
     background-color: #42b1a7;
 }
@@ -159,6 +164,7 @@
 }
 
 .setBackground{
-    background-image: url(../../assets/trianglify-lowres.png);
+    // background-image: url(../../assets/trianglify-lowres.png);
+    background: linear-gradient(45deg,  #032d4c, #3a6073);
     background-size: cover;
 }

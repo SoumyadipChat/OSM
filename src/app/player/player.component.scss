@@ -6,7 +6,8 @@
     .screenSwap{
         width: 100%;
         height: 98%;
-        background-color: rgba(255, 255, 255, 0.5);
+        // background-color: rgba(255, 255, 255, 0.5);
+        background-color: rgba(0,0,0, 0.4);
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
@@ -54,7 +55,7 @@
         z-index: 999;
         font-size: 150%;
         height: 29%;
-        left: 87%;
+        left: 85%;
         position: absolute;
         top:11%;
         width: 60px;
@@ -95,7 +96,14 @@
 
     .repeatButton.up{
         left: 50%;
-        top: 63%;
+        top: 60%;
+        display: flex;
+        justify-content: center;
+        font-size: 150%;
+    }
+    .repeatButton.hd{
+        left: 50%;
+        top: 20%;
         display: flex;
         justify-content: center;
         font-size: 150%;
@@ -140,7 +148,7 @@
     }
 
     .bar ,.staticbar {
-        background: #666;
+        background: rgb(255, 255, 255);
          bottom: 1px;
          height: 30px;
          position: absolute;
@@ -261,6 +269,7 @@
     }
 
     .utubeTitle{
+        color: #fff;
         width: 85%;
         height: 12%;
        position: absolute;
@@ -288,6 +297,7 @@
         justify-content: space-between;
         font-size: 80%;
         padding-top: 2%;
+        color: #fff;
     }
 
     .expanded.ellFullTime{
@@ -316,7 +326,7 @@
             height: 0px;
             margin-top: 4px;
             border-radius: 4px;
-            background: #666;
+            background: rgb(194, 194, 194);
             outline: none;
             opacity: 1;
             -webkit-transition: .2s;
@@ -347,8 +357,8 @@
     }
 
     .expanded.utubeTitle{
-        height: 40%;
-        top: 27%;
+        height: 10%;
+        top: 13%;
     }
     @media(max-width:400px){
         .utubeTitle{
@@ -401,7 +411,7 @@
     border-radius: 4px;
     background: #666;
     outline: none;
-    opacity: 0.7;
+    opacity: 0.8;
     -webkit-transition: .2s;
     transition: opacity .2s;
     overflow: hidden;
@@ -419,7 +429,7 @@
     width: 0px; /* 1 */
     height: 40px;
     background: #fff;
-    box-shadow: -100vw 0 0 100vw rgba(1, 210, 189, 0.63);
+    box-shadow: -100vw 0 0 100vw #64FFDB;
     border: 0px solid #999; /* 1 */
 }
 
@@ -434,12 +444,14 @@
     width: 20px;
     border: 3px solid #999;
     border-radius: 0 !important;
-    box-shadow: -100vw 0 0 100vw rgba(1, 210, 189, 0.63);
+    // box-shadow: -100vw 0 0 100vw rgba(1, 210, 189, 0.63);
+    box-shadow: -100vw 0 0 100vw #64FFDB;
     box-sizing: border-box;
 }
 
 .slider1::-ms-fill-lower { 
-    background: rgba(1, 210, 189, 0.63);
+    // background: rgba(1, 210, 189, 0.63);
+    background-color: #64FFDB;
 }
 
 .slider1::-ms-thumb { 
@@ -483,21 +495,21 @@
     .utubeIcon.volClosed{
         left: 27%;
     }
-.expanded.ellFullTime{
-        top:90%;
+    .expanded.ellFullTime{
+        top:87%;
         font-size: 80%;
     }
     .expanded.sliderPart{
-        top: 91%;
+        top: 88%;
     }
     .repeatButton{
-        top: 74%;
+        top: 71%;
     }
     .shuffle{
-        top: 74%;
+        top: 71%;
     }
     .bars{
-        top: 72%;
+        top: 69%;
     }
     .utubeTitle{
         font-size: 150%;
@@ -586,6 +598,38 @@ body {
         transform: scale(1);
       }
     }
+  }
+
+  .animation{
+      height: 15% !important;
+       background: #f583a1;
+       border: none;
+      @include anim();
+      background-color: transparent;
+      margin: 7px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      &:before {
+        content: '';
+        width: 35%;
+        height: 35%;
+        border-radius: 50%;
+        background-color: blue;
+        opacity: 0.7;
+        animation: scale 2s infinite cubic-bezier(0, 0, 0.49, 1.02);
+        animation-delay: 200ms;
+        transition: 0.5s all ease;
+        transform: scale(1);
+      }
+      .icons{
+          height: 35% !important;
+      }
+  }
+
+  .icons.arrow{
+      top:60% !important;
+      font-size: 1vh;
   }
   
  

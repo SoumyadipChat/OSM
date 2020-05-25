@@ -20,17 +20,25 @@
     <div  class="soundBars">
       <div [hidden]="!screenSt.isMobile" [ngClass]="{'expanded':queExpanded}" class="expandCollPL">
           <mat-icon role="button" (click)="largePlayerChange()" class="icons" [ngClass]="{'isNotMobile':!screenSt.isMobile}" [svgIcon]="largePlayer?'plisthd':'plist'" aria-hidden="false" ></mat-icon>
+
       </div>
     </div>
 
     <div [hidden]="queExpanded && !largePlayer" class="soundBars">
       <div class="repeatButton">
-          <mat-icon [hidden]="!repeatOn" role="button" (click)="repeatOn=!repeatOn" class="icons" [ngClass]="{'isNotMobile':!screenSt.isMobile}" [svgIcon]="repeatOn?'repeatOn':'repeatOff'" aria-hidden="false" ></mat-icon>
+          <mat-icon role="button" (click)="changeRep()" class="icons" [ngClass]="{'isNotMobile':!screenSt.isMobile}" [svgIcon]="repeatOn==1?'repeatOn':(repeatOn==2?'repeatOne':'repeatOff')" aria-hidden="false" ></mat-icon>
       </div>
     </div>
 
+    <!-- <div [hidden]="!largePlayer" class="soundBars"> 
+        <div class="repeatButton hd">
+          <mat-icon role="button" (click)="hdToggle()" class="icons" [svgIcon]="hdQuality?'hd':'sd'" aria-hidden="false" ></mat-icon>
+        </div>
+    </div> -->
+
     <div [hidden]="!largePlayer" class="soundBars"> 
       <div class="repeatButton up">
+        
         <i role="button" (click)="largePlayerChange()"  class="fas fa-angle-up" ></i>
       </div>
     </div>
@@ -118,7 +126,7 @@
             <div class="item-4"></div>
             <div class="item-5"></div>
           </div>
-           <div style="padding-left: 20px;">Initializing.....</div>
+           <div style="padding-left: 20px;color: white;">Initializing.....</div>
       </div> 
     </div>
   </div>

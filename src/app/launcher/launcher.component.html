@@ -1,22 +1,27 @@
-<div [ngStyle]="logoStyle" class="LogoContainer">
-        <div [ngStyle]="abbrLogoStyle" class="abbrLogo">OSM</div>
-        <div class="fullLogo">One.Stop.Music</div>
-        
-</div>
-<div [ngStyle]="loginStyle" class="spinner">
-        <!-- <div [ngStyle]="loaderStyle" class="loader"></div> -->
-        <div [ngStyle]="loaderStyle" class="container">
-                <div class="item-1"></div>
-                <div class="item-2"></div>
-                <div class="item-3"></div>
-                <div class="item-4"></div>
-                <div class="item-5"></div>
-        </div>
-</div>
-<div [ngStyle]="errorStyle" *ngIf="errorShow" class="error">
-        <i class="far fa-dizzy" style="color: brown;font-size: 120%;"></i> App taking too long to load. Please wait....
-</div>
+<div class="launcherBg">
+        <div [ngStyle]="logoStyle" class="LogoContainer">
+                <!-- <div [ngStyle]="abbrLogoStyle" class="abbrLogo">OSM</div>
+                <div class="fullLogo">One.Stop.Music</div> -->
 
-<div [ngStyle]="errorStyle" *ngIf="errorShowConf" class="error">
-        <i class="fas fa-exclamation-triangle" style="color: brown;font-size: 120%;"></i> Error connecting to Network. Please retry....
+                <img class="headerImg" src="../../assets/icons/bann.png" alt="img">
+                
+        </div>
+        <div [ngStyle]="loginStyle" class="spinner">
+                <!-- <div [ngStyle]="loaderStyle" class="loader"></div> -->
+                <div [ngStyle]="loaderStyle" class="container">
+                        <div class="item-1"></div>
+                        <div class="item-2"></div>
+                        <div class="item-3"></div>
+                        <div class="item-4"></div>
+                        <div class="item-5"></div>
+                </div>
+        </div>
+        <div [ngStyle]="errorStyle" *ngIf="errorShow" class="error">
+                <i class="far fa-grin-beam-sweat" style="color: #ff8282;font-size: 150%;"></i>&nbsp;&nbsp; App taking too long to load. Please wait....
+        </div>
+        
+        <div [ngStyle]="errorStyle" *ngIf="errorShowConf" class="error">
+                <i class="fas fa-exclamation-triangle" style="color: #ff4747;font-size: 120%;"></i> Error connecting to Network. Please retry....
+        </div>
+        
 </div>

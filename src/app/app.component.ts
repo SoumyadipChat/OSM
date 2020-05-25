@@ -26,19 +26,19 @@ export class AppComponent implements OnInit{
       );
       iconRegistry.addSvgIcon(
         'play',
-        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/play.svg')
+        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/playbt1.svg')
       );
       iconRegistry.addSvgIcon(
         'pause',
-        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/pause.svg')
+        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/pausse.svg')
       );
       iconRegistry.addSvgIcon(
         'next',
-        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/next-track.svg')
+        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/nxtIc.svg')
       );
       iconRegistry.addSvgIcon(
         'prev',
-        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/previous-track.svg')
+        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/prevIc.svg')
       );
       iconRegistry.addSvgIcon(
         'add',
@@ -65,12 +65,20 @@ export class AppComponent implements OnInit{
         sanitizer.bypassSecurityTrustResourceUrl('assets/icons/repeatact.svg')
       );
       iconRegistry.addSvgIcon(
+        'repeatOne',
+        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/repeatone.svg')
+      );
+      iconRegistry.addSvgIcon(
         'search',
         sanitizer.bypassSecurityTrustResourceUrl('assets/icons/search.svg')
       );
       iconRegistry.addSvgIcon(
         'up',
         sanitizer.bypassSecurityTrustResourceUrl('assets/icons/uparrow.svg')
+      );
+      iconRegistry.addSvgIcon(
+        'curvearrow',
+        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/curvearrow.svg')
       );
       iconRegistry.addSvgIcon(
         'down',
@@ -94,15 +102,15 @@ export class AppComponent implements OnInit{
       );
       iconRegistry.addSvgIcon(
         'mute',
-        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/mute.svg')
+        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/mute1.svg')
       );
       iconRegistry.addSvgIcon(
         'one',
-        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/volume1.svg')
+        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/vol1.svg')
       );
       iconRegistry.addSvgIcon(
         'two',
-        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/volume2.svg')
+        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/vol2.svg')
       );
       iconRegistry.addSvgIcon(
         'three',
@@ -125,16 +133,20 @@ export class AppComponent implements OnInit{
         sanitizer.bypassSecurityTrustResourceUrl('assets/icons/linkedin.svg')
       );
       iconRegistry.addSvgIcon(
+        'web',
+        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/web.svg')
+      );
+      iconRegistry.addSvgIcon(
         'drag',
         sanitizer.bypassSecurityTrustResourceUrl('assets/icons/dragger.svg')
       );
       iconRegistry.addSvgIcon(
         'plist',
-        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/playlist.svg')
+        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/vinyl.svg')
       );
       iconRegistry.addSvgIcon(
         'plisthd',
-        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/playlisthd.svg')
+        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/album.svg')
       );
       iconRegistry.addSvgIcon(
         'shuffleOn',
@@ -151,6 +163,14 @@ export class AppComponent implements OnInit{
       iconRegistry.addSvgIcon(
         'pllist',
         sanitizer.bypassSecurityTrustResourceUrl('assets/icons/playlisticn.svg')
+        );
+      iconRegistry.addSvgIcon(
+        'hd',
+        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/hd.svg')
+        );
+      iconRegistry.addSvgIcon(
+        'sd',
+        sanitizer.bypassSecurityTrustResourceUrl('assets/icons/sd.svg')
         );
   }
 

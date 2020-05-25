@@ -23,6 +23,7 @@ export class SignUpComponent implements OnInit,AfterViewInit {
   inputTextStyle;
   tabTextAlignStyle;
   abbrLogoStyle;
+  imgLogoStyle;
   fullLogoStyle;
   loginContainer;
 
@@ -114,6 +115,7 @@ export class SignUpComponent implements OnInit,AfterViewInit {
     this.loginStyle=this.styleSetter.loginStyleSetter(scrSz);
     this.logoStyle=this.styleSetter.logoStyleSetter(scrSz);
     this.abbrLogoStyle=this.styleSetter.abbrLogoStyler(scrSz);
+    this.imgLogoStyle=this.styleSetter.imgLogoStyler(scrSz);
     this.fullLogoStyle=this.styleSetter.fullLogoStyler(scrSz);
     this.tabTextStyle=this.styleSetter.tabTextSizeSetter(scrSz);
     this.inputTextStyle=this.styleSetter.inputTextSizeSetter(scrSz);

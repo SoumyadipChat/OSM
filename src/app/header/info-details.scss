@@ -4,6 +4,9 @@
 }
 .name{
     font-family: 'Cookie', cursive;
+    font-weight: 500;
+    font-size: 170%;
+    margin-top: 0;
 }
 
 .focused{
@@ -19,5 +22,6 @@
     .icons{
         width: 40px;
         height: 40px;
+        fill: black
     }
 }

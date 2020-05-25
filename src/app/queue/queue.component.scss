@@ -6,7 +6,8 @@
     .box{
         width: 100%;
         height: 98%;
-        background-color: rgba(255, 255, 255, 0.3);
+        // background-color: rgba(255, 255, 255, 0.3);
+        background-color: #35353580;
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
@@ -236,7 +237,7 @@
     cursor: pointer;
     background: rgba(0, 0, 0, 0.6);
     border-radius: 5px;    
-    font-size: 100%;
+    font-size: 90%;
     position: relative;
     
     .thumbNail{

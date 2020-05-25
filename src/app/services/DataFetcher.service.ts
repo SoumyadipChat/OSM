@@ -28,5 +28,4 @@ export class DataFetcher{
         let url=this.baseUrl.concat(uri);
         return this.http.post(url,request,this.httpOptions);
     }
-
 }

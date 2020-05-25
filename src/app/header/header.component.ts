@@ -109,6 +109,9 @@ export class AppInfoDialog implements OnInit {
       window.open('mailto:'+emailTo, '_blank');
     }
 
+    WSRedirect(){
+      window.open("https://soumyadip-me.github.io", "_blank");
+    }
     
   
 

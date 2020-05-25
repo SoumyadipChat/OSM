@@ -1,46 +1,17 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
-<!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 426.667 426.667" style="enable-background:new 0 0 426.667 426.667;" xml:space="preserve">
-<g>
-	<g>
-		<g>
-			<rect x="0" y="64" width="256" height="42.667"/>
-			<rect x="0" y="149.333" width="256" height="42.667"/>
-			<rect x="0" y="234.667" width="170.667" height="42.667"/>
-			<polygon points="341.333,234.667 341.333,149.333 298.667,149.333 298.667,234.667 213.333,234.667 213.333,277.333 
-				298.667,277.333 298.667,362.667 341.333,362.667 341.333,277.333 426.667,277.333 426.667,234.667 			"/>
-		</g>
-	</g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="427px" height="427px" viewBox="0 0 427 427" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <desc>Created with Lunacy</desc>
+  <g id="addblack">
+    <path d="M0 0L426.667 0L426.667 426.667L0 426.667L0 0Z" id="Background" fill="none" stroke="none" />
+    <g id="Group" transform="translate(0 64)">
+      <g id="Group">
+        <g id="Group">
+          <path d="M0 0L256 0L256 42.667L0 42.667L0 0Z" id="Rectangle" fill="#4D93E8" stroke="none" />
+          <path d="M0 0L256 0L256 42.667L0 42.667L0 0Z" transform="translate(0 85.33299)" id="Rectangle" fill="#4D93E8" stroke="none" />
+          <path d="M0 0L170.667 0L170.667 42.667L0 42.667L0 0Z" transform="translate(0 170.667)" id="Rectangle" fill="#4D93E8" stroke="none" />
+          <path d="M128 85.334L128 0L85.334 0L85.334 85.334L0 85.334L0 128L85.334 128L85.334 213.334L128 213.334L128 128L213.334 128L213.334 85.334L128 85.334Z" transform="translate(213.333 85.33299)" id="Polygon" fill="#64FFDB" stroke="none" />
+        </g>
+      </g>
+    </g>
+  </g>
 </svg>

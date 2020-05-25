@@ -34,10 +34,6 @@ export class LauncherComponent implements OnInit {
     setTimeout(()=>{
       this.errorShow=true;
     },15000);
-    setTimeout(()=>{
-      this.errorShow=false;
-      this.errorShowConf=true;
-    },30000);
     this.loginDtaFetcher.getUser('Soumyadip').subscribe(name=>{
       console.log(name=="Soumyadip");
       setTimeout(()=>{

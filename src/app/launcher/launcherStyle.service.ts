@@ -26,7 +26,8 @@ export class launcherStyleService{
             'height': boxSize+'px',
             'position':'absolute',
             'top':((scrSz.height-boxSize)/2+boxSize+50)+'px',
-            'text-align':'center'
+            'text-align':'center',
+            'color':'white'
              }
     }
 
@@ -41,13 +42,14 @@ export class launcherStyleService{
     
     logoStyleSetter(scrSz:screenSize){
         let boxSize=0.6*Math.min(scrSz.width,scrSz.height);
+        let wdt=scrSz.width/scrSz.height<0.75?boxSize*1.2:boxSize*0.8;
         return {
-            'width':  boxSize+'px',
+            'width': wdt+'px',
             'height': (scrSz.height-boxSize)+'px',
             'position':'absolute',
             'top':'50px',
             'padding-top':(scrSz.height-boxSize)/8+'px',
-            'left':(scrSz.width-boxSize)/2+'px',
+            'left':(scrSz.width-wdt)/2+'px',
             'font-size':(scrSz.height-boxSize)/(scrSz.isMobile?15:10)+'px'
            }
     }

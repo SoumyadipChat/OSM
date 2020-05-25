@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators';
 
-export const YOUTUBE_API_KEY = 'AIzaSyCtGPrWbCYLIz5UILx3dOcrUDEmjHZVQdA'
+export const YOUTUBE_API_KEY = 'AIzaSyAU6U9OdHxTCKprrmKGKNz1jOZnyxIbWSk'
 export const YOUTUBE_API_URL = 'https://www.googleapis.com/youtube/v3/search'
 
 export class Result {

@@ -1,10 +1,9 @@
 <h1 mat-dialog-title style="display: flex;justify-content: space-between;">
-    <div class="abbr">
-        OSM
-    </div>
-    <div class="name">
-        One.Stop.Music
-    </div>
+
+  <img class="headInf" style="width: 40%;" src="../../assets/icons/osm.png" alt="img">
+
+  <img class="headInf" style="width: 55%;" src="../../assets/icons/text.png" alt="img">
+
 </h1>
 <div mat-dialog-content>
   <div style="display: flex;justify-content: flex-start;">
@@ -12,11 +11,14 @@
       <p (click)="created=false;cred=true;" [ngClass]="{'focused':cred}">Credits</p>
   </div>
   <div *ngIf="created">
-    <h3>Soumyadip Chattopadhyay</h3>
+    <h3 class="name">Soumyadip Chattopadhyay</h3>
     <div class="contacts">
-        <mat-icon role="button" (click)="FBRedirect()" class="icons" svgIcon="fb" aria-hidden="false" ></mat-icon>
+      
+      <mat-icon role="button" (click)="WSRedirect()" class="icons" svgIcon="web" aria-hidden="false" ></mat-icon>
+      <mat-icon role="button" (click)="FBRedirect()" class="icons" svgIcon="fb" aria-hidden="false" ></mat-icon>
         <mat-icon role="button" (click)="GMRedirect()" class="icons" svgIcon="gmail" aria-hidden="false" ></mat-icon>
         <mat-icon role="button" (click)="LIRedirect()" class="icons" svgIcon="lin" aria-hidden="false" ></mat-icon>
+        
     </div>
   </div>
   <div *ngIf="cred">
